@@ -1,0 +1,50 @@
+footer {
+	@apply bg-darkblue text-sm text-white;
+	.wrapper {
+		@apply flex items-center px-8;
+	}
+	.right {
+		@apply text-right;
+		a {
+			@apply ml-2;
+			&:after {
+				@apply ml-2;
+				content: "|";
+			}
+			&:hover {
+				@apply duration-300 text-limegreen transition-colors;
+				&:after {
+					@apply text-white;
+				}
+			}
+			&.noline:after {
+				@apply ml-0;
+				content: "";
+			}
+		}
+	}
+}
+.partners {
+	svg {
+		@apply inline-block mr-12;
+	}
+	.activity,
+	.participation {
+		@apply px-8;
+	}
+	.activity {
+		@apply pb-16;
+	}
+	.participation {
+		@apply pb-8 pt-12;
+	}
+	.text-light {
+		@apply inline-block mr-8;
+		&.bigger-margin {
+			@apply mr-20;
+		}
+		&.bigger-margin-left {
+			@apply ml-20;
+		}
+	}
+}

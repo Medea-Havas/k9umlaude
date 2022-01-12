@@ -1,0 +1,27 @@
+<div class="header-wrap">
+	<header>
+		{% if fn('is_front_page') %}
+			<h1 class="header-logo">
+				<a href="{{ site.url }}/#top">{{ source(directory ~ '/static/img/svg/logo.svg') }}
+				</a>
+			</h1>
+		{% else %}
+			<p class="header-logo">
+				<a href="{{ site.url }}/#top">{{ source(directory ~ '/static/img/svg/logo.svg') }}
+				</a>
+			</p>
+		{% endif %}
+		{% if fn('is_front_page') %}
+			<div>
+				{% include "blocks/nav.twig" %}
+				<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+			</div>
+		{% elseif fn('is_page', 'login') %}
+			<div></div>
+		{% else %}
+			<div>
+				<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+			</div>
+		{% endif %}
+	</header>
+</div>

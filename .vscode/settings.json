@@ -1,0 +1,19 @@
+{
+	"[php]": {
+		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+	},
+	"[twig]": {
+		"editor.defaultFormatter": "mblode.twig-language-2"
+	},
+	"css.customData": [".vscode/css_custom_data.json"],
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"emmet.includeLanguages": {
+		"twig": "html"
+	},
+	"files.associations": {
+		"*.html": "twig"
+	},
+	"intelephense.diagnostics.undefinedSymbols": false,
+	"intelephense.diagnostics.undefinedTypes": false
+}

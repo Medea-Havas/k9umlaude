@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="login">
+		<div class="wrapper">
+			<h1>Acceso</h1>
+			<p>Si es su primera vez
+				<a href="/registro">cree su cuenta</a>
+			</p>
+			<form action="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/">
+				<div class="field">
+					<label for="email">Email</label>
+					<input id="email" type="email">
+				</div>
+				<div class="field">
+					<label for="pass">Contraseña</label>
+					<input id="pass" type="password">
+				</div>
+				<a href="#">Olvidé mi contraseña</a>
+				<p><input type="checkbox" value="accept">
+					He leído y acepto la
+					<a href="/politica-privacidad">política de privacidad</a>
+				</p>
+				<input type="submit" class="button" value="Acceder">
+			</form>
+			<p>
+				<a href="{{ site.url }}" class="link">Volver</a>
+			</p>
+		</div>
+	</main>
+{% endblock %}

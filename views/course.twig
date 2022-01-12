@@ -1,0 +1,77 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="course">
+		<div class="wrapper">
+			<div class="container">
+				<div class="left">
+					<h1 class="heading">{{post.title}}</h1>
+					<p class="text">{{post.custom.description}}</p>
+				</div>
+				<div class="right">
+					<div class="container">
+						<div class="left subcontainer">
+							<p class="subheading">Progreso del curso</p>
+							<p class="progress">10%</p>
+						</div>
+						<div class="right subcontainer">
+							<p class="subheading">Detalles del curso</p>
+							<ul class="course-details">
+								<li>{{ source(directory ~ '/static/img/svg/icon01.svg') }}
+									<p class="text">Módulos:
+										{{modules|length}}</p>
+								</li>
+								<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+									<p class="text">Horas:
+										{{post.custom.hours}}</p>
+								</li>
+								<li>{{ source(directory ~ '/static/img/svg/icon03.svg') }}
+									<p class="text">Créditos:
+										{{post.custom.credits}}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="next-module">
+				<p class="text">Paso siguiente</p>
+				<p class="subheading">Introducción</p>
+				<a href="#" class="button button-m">Empezar</a>
+			</div>
+		</div>
+		<div class="course-wrap">
+			<div class="wrapper">
+				<div class="chapter-menu">
+					<h2 class="heading">Módulos</h2>
+					{% for module in modules %}
+						{% if post.id == module.custom.belongs_to %}
+							<div class="module" data-id="{{module.id}}">
+								<a href="{{module.link}}">
+									<div class="left">
+										<p class="subheading">{{module.title}}</p>
+									</div>
+									<div class="right">
+										<div>
+											{{ source(directory ~ '/static/img/svg/icon02.svg') }}<p>
+												{{module.custom.minutes}}
+												min</p>
+										</div>
+										<div class="progress-wrap">
+											<div class="progress-background">
+												<div class="progress-bar"></div>
+											</div>
+											<p class="text">40%</p>
+										</div>
+										<div>
+											{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+										</div>
+									</div>
+								</a>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</main>{% endblock %}

@@ -1,0 +1,35 @@
+.button {
+	@apply btn btn-fill font-bold;
+}
+.button-m {
+	@apply text-sm;
+	width: 135px;
+}
+.btn {
+	@apply block border border-lightblue ease-linear overflow-x-hidden py-3 px-6 relative right-0 rounded-xl text-center text-lightblue transition-all;
+	&:hover {
+		@apply ease-linear font-bold text-white transition-all;
+		&:before,
+		&:after,
+		span:before,
+		span:after {
+			@apply ease-in-out transition-all;
+		}
+	}
+	&:before,
+	&:after,
+	span:before,
+	span:after {
+		@apply absolute bg-lightblue ease-in-out rounded-lg transition-all;
+		content: "";
+		z-index: -2;
+	}
+}
+.btn-fill {
+	&:before {
+		@apply h-full left-0 top-0 w-0;
+	}
+	&:hover:before {
+		@apply w-full;
+	}
+}

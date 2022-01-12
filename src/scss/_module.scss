@@ -1,0 +1,132 @@
+#module {
+	.block {
+		@apply bg-white mb-8 py-8 rounded-3xl;
+		&-header {
+			@apply px-8;
+			.author {
+				@apply border-b border-line pb-4;
+			}
+			.chapter-name {
+				@apply mb-4 text-base-sm;
+			}
+			.subheading {
+				@apply leading-6 mb-0;
+			}
+		}
+	}
+	.breadcrumb {
+		@apply pb-8 text-xs text-lightblue;
+	}
+	.breadcrumb-title {
+		&:hover {
+			@apply text-darkblue;
+		}
+	}
+	.chapter {
+		&-title,
+		&-name {
+			@apply font-bold text-base-sm;
+		}
+		&-header {
+			@apply px-8 pb-4 text-darkblue;
+		}
+		&-wrapper {
+			@apply overflow-y-hidden;
+			max-height: 30rem;
+			&:hover {
+				@apply overflow-y-scroll;
+			}
+		}
+	}
+	.container {
+		@apply flex items-baseline;
+	}
+	.content {
+		visibility: hidden;
+	}
+	.h5p-iframe-wrapper {
+		@apply hidden;
+	}
+	.heading {
+		max-width: 26rem;
+		&.number {
+			@apply mb-0;
+		}
+	}
+	.loader {
+		@apply flex justify-center;
+		img {
+			@apply w-12;
+		}
+	}
+	.module-details {
+		li {
+			@apply flex items-center mb-6;
+		}
+		svg {
+			@apply mr-4 w-5;
+		}
+		p {
+			@apply inline-block;
+		}
+	}
+	.header-module-content,
+	.module-content {
+		@apply grid grid-cols-3;
+		&-display {
+			@apply col-span-2;
+		}
+		&-list {
+			@apply col-span-1;
+		}
+	}
+	.module-content-display {
+		@apply pr-16;
+	}
+	.section-background {
+		@apply bg-gray;
+	}
+	.subchapters {
+		li {
+			a {
+				@apply bg-white justify-between flex items-center px-8 py-2 relative text-lightblue text-base-sm z-10;
+				margin-bottom: 0.1rem;
+				&.selected,
+				&:hover {
+					@apply bg-lightblue duration-100 text-white transition-all;
+				}
+				&:after {
+					@apply absolute border-b border-line;
+					bottom: -0.05rem;
+					content: "";
+					left: 2%;
+					width: 96%;
+				}
+			}
+		}
+		svg {
+			@apply mr-4 w-5;
+		}
+		div {
+			@apply flex items-center min-w-max;
+		}
+		.subchapter-title {
+			@apply pr-8 text-sm;
+		}
+	}
+	.subchapter-text {
+		@apply text-darkblue;
+		h2 {
+			@apply pb-8 pt-20 text-xl;
+		}
+		p {
+			@apply text-base-sm;
+		}
+	}
+	.subheading {
+		@apply mb-6;
+	}
+	.wrapper {
+		@apply p-8;
+	}
+}

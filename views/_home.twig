@@ -1,0 +1,47 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="homepage">
+		<div class="grid grid-cols-12 gap-8">
+			<div class="left col-span-4">
+				{% for course in courses %}
+					<p class="w-full text-blue">{{course.id}}
+						{{course.title}}</p>
+					{% for module in modules %}
+						{% if course.id == module.custom.belongs_to %}
+							<div class="module" data-id="{{module.id}}">
+								<a href="#">{{module.title}}</a>
+							</div>
+							{% for chapter in chapters %}
+								{% if module.id == chapter.custom.belongs_to %}
+									<div class="chapter" data-id="{{chapter.id}}">
+										<a href="#">{{chapter.title}}</a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+			<div class="right col-span-8">
+				{% for course in courses %}
+					<div>
+						{% for module in modules %}
+							{% if course.id == module.custom.belongs_to %}
+								<div class="content" data-id="{{module.id}}">
+									<h2>{{module.title}}</h2>
+									{{module.custom.description}}</div>
+								{% for chapter in chapters %}
+									{% if module.id == chapter.custom.belongs_to %}
+										<div class="content2" data-id="{{chapter.id}}">
+											<h2>{{chapter.title}}</h2>
+											{{chapter.custom.description}}{{chapter.custom.shortcode|shortcodes}}</div>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

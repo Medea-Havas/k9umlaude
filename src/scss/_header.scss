@@ -1,0 +1,54 @@
+header {
+	@apply my-0 flex items-center justify-between p-8;
+	h1 {
+		@apply mb-0;
+	}
+	div {
+		@apply flex items-center;
+	}
+	#logo {
+		@apply w-40;
+		&:hover {
+			.bd0,
+			.bd1 {
+				@apply fill-current text-limegreen;
+			}
+			.bd2 {
+				@apply fill-current text-darkblue;
+			}
+		}
+	}
+	.header-logo {
+		@apply mb-3 text-2xl;
+	}
+	.nav-main {
+		@apply mr-8;
+		.nav-main-items {
+			@apply flex p-0 list-none text-center;
+			li {
+				@apply ml-4;
+			}
+			.menu-item {
+				@apply relative table-cell;
+				.nav-main-link {
+					@apply no-underline font-bold inline-block mx-2 pb-1 pt-3 px-0 relative text-lightblue text-xs;
+					&:hover {
+						@apply font-bold;
+					}
+					&:after {
+						@apply absolute bg-lightblue block bottom-0 left-1/2 w-0;
+						content: "";
+						height: 2px;
+						transition: all 0.3s ease;
+					}
+					&:hover:after {
+						@apply left-0 w-full;
+					}
+				}
+			}
+		}
+	}
+}
+.header-wrap {
+	@apply border-b border-gray;
+}

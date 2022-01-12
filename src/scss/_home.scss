@@ -1,0 +1,143 @@
+section {
+	@apply my-0 px-8 py-28;
+	&#about,
+	&#committee,
+	&#program {
+		h2 {
+			@apply relative;
+			&:before {
+				@apply absolute h-32 mb-8 text-lightblue -top-44 z-10;
+				border-width: 0.05rem;
+				content: "";
+			}
+		}
+	}
+	&#about,
+	&#committee {
+		@apply bg-gray max-w-none mx-0 p-0;
+		h2 {
+			&:before {
+				@apply left-20;
+			}
+		}
+		.wrapper {
+			@apply max-content px-8;
+		}
+	}
+	&#about {
+		@apply pb-12;
+		.container {
+			@apply gap-16 grid grid-cols-12;
+			.card {
+				&-lg {
+					@apply col-span-12 -mt-8 relative;
+				}
+				&-sm {
+					@apply col-span-4;
+				}
+			}
+		}
+		.wrapper {
+			@apply py-28;
+		}
+	}
+	&#committee {
+		@apply pb-24;
+		.members {
+			@apply flex mx-8 overflow-x-scroll;
+			.member {
+				@apply align-baseline flex mr-6;
+				&-image-wrapper {
+					@apply pr-8 w-72;
+					&-image {
+						@apply rounded-full w-full;
+					}
+				}
+				&-name {
+					@apply font-bold leading-6 mb-2 text-lg text-darkgreen;
+				}
+			}
+		}
+		.wrapper {
+			@apply pb-8 pt-28;
+		}
+	}
+	&#intro {
+		@apply py-0;
+		img {
+			width: 35rem;
+		}
+		.container {
+			@apply flex items-center;
+		}
+		.text {
+			@apply max-w-lg pb-8;
+		}
+	}
+	&#program {
+		@apply relative max-w-none;
+		h2 {
+			@apply max-content px-8;
+			&:before {
+				@apply left-28;
+			}
+		}
+		.container {
+			@apply flex items-center max-content px-8;
+		}
+		.description {
+			@apply leading-6 mb-8 text-base-sm text-darkblue w-96;
+		}
+		.info {
+			display: none;
+		}
+		.left {
+			@apply pr-16;
+		}
+		.module {
+			@apply border-b border-line pb-4 mb-4;
+			h3 {
+				@apply mb-0;
+			}
+			.arrow {
+				transform: rotate(90deg);
+				transition: 0.3s all ease-in;
+			}
+			&:not(.selected) {
+				&:hover {
+					.subheading {
+						@apply text-lightblue;
+					}
+					.arrow {
+						path {
+							@apply fill-current text-lightblue;
+						}
+					}
+				}
+				.arrow {
+					transform: rotate(0deg);
+					path {
+						@apply fill-current text-darkblue;
+					}
+				}
+				.subheading {
+					@apply text-darkblue;
+				}
+			}
+			&:hover {
+				@apply cursor-pointer;
+			}
+			&:first-child {
+				#arrow {
+					transform: rotate(90deg);
+				}
+				.info {
+					display: block;
+				}
+			}
+			.program-chapter {
+				@apply text-base-sm text-darkgreen;
+			}
+		}
+	}
+}

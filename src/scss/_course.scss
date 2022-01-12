@@ -1,0 +1,120 @@
+#course {
+	ul {
+		@apply ml-3;
+	}
+	ol {
+		@apply ml-6;
+	}
+	.heading,
+	.text {
+		max-width: 26rem;
+	}
+	.container {
+		@apply flex items-baseline;
+	}
+	.course-details {
+		li {
+			@apply flex items-center mb-6;
+		}
+		svg {
+			@apply mr-4 w-5;
+		}
+		p {
+			@apply inline-block;
+		}
+	}
+	.course-wrap {
+		@apply bg-gray pb-16 pt-20 px-8;
+		svg {
+			@apply inline-block mr-4 w-5;
+		}
+		.heading {
+			@apply relative mb-16;
+			&:before {
+				@apply absolute h-32 left-20 mb-8 text-lightblue -top-44 z-10;
+				border-width: 0.05rem;
+				content: "";
+			}
+		}
+	}
+	.module {
+		@apply bg-white border border-white mb-4 px-8 rounded-xl;
+		a {
+			@apply flex items-center justify-between px-4 py-8;
+			&:hover {
+				svg path {
+					@apply fill-current text-darkblue;
+				}
+				.left .subheading {
+					@apply text-darkblue;
+				}
+			}
+			svg path {
+				@apply fill-current text-lightblue;
+			}
+		}
+		&:hover {
+			@apply border border-darkblue;
+		}
+		&:first-child {
+			@apply border-t-0;
+		}
+		.left,
+		.right {
+			@apply py-0;
+		}
+		.chapters {
+			@apply hidden;
+			&.reveal {
+				@apply block bg-gray;
+			}
+			.subchapters {
+				@apply hidden;
+				&.reveal {
+					@apply block;
+				}
+			}
+		}
+		.left {
+			.subheading {
+				@apply m-0;
+			}
+		}
+		.right {
+			@apply flex items-center justify-between;
+			p {
+				@apply inline-block text-base-sm text-darkblue;
+			}
+		}
+		.text {
+			@apply inline-block;
+		}
+	}
+	.next-module {
+		@apply pb-16;
+		.text {
+			@apply mb-4;
+		}
+	}
+	.progress {
+		@apply text-5xl text-lightblue;
+	}
+	.progress-wrap {
+		@apply flex items-center;
+		.progress-background {
+			@apply bg-gray h-4 mr-4 relative rounded-3xl w-28;
+			.progress-bar {
+				@apply absolute bg-lightblue h-4 left-0 rounded-3xl top-0 w-6;
+			}
+		}
+	}
+	.subcontainer {
+		@apply flex flex-col items-center;
+	}
+	.subheading {
+		@apply mb-6;
+	}
+	.wrapper {
+		@apply max-content p-8 w-full;
+	}
+}

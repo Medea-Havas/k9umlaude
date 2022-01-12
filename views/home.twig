@@ -1,0 +1,212 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="homepage">
+		<section id="intro">
+			<div class="container">
+				<div class="left">
+					<h2 class="heading">Formación online<br>acreditada sobre<br>hipercolesterolemia</h2>
+					<p class="text">Con el curso “Actualización del abordaje terapéutico del paciente con dislipemia” podrá completar sus conocimientos sobre la Hipercolesterolemia y descubrir cómo prevenir y tratar las dislipemias en pacientes de alto riesgo cardiovascular.</p>
+					<a href="#" class="button button-m">Ir al curso</a>
+				</div>
+				<div class="right"><img src="{{theme.link}}/static/img/computer.png"></div>
+			</div>
+		</section>
+		<section id="about">
+			<div class="wrapper">
+				<h2 class="heading">Sobre la formación</h2>
+				<div class="container">
+					<div class="card card-sm">
+						{{ source(directory ~ '/static/img/svg/computer.svg') }}
+						<h3 class="subheading">Curso 100% online<br>y gratuito</h3>
+						<p class="card-description">Este programa permitirá actualizar sus conocimientos acerca de la prevención y tratamiento de las alteraciones del metabolismo de los lípidos, así como su relación con las enfermedades cardiovasculares.</p>
+					</div>
+					<div class="card card-sm">
+						{{ source(directory ~ '/static/img/svg/people.svg') }}
+						<h3 class="subheading">Dirigida a médicos<br>y residentes</h3>
+						<p class="card-description">Esta formación está pensada para ayudar a especialistas de diferentes áreas y a médicos residentes que busquen actualizar sus conocimientos y descubrir las últimas novedades en torno a las dislipemias y la hipercolesterolemia.</p>
+					</div>
+					<div class="card card-sm">
+						{{ source(directory ~ '/static/img/svg/medal.svg') }}
+						<h3 class="subheading">Formación certificada<br>y acreditada</h3>
+						<p class="card-description">Esta formación está acreditada con 9,6 créditos por la Comisión de Formación Continuada de las Profesiones Sanitarias de la Comunidad de Madrid.</p>
+					</div>
+					<div class="card card-lg">
+						{{ source(directory ~ '/static/img/svg/shield.svg') }}
+						<h3 class="subheading">Actualización del abordaje terapéutico del paciente con dislipemia</h3>
+						<p class="card-description">Esta actividad docente (07-AFOC-03943.8/2020) está acreditada con 9,6 créditos por la Comisión de Formación Continuada de las Profesiones Sanitarias de la Comunidad de Madrid para médicos especialistas de diferentes áreas, que estén implicados en el manejo del paciente con dislipemias. Los créditos de formación continuada, no son aplicables a los profesionales que estén formándose como especialistas en Ciencias de la Salud. Enseñanza no reglada y sin carácter oficial. Puede consultarse información sobre la acreditación de formación continuada sanitaria en
+							<a href="https://www.madrid.org" target="_blank">www.madrid.org</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="program">
+			<h2 class="heading">Programa formativo<br>del curso</h2>
+			<div class="container">
+				<div class="left">
+					<img src="{{theme.link}}/static/img/mobiles.png" alt="">
+				</div>
+				<div class="right">
+					<div class="module selected">
+						<p class="subheading has-children">Módulo 1. Lípidos, lipoproteínas y dislipemia{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 2. Enfermedad cardiovascular aterosclerótica{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 3. Tratamiento de la dislipemia{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 4. Tratamientos emergentes y en investigación{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 5. Evidencia{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 6. Estudios clínicos{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+					<div class="module">
+						<p class="subheading has-children">Módulo 7. Casos clínicos por especialidad{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+						<div class="info">
+							<p class="author">Dr. Lluís Masana Marín, como Coordinador</p>
+							<p class="program-title">Temas:</p>
+							<p class="program-chapter">Introducción</p>
+							<p class="program-chapter">Metabolismo de las lipoproteínas</p>
+							<p class="program-chapter">Patogenia de las dislipemias</p>
+							<p class="program-chapter">Determinación de lípidos</p>
+							<p class="program-chapter">Conclusiones</p>
+							<p class="program-chapter">Referencias</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="committee">
+			<div class="wrapper">
+				<h2 class="heading">Comité científico</h2>
+			</div>
+			<div class="members">
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-1.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-2.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-3.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-4.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-5.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+				<div class="member">
+					<div class="member-image-wrapper">
+						<img src="{{theme.link}}/static/img/300-6.jpeg" alt="" class="member-image">
+					</div>
+					<div class="info">
+						<p class="member-name">Dr. John Doe</p>
+						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>{% endblock %}
