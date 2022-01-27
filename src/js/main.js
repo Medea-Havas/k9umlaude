@@ -1,9 +1,22 @@
 jQuery(function ($) {
+	$("#custom-scroll").overlayScrollbars({
+		scrollbars: {
+			autohide: "move",
+		},
+	});
 	// SELECT FIRST SUBCHAPTER (JUST FOR TEST)
 	$("#module").ready(function () {
 		$(".subchapters li:first a").addClass("selected");
 		getVideoFromSubchapter($(".subchapters .selected").data("id"));
 	});
+	// CHANGES REMAINING TIME (JUST FOR TEST)
+	let count = 0;
+	$(".count").each(function () {
+		count = count + parseInt($(this).text());
+	});
+	setTimeout(() => {
+		$(".remaining span").html(count);
+	}, 1000);
 
 	$(".subchapters a").click(function (e) {
 		e.preventDefault();
