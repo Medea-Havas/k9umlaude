@@ -1,10 +1,28 @@
 #module {
+	#custom-scroll {
+		@apply relative;
+	}
 	.block {
 		@apply bg-white mb-8 py-8 rounded-3xl;
+		.check-done,
+		.check-undone,
+		.icon02 {
+			@apply mr-4;
+		}
+		.check-done,
+		.check-undone {
+			@apply w-3;
+		}
+		.icon02 {
+			@apply w-5;
+		}
+		&.noend {
+			@apply pb-0;
+		}
 		&-header {
 			@apply px-8;
 			.author {
-				@apply border-b border-line pb-4;
+				@apply border-b border-line mb-0 pb-4;
 			}
 			.chapter-name {
 				@apply mb-4 text-base-sm;
@@ -16,6 +34,9 @@
 	}
 	.breadcrumb {
 		@apply pb-8 text-xs text-lightblue;
+		&-at {
+			@apply underline;
+		}
 	}
 	.breadcrumb-title {
 		&:hover {
@@ -27,15 +48,58 @@
 		&-name {
 			@apply font-bold text-base-sm;
 		}
+		&-footer {
+			@apply bg-bggray pb-8 rounded-b-3xl;
+			&_text-wrap {
+				@apply flex items-center justify-between;
+				div {
+					@apply flex items-center pr-8 text-darkblue text-sm;
+					p {
+						@apply w-11;
+					}
+				}
+			}
+			&__title {
+				@apply px-8 py-2 text-darkblue text-base-sm;
+			}
+			.icon02 {
+				path {
+					@apply fill-current text-white;
+				}
+			}
+		}
 		&-header {
-			@apply px-8 pb-4 text-darkblue;
+			@apply flex items-center px-8 py-2 relative text-darkblue;
+			&:first-child {
+				@apply pt-4;
+			}
+			&:after {
+				@apply absolute border-b border-line;
+				bottom: -0.05rem;
+				content: "";
+				left: 2%;
+				width: 96%;
+			}
+			div {
+				@apply flex items-center justify-between;
+				&:after {
+					@apply absolute border-b border-line z-20;
+					bottom: -0.05rem;
+					content: "";
+					left: 2%;
+					width: 96%;
+				}
+				p {
+					@apply w-11 text-sm;
+				}
+			}
+			p {
+				@apply flex-grow leading-5;
+			}
 		}
 		&-wrapper {
-			@apply overflow-y-hidden;
+			@apply overflow-y-scroll;
 			max-height: 30rem;
-			&:hover {
-				@apply overflow-y-scroll;
-			}
 		}
 	}
 	.container {
@@ -91,6 +155,9 @@
 			a {
 				@apply bg-white justify-between flex items-center px-8 py-2 relative text-lightblue text-base-sm z-10;
 				margin-bottom: 0.1rem;
+				div p {
+					@apply w-11;
+				}
 				&.selected,
 				&:hover {
 					@apply bg-lightblue duration-100 text-white transition-all;
@@ -104,14 +171,17 @@
 				}
 			}
 		}
-		svg {
-			@apply mr-4 w-5;
-		}
 		div {
 			@apply flex items-center min-w-max;
+			p {
+				@apply text-sm;
+			}
 		}
 		.subchapter-title {
-			@apply pr-8 text-sm;
+			@apply flex-grow pr-8 text-sm;
+			&-wrap {
+				@apply flex flex-grow;
+			}
 		}
 	}
 	.subchapter-text {

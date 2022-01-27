@@ -39,7 +39,7 @@
 				<div class="module-content">
 					<div class="module-content-display"></div>
 					<div class="module-content-list">
-						<div class="block">
+						<div class="block noend">
 							<ul class="chapters">
 								<li>
 									<div class="block-header">
@@ -48,20 +48,38 @@
 										<p class="subheading">{{post.custom.title}}</p>
 										<p class="author">{{post.custom.author}}</p>
 									</div>
-									<div class="chapter-wrapper">
+									<div id="custom-scroll" class="chapter-wrapper">
 										{% for chapter in chapters %}
 											{% if post.id == chapter.custom.belongs_to %}
 												<div class="chapter-header">
-													<p class="chapter-title">Capítulo
-														{{chapter.custom.chapter_number}}</p>
-													<p class="chapter-name">{{chapter.custom.chapter_name}}</p>
+													<p>
+														<span class="chapter-title">Capítulo
+															{{chapter.custom.chapter_number}}</span><br>
+														<span class="chapter-name">{{chapter.custom.chapter_name}}</span>
+													</p>
+													<div>
+														{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+														{% set count = 0 %}
+														{% for subchapter in subchapters %}
+															{% if chapter.id == subchapter.custom.belongs_to %}
+																{% set count = count + subchapter.custom.time %}
+															{% endif %}
+														{% endfor %}
+														<p>
+															<span class="count">{{count}}</span>
+															min</p>
+													</div>
 												</div>
 												<ul class="subchapters">
 													{% for subchapter in subchapters %}
 														{% if chapter.id == subchapter.custom.belongs_to %}
 															<li>
 																<a href="#" data-id="{{subchapter.id}}">
-																	<p class="subchapter-title">{{ subchapter.title }}</p>
+																	<div class="subchapter-title-wrap">
+																		{{ source(directory ~ '/static/img/svg/check-done.svg') }}
+																		<p class="subchapter-title">
+																			{{ subchapter.title }}</p>
+																	</div>
 																	<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
 																		<p>{{subchapter.custom.time}}
 																			min</p>
@@ -74,15 +92,27 @@
 											{% endif %}
 										{% endfor %}
 									</div>
+									<div class="chapter-footer">
+										<div class="chapter-footer_text-wrap">
+											<p class="chapter-footer__title">Tiempo para acabar el módulo</p>
+											<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+												<p class="remaining">
+													<span>34</span>
+													min</p>
+											</div>
+										</div>
+										<div class="ldBar line" data-value="50" data-aspect-ratio="none" style="width: 100%"></div>
+									</div>
 								</li>
-							</ul>
-						</div>
+							</div>
+						</ul>
 						<div class=" block"></p>
+						<div class="block"></div>
+						<div class="block"></div>
 					</div>
-					<div class="block"></div>
-					<div class="block"></div>
-				</li>
-			</div>
+
+				</div>
+			</li>
 		</div>
-	</section>
-</li></div></div></main>{% endblock %}
+	</div>
+</section></li></div></div></main>{% endblock %}

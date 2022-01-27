@@ -1,0 +1,48 @@
+.ldBar {
+	&.circle {
+		@apply relative;
+		.baseline {
+			@apply stroke-current text-gray;
+			stroke-width: 3px;
+		}
+		.ldBar-label {
+			@apply absolute left-1/2 top-1/2 text-5xl text-lightblue;
+			transform: translate(-50%, -50%);
+			&:after {
+				@apply inline;
+				content: "%";
+			}
+		}
+		.mainline {
+			@apply stroke-current text-limegreen;
+			stroke-width: 5px;
+			stroke-linecap: round;
+		}
+	}
+	&.line {
+		.baseline {
+			@apply stroke-current text-gray;
+		}
+		.ldBar-label {
+			@apply hidden;
+		}
+		.mainline {
+			@apply stroke-current text-limegreen;
+		}
+	}
+	&.line2 {
+		.baseline,
+		.mainline {
+			stroke-width: 12px;
+		}
+		.baseline {
+			@apply stroke-current text-gray;
+		}
+		.ldBar-label {
+			@apply hidden;
+		}
+		.mainline {
+			@apply stroke-current text-white;
+		}
+	}
+}

@@ -1,5 +1,4 @@
 <?php
-
 //------- ADMIN COLOR SCHEME -------
 function additional_admin_color_schemes()
 {

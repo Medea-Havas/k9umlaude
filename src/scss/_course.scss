@@ -25,8 +25,15 @@
 	}
 	.course-wrap {
 		@apply bg-gray pb-16 pt-20 px-8;
-		svg {
-			@apply inline-block mr-4 w-5;
+		.icon02,
+		.arrow {
+			@apply inline-block;
+		}
+		.arrow {
+			@apply w-3;
+		}
+		.icon02 {
+			@apply mr-4 w-5;
 		}
 		.heading {
 			@apply relative mb-16;
@@ -42,19 +49,39 @@
 		a {
 			@apply flex items-center justify-between px-4 py-8;
 			&:hover {
-				svg path {
-					@apply fill-current text-darkblue;
+				.icon02,
+				.arrow {
+					path {
+						@apply fill-current text-white;
+					}
 				}
 				.left .subheading {
-					@apply text-darkblue;
+					@apply text-white;
 				}
 			}
-			svg path {
-				@apply fill-current text-lightblue;
+			.icon02,
+			.arrow {
+				path {
+					@apply fill-current text-lightblue;
+				}
 			}
 		}
 		&:hover {
-			@apply border border-darkblue;
+			@apply bg-lightblue;
+			.ldBar.line2 {
+				.baseline {
+					@apply text-white;
+				}
+				.mainline {
+					@apply text-limegreen;
+				}
+			}
+			.left .text {
+				@apply text-white;
+			}
+			.right p {
+				@apply text-white;
+			}
 		}
 		&:first-child {
 			@apply border-t-0;
@@ -79,6 +106,9 @@
 			.subheading {
 				@apply m-0;
 			}
+			.text {
+				@apply ml-0;
+			}
 		}
 		.right {
 			@apply flex items-center justify-between;
@@ -87,7 +117,7 @@
 			}
 		}
 		.text {
-			@apply inline-block;
+			@apply ml-4 inline-block;
 		}
 	}
 	.next-module {
@@ -97,16 +127,7 @@
 		}
 	}
 	.progress {
-		@apply text-5xl text-lightblue;
-	}
-	.progress-wrap {
-		@apply flex items-center;
-		.progress-background {
-			@apply bg-gray h-4 mr-4 relative rounded-3xl w-28;
-			.progress-bar {
-				@apply absolute bg-lightblue h-4 left-0 rounded-3xl top-0 w-6;
-			}
-		}
+		@apply items-center flex;
 	}
 	.subcontainer {
 		@apply flex flex-col items-center;

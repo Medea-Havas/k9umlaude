@@ -21,6 +21,7 @@ module.exports = {
 			darkgreen: "#20464c",
 			lightblue: "#108aa8",
 			darkblue: "#004e57",
+			bggray: "#aeaeae",
 			gray: "#efefef",
 			line: "#f4f4f4",
 			white: "#fff",
