@@ -18,12 +18,22 @@ jQuery(function ($) {
 		$(".remaining span").html(count);
 	}, 1000);
 
+	/* EVENTS */
+	// Click
 	$(".subchapters a").click(function (e) {
 		e.preventDefault();
 		$(".subchapters a").removeClass("selected");
 		$(this).addClass("selected");
 		console.log($(this).data("id"));
 		getVideoFromSubchapter($(this).data("id"));
+	});
+	// Press
+	$("label").keypress(function (e) {
+		e.preventDefault();
+		if (e.which === 32) {
+			var ischecked = $(this).parent().find("input").prop("checked");
+			$(this).parent().find("input").prop("checked", !ischecked);
+		}
 	});
 
 	function getVideoFromSubchapter(subchapterId) {

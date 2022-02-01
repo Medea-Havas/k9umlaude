@@ -1,0 +1,22 @@
+form {
+	label {
+		@apply block mb-2;
+	}
+	.box {
+		@apply box-border border border-lightblue px-5 py-2 relative rounded-xl text-darkblue text-sm w-56;
+		margin: 1px;
+		&:focus {
+			@apply border-2 m-0;
+			outline: none;
+		}
+	}
+	.field {
+		@apply mb-2;
+		&-last {
+			@apply mb-8;
+		}
+	}
+	.input-wrap {
+		@apply flex flex-col w-56;
+	}
+}

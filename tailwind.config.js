@@ -1,4 +1,5 @@
 // Scale Major Second - 1.125
+const text10 = "0.624rem";
 const text11 = "0.702rem";
 const text12 = "0.79rem";
 const text14 = "0.889rem";
@@ -32,6 +33,7 @@ module.exports = {
 			sans: ["Oxygen", "sans-serif"],
 		},
 		fontSize: {
+			xxs: text10,
 			xs: text11,
 			sm: text12,
 			"base-sm": text14,

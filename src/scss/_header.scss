@@ -19,7 +19,7 @@ header {
 		}
 	}
 	.header-logo {
-		@apply mb-3 text-2xl;
+		@apply text-2xl;
 	}
 	.nav-main {
 		@apply mr-8;
@@ -31,7 +31,7 @@ header {
 			.menu-item {
 				@apply relative table-cell;
 				.nav-main-link {
-					@apply no-underline font-bold inline-block mx-2 pb-1 pt-3 px-0 relative text-lightblue text-xs;
+					@apply no-underline font-bold inline-block mx-2 py-3 px-0 relative text-lightblue text-xs;
 					&:hover {
 						@apply font-bold;
 					}
@@ -48,6 +48,9 @@ header {
 			}
 		}
 	}
+}
+.page-nav {
+	min-height: 45px;
 }
 .header-wrap {
 	@apply border-b border-gray;

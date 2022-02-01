@@ -2,29 +2,38 @@
 {% block content %}
 	<main id="login">
 		<div class="wrapper">
-			<h1>Acceso</h1>
-			<p>Si es su primera vez
-				<a href="/registro">cree su cuenta</a>
-			</p>
-			<form action="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/">
-				<div class="field">
-					<label for="email">Email</label>
-					<input id="email" type="email">
+			<div class="container">
+				<div class="left">
+					<h1 class="heading">Acceso</h1>
+					<p class="text">Si es su primera vez
+						<a href="/registro" class="link">cree su cuenta</a>
+					</p>
+					<form action="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/">
+						<div class="field">
+							<label for="email" class="text">Email</label>
+							<input id="email" type="email" class="box" placeholder="Email">
+						</div>
+						<div class="field field-last">
+							<label for="pass" class="text">Contraseña</label>
+							<div class="input-wrap">
+								<input id="pass" type="password" class="box" placeholder="Contraseña">
+								<a href="#" class="forgot link" tabindex="0">Olvidé mi contraseña</a>
+							</div>
+						</div>
+						<div class="checkbox">
+							<input id="accept" type="checkbox" value="accept" class="styled-checkbox">
+							<label for="accept" tabindex="0">
+								He leído y acepto la
+								<a href="/politica-privacidad" class="link">política de privacidad</a>
+							</label>
+						</div>
+						<a class="button button-m" tabindex="0">Acceder</a>
+					</form>
 				</div>
-				<div class="field">
-					<label for="pass">Contraseña</label>
-					<input id="pass" type="password">
+				<div class="right">
+					<img src="{{theme.link}}/static/img/tablet.png" alt="">
 				</div>
-				<a href="#">Olvidé mi contraseña</a>
-				<p><input type="checkbox" value="accept">
-					He leído y acepto la
-					<a href="/politica-privacidad">política de privacidad</a>
-				</p>
-				<input type="submit" class="button" value="Acceder">
-			</form>
-			<p>
-				<a href="{{ site.url }}" class="link">Volver</a>
-			</p>
+			</div>
 		</div>
 	</main>
 {% endblock %}

@@ -7,8 +7,9 @@
 }
 .btn {
 	@apply block border border-lightblue ease-linear overflow-x-hidden py-3 px-6 relative right-0 rounded-xl text-center text-lightblue transition-all;
-	&:hover {
-		@apply ease-linear font-bold text-white transition-all;
+	&:hover,
+	&:focus {
+		@apply cursor-pointer ease-linear font-bold outline-none text-white transition-all;
 		&:before,
 		&:after,
 		span:before,
@@ -29,7 +30,8 @@
 	&:before {
 		@apply h-full left-0 top-0 w-0;
 	}
-	&:hover:before {
+	&:hover:before,
+	&:focus:before {
 		@apply w-full;
 	}
 }

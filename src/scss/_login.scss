@@ -1,4 +1,16 @@
 #login {
+	form {
+		@apply pt-8;
+	}
+	.accept {
+		@apply mb-8 text-xs text-darkblue;
+	}
+	.container {
+		@apply flex;
+	}
+	.forgot {
+		@apply inline-block mt-1 text-right text-xs;
+	}
 	.wrapper {
 		@apply max-content p-8;
 	}
