@@ -1,9 +1,139 @@
 {% extends "base.twig" %}
 {% block content %}
-	<main>
-		<h1>Registro</h1>
-		<p>
-			<a href="{{ site.url }}/acceso" class="link">Volver</a>
-		</p>
+	<main id="register">
+		<div class="wrapper">
+			<div class="container">
+				<div class="left">
+					<h1 class="heading">Registro</h1>
+					<p class="text">Si ya se registró,
+						<a href="{{site.url}}/login" class="link">acceda a su cuenta</a>
+					</p>
+					<p class="text">Le damos la bienvenida al entorno formativo de referencia sobre hipercolesterolemia, donde podrá actualizar y complementar sus conocimientos sobre su abordaje terapéutico.</p>
+					<p class="text">Además de estar acreditada con 9,6 créditos por la Comisión de Formación Continuada de las Profesiones Sanitarias de la Comunidad de Madrid para médicos especialistas implicados en el manejo del paciente con dislipemias, cuenta con la participación de las principales sociedades científicas en el área: SEC, SEA, SEMI, SEEN, SED y SEN.</p>
+					<a id="btn-goToStep1" href="#" class="button button-l submit" tabindex="0">Comenzar registro</a>
+				</div>
+				<div class="right register-form">
+					<div id="image">
+						<img src="{{theme.link}}/static/img/tablet.png" alt="">
+					</div>
+					<div id="steps">
+						<ul id="progressbar">
+							<li class="active">Datos personales</li>
+							<li>Datos profesionales</li>
+							<li>Contraseña</li>
+						</ul>
+						<div class="step-wrapper">
+							<div id="step1" class="step">
+								<p class="subheading">Datos personales</p>
+								<div class="field-wrapper">
+									<div class="left">
+										<div class="field">
+											<label for="name" class="text">Nombre</label>
+											<input id="name" type="text" class="box" placeholder="Nombre">
+										</div>
+										<div class="field">
+											<label for="first-lastname" class="text">Primer apellido</label>
+											<input id="first-lastname" type="text" class="box" placeholder="Primer apellido">
+										</div>
+										<div class="field">
+											<label for="second-lastname" class="text">Segundo apellido</label>
+											<input id="second-lastname" type="text" class="box" placeholder="Segundo apellido">
+										</div>
+									</div>
+									<div class="right">
+										<div class="field">
+											<label for="dni" class="text">DNI/NIE</label>
+											<input id="dni" type="text" class="box" placeholder="DNI/NIE">
+										</div>
+										<div class="field">
+											<label for="email" class="text">Email</label>
+											<input id="email" type="email" class="box" placeholder="Email">
+										</div>
+										<div class="field">
+											<label for="phone" class="text">Móvil</label>
+											<input id="phone" type="tel" class="box" placeholder="Móvil">
+										</div>
+									</div>
+								</div>
+								<div class="field-wrapper end-align">
+									<div class="left">
+										<p class="text">Te identificas como:</p>
+										<div class="radio-options">
+											<label class="container">Masculino
+												<input type="radio" checked="checked" name="gender" value="male">
+												<span class="checkmark"></span>
+											</label>
+											<label class="container">Femenino
+												<input type="radio" name="gender" value="female">
+												<span class="checkmark"></span>
+											</label>
+											<label class="container">Prefiero no especificarlo
+												<input type="radio" name="gender" value="noinfo">
+												<span class="checkmark"></span>
+											</label>
+										</div>
+									</div>
+									<div class="right">
+										<a id="btn-goToStep2" href="#" class="button button-m submit" tabindex="0">Siguiente</a>
+									</div>
+								</div>
+							</div>
+							<div id="step2" class="step">
+								<p class="subheading">Datos profesionales</p>
+								<div class="field-wrapper">
+									<div class="left">
+										{% include "fragments/select-specialties.twig" %}
+										{% include "fragments/select-medicalsociety.twig" %}
+									</div>
+									<div class="right">
+										<p class="text selectgroup-title">Número de colegiado</p>
+										{% include "fragments/select-collegenumber1.twig" %}
+										{% include "fragments/select-collegenumber2.twig" %}
+										<div class="field">
+											<label for="name" class="text">Número correlativo asignado</label>
+											<input id="name" type="number" class="box" placeholder="Número correlativo">
+										</div>
+										<br>
+										<a id="btn-goToStep3" href="#" class="button button-m submit" tabindex="0">Siguiente</a>
+									</div>
+								</div>
+							</div>
+							<div id="step3" class="step">
+								<p class="subheading">Contraseña</p>
+								<div class="field-wrapper">
+									<div class="left">
+										<div class="field">
+											<label for="password" class="text">Contraseña</label>
+											<input id="password" type="password" class="box" placeholder="Contraseña">
+										</div>
+										<div class="field">
+											<label for="confirm" class="text">Confirma la contraseña</label>
+											<input id="confirm" type="password" class="box" placeholder="Confirma la contraseña">
+										</div>
+									</div>
+									<div class="right">
+										<div class="checkbox">
+											<input id="accept2" type="checkbox" value="accept2" class="styled-checkbox" tabindex="-1">
+											<label for="accept2" tabindex="0">
+												He leído y acepto
+												<a href="/politica-privacidad" class="link" tabindex="0">el aviso legal y la política de privacidad</a>
+											</label>
+										</div>
+										<div class="checkbox">
+											<input id="accept3" type="checkbox" value="accept3" class="styled-checkbox" tabindex="-1">
+											<label for="accept3" tabindex="0" class="long-text">
+												Acepto a que Sanofi-Aventis S.A (“Sanofi”) trate mis datos personales facilitados para gestionar las relaciones promocionales conmigo, llevar a cabo segmentación profesional para entender mejor mis intereses y ofrecerme contenido personalizado, y para fines estadísticos, históricos o científicos. Puede usted ajustar de forma individual cada una de las finalidades anteriores. Ver en detalle.
+											</label>
+										</div>
+										<br>
+										<a id="btn-goToStep2" href="#" class="button button-m submit" tabindex="0">Crear cuenta</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 {% endblock %}

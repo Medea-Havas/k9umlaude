@@ -3,6 +3,7 @@
 
 	& + label {
 		@apply cursor-pointer mb-8 p-0 relative text-sm text-darkblue;
+		width: fit-content;
 	}
 
 	// Box.

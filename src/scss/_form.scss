@@ -1,6 +1,12 @@
-form {
+form,
+.field-wrapper {
 	label {
 		@apply block mb-2;
+	}
+	input {
+		&::placeholder {
+			@apply text-bggray;
+		}
 	}
 	.box {
 		@apply box-border border border-lightblue px-5 py-2 relative rounded-xl text-darkblue text-sm w-56;

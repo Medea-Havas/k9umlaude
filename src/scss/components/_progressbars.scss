@@ -1,0 +1,34 @@
+#progressbar {
+	@apply mb-8 overflow-hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+	li {
+		@apply float-left list-none uppercase relative text-center text-xxs text-bggray w-1/3;
+		&:before {
+			@apply bg-line block h-8 leading-8 m-auto mb-2 rounded-full text-base-sm text-bggray text-center w-8;
+			content: counter(step);
+			counter-increment: step;
+		}
+		/*progressbar connectors*/
+		&:after {
+			@apply absolute bg-line -left-1/2 w-full;
+			content: "";
+			height: 2px;
+			top: 14px;
+			z-index: -1; /*put it behind the numbers*/
+		}
+		&:first-child:after {
+			/*connector not needed before the first step*/
+			content: none;
+		}
+		&.active {
+			@apply text-darkblue;
+		}
+		/*marking active/completed steps green*/
+		/*The number of the step and the connector before it = green*/
+		&.active:before,
+		&.active:after {
+			@apply bg-lightblue text-white;
+		}
+	}
+}

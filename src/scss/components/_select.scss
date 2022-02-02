@@ -1,0 +1,68 @@
+$select-color: #108aa8;
+$select-background: white;
+$select-width: 220px;
+$select-height: 40px;
+
+#register {
+	.select-hidden {
+		@apply hidden invisible pr-3;
+	}
+	.select {
+		@apply text-lightblue cursor-pointer inline-block relative text-sm;
+		width: $select-width;
+		height: $select-height;
+	}
+	.selectgroup-title {
+		@apply font-bold mb-4;
+	}
+	.select-styled {
+		@apply bg-white border rounded-xl;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding: 8px 15px;
+		&:after {
+			content: "";
+			width: 0;
+			height: 0;
+			border: 7px solid transparent;
+			border-color: $select-color transparent transparent transparent;
+			position: absolute;
+			top: 14px;
+			right: 15px;
+		}
+		&:active,
+		&.active {
+			&:after {
+				top: 9px;
+				border-color: transparent transparent $select-color transparent;
+			}
+		}
+	}
+
+	.select-options {
+		@apply bg-white border border-lightblue max-h-96 overflow-y-scroll z-10;
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li {
+			margin: 0;
+			padding: 12px 5px 12px 15px;
+			border-top: 1px solid darken($select-background, 10);
+			&:hover,
+			&.is-selected {
+				@apply bg-lightblue text-white;
+			}
+			&[rel="hide"] {
+				display: none;
+			}
+		}
+	}
+}

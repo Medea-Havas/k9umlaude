@@ -1,0 +1,11 @@
+#login,
+#register {
+	@apply border-b border-line;
+	min-height: calc(100vh - 437px); // header + footer
+	.container {
+		@apply flex;
+	}
+	.wrapper {
+		@apply max-content p-8;
+	}
+}

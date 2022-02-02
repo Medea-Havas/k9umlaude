@@ -4,7 +4,7 @@ jQuery(function ($) {
 			autohide: "move",
 		},
 	});
-	// SELECT FIRST SUBCHAPTER (JUST FOR TEST)
+	// SELECTS FIRST SUBCHAPTER (JUST FOR TEST)
 	$("#module").ready(function () {
 		$(".subchapters li:first a").addClass("selected");
 		getVideoFromSubchapter($(".subchapters .selected").data("id"));
@@ -14,12 +14,20 @@ jQuery(function ($) {
 	$(".count").each(function () {
 		count = count + parseInt($(this).text());
 	});
+	// ON PRESSING ENTER IN A FORM FOLLOWS .submit URL (JUST FOR TEST)
+	$("form").keypress(function (e) {
+		e.preventDefault();
+		if (e.which === 13) {
+			var button = $(this).find(".submit")[0];
+			var url = $(button).attr("href");
+			window.location.href = url;
+		}
+	});
 	setTimeout(() => {
 		$(".remaining span").html(count);
 	}, 1000);
-
 	/* EVENTS */
-	// Click
+	// CLICK
 	$(".subchapters a").click(function (e) {
 		e.preventDefault();
 		$(".subchapters a").removeClass("selected");
@@ -27,7 +35,27 @@ jQuery(function ($) {
 		console.log($(this).data("id"));
 		getVideoFromSubchapter($(this).data("id"));
 	});
-	// Press
+	$("#btn-goToStep1").click(function (e) {
+		e.preventDefault();
+		$(this).hide(0);
+		$("#image").hide(0);
+		$("#steps").fadeIn("slow");
+	});
+	$("#btn-goToStep2").click(function (e) {
+		e.preventDefault();
+		$(".step").css({
+			transform: "translateX(-100%)",
+			transition: ".5s all ease-in",
+		});
+	});
+	$("#btn-goToStep3").click(function (e) {
+		e.preventDefault();
+		$(".step").css({
+			transform: "translateX(-200%)",
+			transition: ".5s all ease-in",
+		});
+	});
+	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();
 		if (e.which === 32) {

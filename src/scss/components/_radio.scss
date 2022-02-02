@@ -1,0 +1,40 @@
+.radio-options {
+	/* The container */
+	.container {
+		@apply block mb-2 relative pl-5 cursor-pointer select-none text-sm;
+		/* On mouse-over, add background color */
+		&:hover input ~ .checkmark {
+			@apply bg-limegreen;
+		}
+		/* Hide the browser's default radio button */
+		input {
+			@apply absolute cursor-pointer opacity-0;
+			/* Show the indicator (dot/circle) when checked */
+			&:checked ~ .checkmark:after {
+				@apply block;
+			}
+		}
+		/* When the radio button is checked, add background */
+		input:checked ~ .checkmark {
+			@apply bg-white;
+		}
+		/* Style the indicator (dot/circle) */
+		.checkmark:after {
+			@apply bg-limegreen rounded-full;
+			height: 6px;
+			left: 2px;
+			top: 2px;
+			width: 6px;
+		}
+	}
+	/* Create a custom radio button */
+	.checkmark {
+		@apply absolute border border-darkblue left-0 h-3 rounded-full w-3;
+		top: 3px;
+		/* Create the indicator (the dot/circle - hidden when not checked) */
+		&:after {
+			@apply absolute hidden;
+			content: "";
+		}
+	}
+}

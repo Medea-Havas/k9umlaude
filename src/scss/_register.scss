@@ -1,0 +1,38 @@
+#register {
+	#steps {
+		@apply hidden overflow-hidden;
+	}
+	.end-align {
+		@apply items-end;
+	}
+	.field-wrapper {
+		@apply flex;
+	}
+	.left p {
+		@apply mb-6 max-w-md;
+	}
+	.long-text {
+		&::before {
+			@apply absolute left-0;
+		}
+		@apply pl-6;
+	}
+	.options {
+		label {
+			@apply inline-block;
+		}
+		input[type="radio"] {
+			@apply mr-2;
+		}
+	}
+	.step {
+		flex-shrink: 0;
+		width: 100%;
+		&-wrapper {
+			@apply flex;
+		}
+	}
+	.subheading {
+		@apply text-darkgreen;
+	}
+}

@@ -1,6 +1,10 @@
 .button {
 	@apply btn btn-fill font-bold;
 }
+.button-l {
+	@apply text-sm;
+	width: 168px;
+}
 .button-m {
 	@apply text-sm;
 	width: 135px;
@@ -9,7 +13,7 @@
 	@apply block border border-lightblue ease-linear overflow-x-hidden py-3 px-6 relative right-0 rounded-xl text-center text-lightblue transition-all;
 	&:hover,
 	&:focus {
-		@apply cursor-pointer ease-linear font-bold outline-none text-white transition-all;
+		@apply cursor-pointer ease-linear font-bold text-white transition-all;
 		&:before,
 		&:after,
 		span:before,
