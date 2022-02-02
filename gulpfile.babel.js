@@ -3,7 +3,7 @@ const config = require("./wpgulp.config.js");
 // Load plugins
 const gulp = require("gulp");
 // CSS related plugins
-const sass = require("gulp-sass");
+const sass = require("gulp-sass")(require("sass"));
 const minifycss = require("gulp-uglifycss");
 const autoprefixer = require("gulp-autoprefixer");
 const mmq = require("gulp-merge-media-queries");
