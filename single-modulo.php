@@ -19,6 +19,13 @@ $subchapters = array(
 );
 $context['subchapters'] = Timber::get_posts($subchapters);
 
+$materials = array(
+  'post_type' => 'materials',
+  'orderby' => 'title',
+  'order' => 'ASC'
+);
+$context['materials'] = Timber::get_posts($materials);
+
 $context['post'] = new Timber\Post();
 
 Timber::render('module.twig', $context);

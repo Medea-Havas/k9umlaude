@@ -106,11 +106,30 @@
 								</li>
 							</div>
 						</ul>
-						<div class=" block"></p>
-						<div class="block"></div>
-						<div class="block"></div>
+						<div class="block material">
+							<p class="subheading">Materiales de apoyo</p>
+							{% for document in materials %}
+								{% if document.custom.belongs_to == post.id %}
+									{% set file = document.get_field( 'file' ) %}
+									<a href="{{file}}" class="file text">{{document.custom.material_name}}</a>
+								{% endif %}
+							{% endfor %}
+						</div>
+						{% if post.next() %}
+							<a href="{{post.next().link}}" class="nextModule-link">
+								<div class="block nextModule">
+									<p class="subheading nextModule-number">Módulo
+										{{post.next().custom.module_number}}.</p>
+									<p class="nextModule-title">{{post.next().custom.title}}</p>
+								</div>
+							</a>
+						{% endif %}
+						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="seeAll-link">
+							<div class="block seeAll">
+								<p class="subheading">Ver todos los módulos</p>
+							</div>
+						</a>
 					</div>
-
 				</div>
 			</li>
 		</div>
