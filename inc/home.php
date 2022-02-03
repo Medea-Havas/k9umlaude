@@ -14,4 +14,11 @@ $courses = array(
 );
 $context['courses'] = Timber::get_posts($courses);
 
+$committee = array(
+  'post_type' => 'committee',
+  'orderby' => 'title',
+  'order' => 'ASC',
+);
+$context['committee'] = Timber::get_posts($committee);
+
 Timber::render('home.twig', $context);

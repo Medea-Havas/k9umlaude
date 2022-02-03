@@ -146,66 +146,17 @@
 				<h2 class="heading">Comité científico</h2>
 			</div>
 			<div class="members owl-carousel">
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-1.jpeg" alt="" class="member-image">
+				{% for member in committee %}
+					<div class="member">
+						<div class="member-image-wrapper">
+							<img src="{{ Image(member.custom.avatar).src }}" alt="{{member.custom.name}}" class="member-image">
+						</div>
+						<div class="info">
+							<p class="member-name">{{member.custom.name}}</p>
+							<p class="text-light">{{member.custom.description}}</p>
+						</div>
 					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-2.jpeg" alt="" class="member-image">
-					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-3.jpeg" alt="" class="member-image">
-					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-4.jpeg" alt="" class="member-image">
-					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-5.jpeg" alt="" class="member-image">
-					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
-				<div class="member">
-					<div class="member-image-wrapper">
-						<img src="{{theme.link}}/static/img/300-6.jpeg" alt="" class="member-image">
-					</div>
-					<div class="info">
-						<p class="member-name">Dr. John Doe</p>
-						<p class="text-light">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-						</p>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</section>
