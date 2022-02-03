@@ -44,17 +44,24 @@ section {
 	&#committee {
 		@apply pb-24;
 		.members {
-			@apply flex mx-8 overflow-x-scroll;
+			@apply flex mx-8;
+			cursor: grab;
 			.member {
 				@apply align-baseline flex mr-6;
 				&-image-wrapper {
-					@apply pr-8 w-72;
-					&-image {
+					@apply pr-8 w-28;
+					img {
 						@apply rounded-full w-full;
 					}
 				}
 				&-name {
 					@apply font-bold leading-6 mb-2 text-lg text-darkgreen;
+				}
+				.info {
+					.member-name,
+					.text-light {
+						@apply max-w-xs;
+					}
 				}
 			}
 		}
@@ -103,6 +110,9 @@ section {
 				transform: rotate(90deg);
 				transition: 0.3s all ease-in;
 			}
+			.subheading {
+				@apply mb-0;
+			}
 			&:not(.selected) {
 				&:hover {
 					.subheading {
@@ -130,9 +140,6 @@ section {
 			&:first-child {
 				#arrow {
 					transform: rotate(90deg);
-				}
-				.info {
-					display: block;
 				}
 			}
 			.program-chapter {

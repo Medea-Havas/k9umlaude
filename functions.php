@@ -32,7 +32,8 @@ function k9umlaude_scripts()
   wp_register_script('k9umlaude-main-script', get_stylesheet_directory_uri() . '/assets/js/main.js');
   /* Path available to JS */
   $translation_array = array(
-    'templateUrl' => get_stylesheet_directory_uri(),
+    'stylesheetUrl' => get_stylesheet_directory_uri(),
+    'rootUrl' => get_site_url(),
     'uploadsUrl' => wp_upload_dir()
   );
   wp_localize_script('k9umlaude-main-script', 'directory_uri', $translation_array);

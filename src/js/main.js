@@ -26,8 +26,42 @@ jQuery(function ($) {
 	setTimeout(() => {
 		$(".remaining span").html(count);
 	}, 1000);
+	/* ON INIT */
+	$("#program .module.selected").find(".info").show();
+	$(".owl-carousel").owlCarousel({
+		loop: true,
+		nav: false,
+		dots: false,
+		animateOut: "fadeOut",
+		smartSpeed: 1000,
+		autoplay: true,
+		autoplayTimeout: 4000,
+		autoplayHoverPause: true,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			600: {
+				items: 2,
+			},
+			1300: {
+				items: 3,
+			},
+			2000: {
+				items: 4,
+			},
+			2600: {
+				items: 5,
+			},
+		},
+	});
 	/* EVENTS */
 	// CLICK
+	$("#program .module").click(function (e) {
+		e.preventDefault();
+		$(this).toggleClass("selected");
+		$(this).find(".info").slideToggle();
+	});
 	$(".subchapters a").click(function (e) {
 		e.preventDefault();
 		$(".subchapters a").removeClass("selected");
@@ -47,6 +81,9 @@ jQuery(function ($) {
 			transform: "translateX(-100%)",
 			transition: ".5s all ease-in",
 		});
+		setTimeout(() => {
+			$("#progressbar li:nth-child(2)").addClass("active");
+		}, 500);
 	});
 	$("#btn-goToStep3").click(function (e) {
 		e.preventDefault();
@@ -54,6 +91,9 @@ jQuery(function ($) {
 			transform: "translateX(-200%)",
 			transition: ".5s all ease-in",
 		});
+		setTimeout(() => {
+			$("#progressbar li:nth-child(3)").addClass("active");
+		}, 500);
 	});
 	// PRESS
 	$("label").keypress(function (e) {
@@ -66,15 +106,13 @@ jQuery(function ($) {
 
 	function getVideoFromSubchapter(subchapterId) {
 		$("#content .module-content-display").html(
-			`<div class="loader"><img src="${directory_uri.templateUrl}/static/img/loader.gif"></div>`
+			`<div class="loader"><img src="${directory_uri.stylesheetUrl}/static/img/loader.gif"></div>`
 		);
 		$.get(
-			"http://localhost:3000/k9umlaude2/wp-json/wp/v2/subcapitulo/" +
-				subchapterId,
+			`${directory_uri.rootUrl}/wp-json/wp/v2/subcapitulo/${subchapterId}`,
 			function (subchapter) {
 				$.get(
-					"http://localhost:3000/k9umlaude2/wp-json/wp/v2/media/" +
-						subchapter.acf.video,
+					`${directory_uri.rootUrl}/wp-json/wp/v2/media/${subchapter.acf.video}`,
 					function (data) {
 						if (subchapter.acf.text) {
 							console.log(subchapter);
