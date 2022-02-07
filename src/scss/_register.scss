@@ -2,6 +2,16 @@
 	#steps {
 		@apply hidden overflow-hidden;
 	}
+	#step2,
+	#step3 {
+		@apply hidden;
+	}
+	label {
+		&:focus {
+			color: black;
+			outline: none;
+		}
+	}
 	.end-align {
 		@apply items-end;
 	}

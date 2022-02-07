@@ -3,7 +3,6 @@ Reference: http://jsfiddle.net/BB3JK/47/
 */
 jQuery(function ($) {
 	$("select").each(function () {
-		console.log("hey");
 		var $this = $(this),
 			numberOfOptions = $(this).children("option").length;
 

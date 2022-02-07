@@ -1,0 +1,15 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="contact">
+		<div class="container">
+			<div class="left">
+				<h1 class="heading">{{post.title}}</h1>
+				<div>{{post.content}}</div>
+				<a href="#" id="submit-form" class="button button-m">Enviar</a>
+			</div>
+			<div class="right">
+				<img src="{{theme.link}}/static/img/tablet.png" alt="">
+			</div>
+		</div>
+	</main>
+{% endblock %}

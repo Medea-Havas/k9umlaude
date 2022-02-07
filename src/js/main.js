@@ -73,10 +73,11 @@ jQuery(function ($) {
 		e.preventDefault();
 		$(this).hide(0);
 		$("#image").hide(0);
-		$("#steps").fadeIn("slow");
+		$("#steps, #step1").fadeIn("slow");
 	});
 	$("#btn-goToStep2").click(function (e) {
 		e.preventDefault();
+		$("#step2").show(100);
 		$(".step").css({
 			transform: "translateX(-100%)",
 			transition: ".5s all ease-in",
@@ -87,6 +88,7 @@ jQuery(function ($) {
 	});
 	$("#btn-goToStep3").click(function (e) {
 		e.preventDefault();
+		$("#step3").show(100);
 		$(".step").css({
 			transform: "translateX(-200%)",
 			transition: ".5s all ease-in",
@@ -94,6 +96,13 @@ jQuery(function ($) {
 		setTimeout(() => {
 			$("#progressbar li:nth-child(3)").addClass("active");
 		}, 500);
+	});
+	$("#submit-form").click(function (e) {
+		e.preventDefault();
+		if (!$(".submit-wrap input").prop("disabled")) {
+			$(".submit-wrap input").trigger("click");
+			console.log("triggered");
+		}
 	});
 	// PRESS
 	$("label").keypress(function (e) {

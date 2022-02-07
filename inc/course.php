@@ -22,18 +22,4 @@ $modules = array(
 );
 $context['modules'] = Timber::get_posts($modules);
 
-// $chapters = array(
-//   'post_type' => 'capitulo',
-//   'orderby' => 'title',
-//   'order' => 'ASC',
-// );
-// $context['chapters'] = Timber::get_posts($chapters);
-
-// $subchapters = array(
-//   'post_type' => 'apartado',
-//   'orderby' => 'title',
-//   'order' => 'ASC',
-// );
-// $context['subchapters'] = Timber::get_posts($subchapters);
-
 Timber::render('course.twig', $context);

@@ -1,0 +1,67 @@
+#contact {
+	form {
+		@apply w-56;
+	}
+	input,
+	textarea {
+		@apply bg-white box-border border border-lightblue px-5 py-2 relative rounded-xl text-darkblue text-sm w-56;
+	}
+	input {
+		@apply h-auto;
+	}
+	textarea {
+		@apply h-48 resize-none;
+	}
+	label {
+		@apply font-normal text;
+	}
+	input[type="submit"] {
+		@apply button button-m;
+	}
+	.ninja-forms-req-symbol,
+	.nf-form-fields-required {
+		display: none;
+	}
+	.container {
+		@apply mx-auto my-16 px-8;
+	}
+	.submit-wrap {
+		@apply hidden;
+	}
+	.nf-after-form-content {
+		@apply hidden;
+	}
+	.nf-pass.field-wrap .nf-field-element:after,
+	.nf-error.field-wrap .nf-field-element:after {
+		top: -9px;
+		height: 20px;
+		width: 20px;
+		line-height: 22px;
+		border-radius: 100%;
+	}
+	.nf-error.field-wrap .nf-field-element:after {
+		font-size: 10px;
+		right: -19px;
+	}
+
+	.nf-pass.field-wrap .nf-field-element:after {
+		@apply text-limegreen;
+		font-size: 24px;
+		right: -20px;
+	}
+	.nf-pass .ninja-forms-field {
+		border-color: #c7d02e !important;
+	}
+	.nf-error-msg {
+		@apply text-xxs;
+	}
+	.nf-field-container {
+		@apply mb-2;
+	}
+	.third {
+		@apply w-1/3;
+	}
+	.twothirds {
+		@apply w-2/3;
+	}
+}

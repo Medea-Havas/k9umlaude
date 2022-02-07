@@ -44,7 +44,7 @@ add_action('wp_enqueue_scripts', 'k9umlaude_scripts');
 // Add admin menu separator at indexes
 add_action('admin_menu', function () {
   global $menu;
-  $menu[35] = ['', 'read', '', '', 'wp-menu-separator'];
+  $menu[30] = ['', 'read', '', '', 'wp-menu-separator'];
   $menu[40] = ['', 'read', '', '', 'wp-menu-separator'];
 });
 
