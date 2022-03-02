@@ -1,18 +1,4 @@
 <?php
-//------- ADMIN COLOR SCHEME -------
-function additional_admin_color_schemes()
-{
-  $theme_dir = get_template_directory_uri();
-
-  wp_admin_css_color(
-    'adri',
-    __('Adri'),
-    $theme_dir . '/assets/css/colors.min.css',
-    array('#004d56', '#fff', '#2e2e2e', '#3f939c')
-  );
-}
-add_action('admin_init', 'additional_admin_color_schemes');
-
 //------- STYLES AND SCRIPTS -------
 function k9umlaude_scripts()
 {
@@ -41,6 +27,15 @@ function k9umlaude_scripts()
 }
 add_action('wp_enqueue_scripts', 'k9umlaude_scripts');
 
+// Responsive embeds (single.php)
+add_action('after_setup_theme', function () {
+  add_theme_support('responsive-embeds');
+});
+
+//-----------------------------
+//------- ADMIN -------
+//-----------------------------
+
 // Add admin menu separator at indexes
 add_action('admin_menu', function () {
   global $menu;
@@ -48,12 +43,265 @@ add_action('admin_menu', function () {
   $menu[40] = ['', 'read', '', '', 'wp-menu-separator'];
 });
 
-// Responsive embeds (single.php)
-add_action('after_setup_theme', function () {
-  add_theme_support('responsive-embeds');
-});
+// Add admin color scheme
+function additional_admin_color_schemes()
+{
+  $theme_dir = get_template_directory_uri();
 
-///------- GUTENBERG -------
+  wp_admin_css_color(
+    'adri',
+    __('Adri'),
+    $theme_dir . '/assets/css/colors.min.css',
+    array('#004d56', '#fff', '#2e2e2e', '#3f939c')
+  );
+}
+add_action('admin_init', 'additional_admin_color_schemes');
+
+// Custom admin lists
+// -- Students
+function custom_students_list($columns)
+{
+  unset($columns['title']);
+
+  $columns['name']              = 'Nombre';
+  $columns['first_lastname']    = 'Primer apellido';
+  $columns['second_lastname']   = 'Segundo apellido';
+  $columns['specialty']         = 'Especialidad';
+  $columns['email']             = 'Email';
+  $columns['phone']             = 'Móvil';
+  return $columns;
+}
+function add_students_content($column)
+{
+  global $post;
+
+  if ($column == 'name') {
+    $typ = get_field('name');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'first_lastname') {
+    $typ = get_field('first_lastname');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'second_lastname') {
+    $typ = get_field('second_lastname');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'specialty') {
+    $typ = get_field('specialty');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'email') {
+    $typ = get_field('email');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'phone') {
+    $typ = get_field('phone');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+}
+
+add_action('manage_students_posts_custom_column', 'add_students_content');
+add_filter('manage_students_posts_columns', 'custom_students_list');
+
+// -- Courses
+function custom_curso_list($columns)
+{
+  unset($columns['date']);
+
+  $columns['hours']      = 'Horas';
+  $columns['credits']    = 'Créditos';
+
+  return $columns;
+}
+function add_curso_content($column)
+{
+  global $post;
+
+  if ($column == 'hours') {
+    $typ = get_field('hours');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'credits') {
+    $typ = get_field('credits');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+}
+
+add_action('manage_curso_posts_custom_column', 'add_curso_content');
+add_filter('manage_curso_posts_columns', 'custom_curso_list');
+
+// -- Modules
+function custom_modulo_list($columns)
+{
+  unset($columns['title']);
+  unset($columns['date']);
+
+  $columns['module_number']    = 'Número';
+  $columns['title']             = 'Nombre';
+  $columns['minutes']           = 'Minutos';
+  $columns['module_author']     = 'Autor';
+
+  return $columns;
+}
+function add_modulo_content($column)
+{
+  global $post;
+
+  if ($column == 'module_number') {
+    $typ = get_field('module_number');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'title') {
+    $typ = get_field('title');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'minutes') {
+    $typ = get_field('minutes');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'module_author') {
+    $typ = get_field('module_author');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+}
+
+add_action('manage_modulo_posts_custom_column', 'add_modulo_content');
+add_filter('manage_modulo_posts_columns', 'custom_modulo_list');
+
+// -- Chapters
+function custom_capitulo_list($columns)
+{
+  unset($columns['title']);
+  unset($columns['date']);
+
+  $columns['chapter_number']   = 'Número';
+  $columns['chapter_name']     = 'Nombre';
+  $columns['minutes']          = 'Minutos';
+
+  return $columns;
+}
+function add_capitulo_content($column)
+{
+  global $post;
+
+  if ($column == 'chapter_number') {
+    $typ = get_field('chapter_number');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'chapter_name') {
+    $typ = get_field('chapter_name');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'minutes') {
+    $typ = get_field('minutes');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+}
+
+add_action('manage_capitulo_posts_custom_column', 'add_capitulo_content');
+add_filter('manage_capitulo_posts_columns', 'custom_capitulo_list');
+
+// -- Subchapters
+function custom_subcapitulo_list($columns)
+{
+  unset($columns['date']);
+
+  $columns['order']   = 'Orden';
+  $columns['time']    = 'Duración';
+
+  return $columns;
+}
+function add_subcapitulo_content($column)
+{
+  global $post;
+
+  if ($column == 'order') {
+    $typ = get_field('order');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'time') {
+    $typ = get_field('time');
+    if ($typ) {
+      echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+}
+
+add_action('manage_subcapitulo_posts_custom_column', 'add_subcapitulo_content');
+add_filter('manage_subcapitulo_posts_columns', 'custom_subcapitulo_list');
+
+
+//-----------------------------
+//------- GUTENBERG -------
+//-----------------------------
+
 // Styles
 function gutenberg_css()
 {
@@ -131,14 +379,19 @@ add_theme_support(
 // Disable Gutenberg custom font size
 add_theme_support('disable-custom-font-sizes');
 
-// ------- LOGIN PAGE -------
+//-----------------------------
+//------- LOGIN PAGE -------
+//-----------------------------
 function my_login_stylesheet()
 {
   wp_enqueue_style('custom-login', get_stylesheet_directory_uri() . '/assets/css/style-login.min.css');
 }
 add_action('login_enqueue_scripts', 'my_login_stylesheet');
 
+
+//-----------------------------
 // ------- TIMBER CONFIG -------
+//-----------------------------
 /**
  * This ensures that Timber is loaded and available as a PHP class.
  * If not, it gives an error message to help direct developers on where to activate
@@ -214,24 +467,24 @@ class StarterSite extends Timber\Site
     add_theme_support('automatic-feed-links');
 
     /*
-          * Let WordPress manage the document title.
-          * By adding theme support, we declare that this theme does not use a
-          * hard-coded <title> tag in the document head, and expect WordPress to
-          * provide it for us.
-          */
+    * Let WordPress manage the document title.
+    * By adding theme support, we declare that this theme does not use a
+    * hard-coded <title> tag in the document head, and expect WordPress to
+    * provide it for us.
+    */
     add_theme_support('title-tag');
 
     /*
-          * Enable support for Post Thumbnails on posts and pages.
-          *
-          * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-          */
+    * Enable support for Post Thumbnails on posts and pages.
+    *
+    * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+    */
     add_theme_support('post-thumbnails');
 
     /*
-          * Switch default core markup for search form, comment form, and comments
-          * to output valid HTML5.
-          */
+    * Switch default core markup for search form, comment form, and comments
+    * to output valid HTML5.
+    */
     add_theme_support(
       'html5',
       array(
@@ -243,10 +496,10 @@ class StarterSite extends Timber\Site
     );
 
     /*
-          * Enable support for Post Formats.
-          *
-          * See: https://codex.wordpress.org/Post_Formats
-          */
+    * Enable support for Post Formats.
+    *
+    * See: https://codex.wordpress.org/Post_Formats
+    */
     add_theme_support(
       'post-formats',
       array(

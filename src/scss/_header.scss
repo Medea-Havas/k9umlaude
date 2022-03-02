@@ -53,5 +53,5 @@ header {
 	min-height: 45px;
 }
 .header-wrap {
-	@apply border-b border-gray;
+	@apply bg-white border-b border-gray top-0 sticky z-20;
 }

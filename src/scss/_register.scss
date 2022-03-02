@@ -1,6 +1,7 @@
 #register {
 	#steps {
-		@apply hidden overflow-hidden;
+		@apply hidden overflow-x-hidden;
+		overflow-y: -webkit-paged-x;
 	}
 	#step2,
 	#step3 {

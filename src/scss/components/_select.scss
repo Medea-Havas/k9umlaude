@@ -16,20 +16,13 @@ $select-height: 40px;
 		@apply font-bold mb-4;
 	}
 	.select-styled {
-		@apply bg-white border rounded-xl;
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		@apply absolute bg-white border bottom-0 left-0 overflow-hidden rounded-xl right-0 top-0;
 		padding: 8px 15px;
 		&:after {
+			@apply absolute h-0 w-0;
 			content: "";
-			width: 0;
-			height: 0;
 			border: 7px solid transparent;
 			border-color: $select-color transparent transparent transparent;
-			position: absolute;
 			top: 14px;
 			right: 15px;
 		}
