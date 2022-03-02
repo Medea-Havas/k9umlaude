@@ -13,6 +13,9 @@
 			outline: none;
 		}
 	}
+	.acf-form {
+		@apply hidden;
+	}
 	.end-align {
 		@apply items-end;
 	}
