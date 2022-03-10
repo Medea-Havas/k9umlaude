@@ -28,38 +28,45 @@
 								<div class="field-wrapper">
 									<div class="left">
 										<div class="field">
-											<label for="name" class="text">Nombre</label>
+											<label for="name" class="text">Nombre<sup>*</sup>
+											</label>
 											<input id="name" type="text" class="box" placeholder="Nombre">
 										</div>
 										<div class="field">
-											<label for="first-lastname" class="text">Primer apellido</label>
+											<label for="first-lastname" class="text">Primer apellido<sup>*</sup>
+											</label>
 											<input id="first-lastname" type="text" class="box" placeholder="Primer apellido">
 										</div>
 										<div class="field">
-											<label for="second-lastname" class="text">Segundo apellido</label>
+											<label for="second-lastname" class="text">Segundo apellido<sup>*</sup>
+											</label>
 											<input id="second-lastname" type="text" class="box" placeholder="Segundo apellido">
 										</div>
 									</div>
 									<div class="right">
 										<div class="field">
-											<label for="dni" class="text">DNI/NIE</label>
+											<label for="dni" class="text">DNI/NIE<sup>*</sup>
+											</label>
 											<input id="dni" type="text" class="box" placeholder="DNI/NIE">
 										</div>
 										<div class="field">
-											<label for="email" class="text">Email</label>
+											<label for="email" class="text">Email<sup>*</sup>
+											</label>
 											<input id="email" type="email" class="box" placeholder="Email">
 										</div>
 										<div class="field">
-											<label for="phone" class="text">Móvil</label>
+											<label for="phone" class="text">Móvil<sup>*</sup>
+											</label>
 											<input id="phone" type="tel" class="box" placeholder="Móvil">
 										</div>
 									</div>
 								</div>
 								<div class="field-wrapper end-align">
 									<div class="left">
-										<p class="text">Te identificas como:</p>
-										<div class="radio-options">
-											<label class="container">Masculino
+										<p class="text">Te identificas como:<sup>*</sup>
+										</p>
+										<div id="gender" class="radio-options">
+											<label class="container selected">Masculino
 												<input type="radio" checked="checked" name="gender" value="male">
 												<span class="checkmark"></span>
 											</label>
@@ -74,7 +81,7 @@
 										</div>
 									</div>
 									<div class="right">
-										<a id="btn-goToStep2" href="#" class="button button-m submit">Siguiente</a>
+										<a id="btn-goToStep2" href="#" class="button button-m disabled submit">Siguiente</a>
 									</div>
 								</div>
 							</div>
@@ -90,11 +97,12 @@
 										{% include "fragments/select-collegenumber1.twig" %}
 										{% include "fragments/select-collegenumber2.twig" %}
 										<div class="field">
-											<label for="name" class="text">Número correlativo asignado</label>
-											<input id="name" type="number" class="box" placeholder="Número correlativo" tabindex="-1">
+											<label for="correlativenum" class="text">Número correlativo asignado<sup>*</sup>
+											</label>
+											<input id="correlativenum" type="number" class="box" placeholder="Número correlativo" tabindex="-1">
 										</div>
 										<br>
-										<a id="btn-goToStep3" href="#" class="button button-m submit">Siguiente</a>
+										<a id="btn-goToStep3" href="#" class="button button-m disabled submit">Siguiente</a>
 									</div>
 								</div>
 							</div>
@@ -103,11 +111,13 @@
 								<div class="field-wrapper">
 									<div class="left">
 										<div class="field">
-											<label for="password" class="text">Contraseña</label>
+											<label for="password" class="text">Contraseña<sup>*</sup>
+											</label>
 											<input id="password" type="password" class="box" placeholder="Contraseña" tabindex="-1">
 										</div>
 										<div class="field">
-											<label for="confirm" class="text">Confirma la contraseña</label>
+											<label for="confirm" class="text">Confirma la contraseña<sup>*</sup>
+											</label>
 											<input id="confirm" type="password" class="box" placeholder="Confirma la contraseña" tabindex="-1">
 										</div>
 									</div>
@@ -126,7 +136,7 @@
 											</label>
 										</div>
 										<br>
-										<a id="btn-goToStep2" href="#" class="button button-m submit">Crear cuenta</a>
+										<a id="btn-submit" href="#" class="button button-m disabled submit">Crear cuenta</a>
 									</div>
 								</div>
 							</div>

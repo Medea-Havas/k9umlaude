@@ -27,7 +27,7 @@ const jsVendorSRC = "./src/js/vendor/*.js";
 const jsVendorDestination = "./assets/js/";
 const jsVendorFile = "vendor";
 
-const jsCustomSRC = "./src/js/*.js";
+const jsCustomSRC = "./src/js/custom/*.js";
 const jsCustomDestination = "./assets/js/";
 const jsCustomFile = "main";
 
@@ -36,7 +36,7 @@ const watchAdminStyles = "./src/admin/**/*.scss";
 const watchGutStyles = "./src/gutenberg/**/*.scss";
 const watchLogStyles = "./src/login/**/*.scss";
 const watchJsVendor = "./src/js/vendor/*.js";
-const watchJsCustom = "./src/js/*.js";
+const watchJsCustom = "./src/js/custom/*.js";
 const watchPhp = "./**/*.php";
 const watchTwig = "./**/*.twig";
 

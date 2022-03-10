@@ -14,7 +14,16 @@
 		}
 	}
 	.acf-form {
-		@apply hidden;
+		//@apply hidden;
+	}
+	.disabled {
+		@apply cursor-not-allowed;
+		&:before,
+		&:after,
+		span:before,
+		span:after {
+			@apply bg-transparent;
+		}
 	}
 	.end-align {
 		@apply items-end;
@@ -48,5 +57,8 @@
 	}
 	.subheading {
 		@apply text-darkgreen;
+	}
+	.wrong {
+		border-color: red !important;
 	}
 }
