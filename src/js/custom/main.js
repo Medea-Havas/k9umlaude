@@ -79,6 +79,10 @@ jQuery(function ($) {
 	});
 	$("#btn-goToStep2").click(function (e) {
 		e.preventDefault();
+		var name = $("#name").val();
+		var first_lastname = $("#first-lastname").val();
+		var second_lastname = $("#second-lastname").val();
+		$("#acf-_post_title").val(`${name} ${first_lastname} ${second_lastname}`);
 		if (!$(this).hasClass("disabled")) {
 			$("#step2").show(100);
 			$(".step").css({
