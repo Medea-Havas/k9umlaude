@@ -8,6 +8,7 @@
 acf_form_head();
 
 $context = Timber::get_context();
+$siteUrl = site_url();
 
 $context['form_args'] = [
   'post_id' => 'new_post',
