@@ -13,9 +13,6 @@
 			outline: none;
 		}
 	}
-	.acf-form {
-		@apply hidden;
-	}
 	.disabled {
 		@apply cursor-not-allowed;
 		&:before,

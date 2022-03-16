@@ -1,4 +1,29 @@
 jQuery(function ($) {
+	var newUser = {
+		name: null,
+		first_lastname: null,
+		second_lastname: null,
+		gender: "Masculino",
+		dni_nie: null,
+		phone: null,
+		email: null,
+		specialty: null,
+		medical_society: null,
+		working_province: null,
+		collegiate_province: null,
+		assigned_number: null,
+		password: null,
+		legal: 0,
+		personal_data: 0,
+	};
+	// TODO: Just for test
+	$("#register .wrapper").append(`
+		<div class="container newUser">
+			<pre>
+			${JSON.stringify(newUser, null, 2)}
+			</pre>
+		</div>
+	`);
 	/**
 	 * ----- REGISTER FORM -----
 	 */
@@ -11,22 +36,28 @@ jQuery(function ($) {
 			$(this).removeClass("wrong");
 		});
 		$("#register #name").focusout(function () {
-			if ($(this).val() !== "")
-				$("#acf-form #acf-field_621f42a531b11").val($(this).val());
-			else $(this).addClass("wrong");
+			if ($(this).val() !== "") {
+				newUser.name = $(this).val();
+				// TODO: Just for test
+				updateUser();
+			} else $(this).addClass("wrong");
 		});
 		// First Last Name
 		$("#register #first-lastname").focusout(function (e) {
-			if ($(this).val() !== "")
-				$("#acf-form #acf-field_621f42d131b12").val($(this).val());
-			else $(this).addClass("wrong");
+			if ($(this).val() !== "") {
+				newUser.first_lastname = $(this).val();
+				// TODO: Just for test
+				updateUser();
+			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
 		// Second Last Name
 		$("#register #second-lastname").focusout(function (e) {
-			if ($(this).val() !== "")
-				$("#acf-form #acf-field_621f433731b13").val($(this).val());
-			else $(this).addClass("wrong");
+			if ($(this).val() !== "") {
+				newUser.second_lastname = $(this).val();
+				// TODO: Just for test
+				updateUser();
+			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
 		// DNI-NIE
@@ -35,7 +66,9 @@ jQuery(function ($) {
 				var value = $(this).val().toUpperCase();
 				var isValid = checkNIFNIE(value);
 				if (isValid) {
-					$("#acf-form #acf-field_621f442e31b15").val($(this).val());
+					newUser.dni_nie = $(this).val();
+					// TODO: Just for test
+					updateUser();
 				} else {
 					$(this).addClass("wrong");
 				}
@@ -46,7 +79,9 @@ jQuery(function ($) {
 		$("#register #email").focusout(function (e) {
 			var isValid = checkMail($(this).val());
 			if (isValid) {
-				$("#acf-form #acf-field_621f475731b16").val($(this).val());
+				newUser.email = $(this).val();
+				// TODO: Just for test
+				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -55,7 +90,9 @@ jQuery(function ($) {
 			var value = $(this).val();
 			var isValid = $.isNumeric(value) && parseInt(value) > 111111111;
 			if (isValid) {
-				$("#acf-form #acf-field_621f572531b1e").val(value);
+				newUser.phone = $(this).val();
+				// TODO: Just for test
+				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -67,28 +104,20 @@ jQuery(function ($) {
 			if (selected === "Prefiero no especificarlo") {
 				selected = "No especificado";
 			}
-			$(".acf-field-621f434731b14 .select-styled").html(selected);
-			$("#acf-form #acf-field_621f434731b14 option").removeAttr("selected");
-			$(
-				"#acf-form #acf-field_621f434731b14 option[value='" + selected + "']"
-			).attr("selected", "selected");
+			newUser.gender = selected;
+			// TODO: Just for test
+			updateUser();
 			isValidDataForm();
 		});
 		// CHECK-VALIDATE
 		function isValidDataForm() {
-			var name = $("#acf-field_621f42a531b11").val();
-			var first_lastname = $("#acf-field_621f42d131b12").val();
-			var second_lastname = $("#acf-field_621f433731b13").val();
-			var dni = $("#acf-field_621f442e31b15").val();
-			var email = $("acf-field_621f475731b16").val();
-			var phone = $("acf-field_621f572531b1e").val();
 			if (
-				name !== "" &&
-				first_lastname !== "" &&
-				second_lastname !== "" &&
-				dni !== "" &&
-				email !== "" &&
-				phone !== ""
+				newUser.name !== "" &&
+				newUser.first_lastname !== "" &&
+				newUser.second_lastname !== "" &&
+				newUser.dni !== "" &&
+				newUser.email !== "" &&
+				newUser.phone !== ""
 			)
 				$("#btn-goToStep2").removeClass("disabled");
 		}
@@ -143,17 +172,15 @@ jQuery(function ($) {
 					.parent()
 					.find(".select-styled")
 					.text();
-				$(".acf-field-621f488a31b17 .select-styled").text(value);
-				$("#acf-form #acf-form #acf-field_621f488a31b17 option").removeAttr(
-					"selected"
-				);
-				$(
-					"#acf-form #acf-field_621f488a31b17 option[value='" + value + "']"
-				).attr("selected", "selected");
-				$("#register #specialty")
-					.parent()
-					.find(".select-styled")
-					.removeClass("wrong");
+				if (value) {
+					newUser.specialty = value;
+					$("#register #specialty")
+						.parent()
+						.find(".select-styled")
+						.removeClass("wrong");
+					// TODO: Just for test
+					updateUser();
+				}
 				isValidProfessionalForm();
 			});
 		// Wrong if specialty is empty
@@ -174,13 +201,9 @@ jQuery(function ($) {
 					.parent()
 					.find(".select-styled")
 					.text();
-				$(".acf-field-621f57ea31b1f .select-styled").text(value);
-				$("#acf-form #acf-form #acf-field_621f57ea31b1f option").removeAttr(
-					"selected"
-				);
-				$(
-					"#acf-form #acf-field_621f57ea31b1f option[value='" + value + "']"
-				).attr("selected", "selected");
+				newUser.medical_society = value;
+				// TODO: Just for test
+				updateUser();
 			});
 		// College number 1
 		$("#register #collegenumber1")
@@ -191,17 +214,15 @@ jQuery(function ($) {
 					.parent()
 					.find(".select-styled")
 					.text();
-				$(".acf-field-621f502731b18 .select-styled").text(value);
-				$("#acf-form #acf-field_621f502731b18 option").removeAttr("selected");
-				var trimedValue = value.replace(/\s+/g, "");
-				$("#acf-field_621f502731b18 option[value='" + trimedValue + "']").attr(
-					"selected",
-					"selected"
-				);
-				$("#register #collegenumber1")
-					.parent()
-					.find(".select-styled")
-					.removeClass("wrong");
+				if (value) {
+					$("#register #collegenumber1")
+						.parent()
+						.find(".select-styled")
+						.removeClass("wrong");
+					newUser.working_province = value;
+				}
+				// TODO: Just for test
+				updateUser();
 				isValidProfessionalForm();
 			});
 		// Wrong if collegenumber1 is empty
@@ -222,17 +243,15 @@ jQuery(function ($) {
 					.parent()
 					.find(".select-styled")
 					.text();
-				$(".acf-field-621f528331b1a .select-styled").text(value);
-				$("#acf-form #acf-field_621f528331b1a option").removeAttr("selected");
-				var trimedValue = value.replace(/\s+/g, "");
-				$("#acf-field_621f528331b1a option[value='" + trimedValue + "']").attr(
-					"selected",
-					"selected"
-				);
-				$("#register #collegenumber2")
-					.parent()
-					.find(".select-styled")
-					.removeClass("wrong");
+				if (value) {
+					$("#register #collegenumber2")
+						.parent()
+						.find(".select-styled")
+						.removeClass("wrong");
+					newUser.collegiate_province = value;
+				}
+				// TODO: Just for test
+				updateUser();
 				isValidProfessionalForm();
 			});
 		// Wrong if collegenumber2 is empty
@@ -249,21 +268,19 @@ jQuery(function ($) {
 			if ($(this).val().length !== 5 || isNaN($(this).val())) {
 				$(this).addClass("wrong");
 			} else {
-				$("#acf-form #acf-field_621f50f131b19").val($(this).val());
+				newUser.assigned_number = $(this).val();
 				$(this).removeClass("wrong");
 			}
+			// TODO: Just for test
+			updateUser();
 			isValidProfessionalForm();
 		});
 		function isValidProfessionalForm() {
-			var specialty = $("#acf-field_621f488a31b17").val();
-			var collegenumber1 = $("#acf-field_621f502731b18").val();
-			var collegenumber2 = $("#acf-field_621f528331b1a").val();
-			var correlativenum = $("#acf-field_621f50f131b19").val();
 			if (
-				specialty !== "" &&
-				collegenumber1 !== "" &&
-				collegenumber2 !== "" &&
-				correlativenum !== ""
+				newUser.specialty !== "" &&
+				newUser.collegiate_province !== "" &&
+				newUser.working_province !== "" &&
+				newUser.correlativenum !== ""
 			) {
 				$("#btn-goToStep3").removeClass("disabled");
 			}
@@ -292,17 +309,34 @@ jQuery(function ($) {
 			.parent()
 			.find("label")
 			.click(function () {
-				$("#acf-field_621f566d31b1c").attr("checked", function (_, attr) {
-					return !attr;
-				});
+				if ($("#register #accept2").hasClass("off")) {
+					$("#register #accept2").removeClass("off");
+					$("#register #accept2").addClass("on");
+					newUser.legal = 1;
+				} else {
+					$("#register #accept2").removeClass("on");
+					$("#register #accept2").addClass("off");
+					newUser.legal = 0;
+				}
+				// TODO: Just for test
+				updateUser();
+				isValidPasswordAndLegal();
 			});
 		$("#register #accept3")
 			.parent()
 			.find("label")
 			.click(function () {
-				$("#acf-field_621f56a231b1d").attr("checked", function (_, attr) {
-					return !attr;
-				});
+				if ($("#register #accept3").hasClass("off")) {
+					$("#register #accept3").removeClass("off");
+					$("#register #accept3").addClass("on");
+					newUser.personal_data = 1;
+				} else {
+					$("#register #accept3").removeClass("on");
+					$("#register #accept3").addClass("off");
+					newUser.personal_data = 0;
+				}
+				// TODO: Just for test
+				updateUser();
 			});
 		function checkPass() {
 			var pass = $("#register #password").val();
@@ -313,13 +347,13 @@ jQuery(function ($) {
 				pass === confirm &&
 				pass.length >= 8
 			) {
-				$("#acf-field_621f560831b1b").val(pass);
+				newUser.password = pass;
+				// TODO: Just for test
+				updateUser();
 			}
 		}
 		function isValidPasswordAndLegal() {
-			var pass = $("#acf-field_621f560831b1b").val();
-			var legal = $("#acf-field_621f566d31b1c").val();
-			if (pass !== "" && legal) {
+			if (newUser.password && newUser.legal) {
 				$("#btn-submit").removeClass("disabled");
 			}
 		}
@@ -328,5 +362,11 @@ jQuery(function ($) {
 			e.preventDefault();
 			$(".acf-form-submit input").trigger("click");
 		});
+		// TODO: JUST FOR TEST Update user
+		function updateUser() {
+			$("#register .wrapper .newUser pre").html(`
+				${JSON.stringify(newUser, null, 2)}
+		`);
+		}
 	}
 });
