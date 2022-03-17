@@ -16,14 +16,6 @@ jQuery(function ($) {
 		legal: 0,
 		personal_data: 0,
 	};
-	// TODO: Just for test
-	$("#register .wrapper").append(`
-		<div class="container newUser">
-			<pre>
-			${JSON.stringify(newUser, null, 2)}
-			</pre>
-		</div>
-	`);
 	/**
 	 * ----- REGISTER FORM -----
 	 */
@@ -38,16 +30,12 @@ jQuery(function ($) {
 		$("#register #name").focusout(function () {
 			if ($(this).val() !== "") {
 				newUser.name = $(this).val();
-				// TODO: Just for test
-				updateUser();
 			} else $(this).addClass("wrong");
 		});
 		// First Last Name
 		$("#register #first-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
 				newUser.first_lastname = $(this).val();
-				// TODO: Just for test
-				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -55,8 +43,6 @@ jQuery(function ($) {
 		$("#register #second-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
 				newUser.second_lastname = $(this).val();
-				// TODO: Just for test
-				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -67,8 +53,6 @@ jQuery(function ($) {
 				var isValid = checkNIFNIE(value);
 				if (isValid) {
 					newUser.dni_nie = $(this).val();
-					// TODO: Just for test
-					updateUser();
 				} else {
 					$(this).addClass("wrong");
 				}
@@ -80,8 +64,6 @@ jQuery(function ($) {
 			var isValid = checkMail($(this).val());
 			if (isValid) {
 				newUser.email = $(this).val();
-				// TODO: Just for test
-				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -91,8 +73,6 @@ jQuery(function ($) {
 			var isValid = $.isNumeric(value) && parseInt(value) > 111111111;
 			if (isValid) {
 				newUser.phone = $(this).val();
-				// TODO: Just for test
-				updateUser();
 			} else $(this).addClass("wrong");
 			isValidDataForm();
 		});
@@ -105,8 +85,6 @@ jQuery(function ($) {
 				selected = "No especificado";
 			}
 			newUser.gender = selected;
-			// TODO: Just for test
-			updateUser();
 			isValidDataForm();
 		});
 		// CHECK-VALIDATE
@@ -178,8 +156,6 @@ jQuery(function ($) {
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
-					// TODO: Just for test
-					updateUser();
 				}
 				isValidProfessionalForm();
 			});
@@ -202,8 +178,6 @@ jQuery(function ($) {
 					.find(".select-styled")
 					.text();
 				newUser.medical_society = value;
-				// TODO: Just for test
-				updateUser();
 			});
 		// College number 1
 		$("#register #collegenumber1")
@@ -215,14 +189,13 @@ jQuery(function ($) {
 					.find(".select-styled")
 					.text();
 				if (value) {
+					value = value.trim();
 					$("#register #collegenumber1")
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
 					newUser.working_province = value;
 				}
-				// TODO: Just for test
-				updateUser();
 				isValidProfessionalForm();
 			});
 		// Wrong if collegenumber1 is empty
@@ -244,14 +217,13 @@ jQuery(function ($) {
 					.find(".select-styled")
 					.text();
 				if (value) {
+					value = value.trim();
 					$("#register #collegenumber2")
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
 					newUser.collegiate_province = value;
 				}
-				// TODO: Just for test
-				updateUser();
 				isValidProfessionalForm();
 			});
 		// Wrong if collegenumber2 is empty
@@ -271,8 +243,6 @@ jQuery(function ($) {
 				newUser.assigned_number = $(this).val();
 				$(this).removeClass("wrong");
 			}
-			// TODO: Just for test
-			updateUser();
 			isValidProfessionalForm();
 		});
 		function isValidProfessionalForm() {
@@ -318,8 +288,6 @@ jQuery(function ($) {
 					$("#register #accept2").addClass("off");
 					newUser.legal = 0;
 				}
-				// TODO: Just for test
-				updateUser();
 				isValidPasswordAndLegal();
 			});
 		$("#register #accept3")
@@ -335,8 +303,6 @@ jQuery(function ($) {
 					$("#register #accept3").addClass("off");
 					newUser.personal_data = 0;
 				}
-				// TODO: Just for test
-				updateUser();
 			});
 		function checkPass() {
 			var pass = $("#register #password").val();
@@ -348,8 +314,6 @@ jQuery(function ($) {
 				pass.length >= 8
 			) {
 				newUser.password = pass;
-				// TODO: Just for test
-				updateUser();
 			}
 		}
 		function isValidPasswordAndLegal() {
@@ -360,13 +324,17 @@ jQuery(function ($) {
 		// submit
 		$("#btn-submit").click(function (e) {
 			e.preventDefault();
-			$(".acf-form-submit input").trigger("click");
+			$.ajax({
+				type: "POST",
+				url: directory_uri.rootUrl + "/wp-json/wp/v2/users/register",
+				data: JSON.stringify(newUser),
+				contentType: "application/json",
+				success: function (data, status) {
+					if (status === "success") {
+						location.href = directory_uri.rootUrl + "/login";
+					}
+				},
+			});
 		});
-		// TODO: JUST FOR TEST Update user
-		function updateUser() {
-			$("#register .wrapper .newUser pre").html(`
-				${JSON.stringify(newUser, null, 2)}
-		`);
-		}
 	}
 });

@@ -105,13 +105,6 @@ jQuery(function ($) {
 			$("#progressbar li:nth-child(3)").addClass("active");
 		}, 500);
 	});
-	$("#submit-form").click(function (e) {
-		e.preventDefault();
-		if (!$(".submit-wrap input").prop("disabled")) {
-			$(".submit-wrap input").trigger("click");
-			console.log("triggered");
-		}
-	});
 	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();
