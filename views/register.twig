@@ -31,16 +31,19 @@
 											<label for="name" class="text">Nombre<sup>*</sup>
 											</label>
 											<input id="name" type="text" class="box" placeholder="Nombre">
+											<p class="error">Nombre requerido</p>
 										</div>
 										<div class="field">
 											<label for="first-lastname" class="text">Primer apellido<sup>*</sup>
 											</label>
 											<input id="first-lastname" type="text" class="box" placeholder="Primer apellido">
+											<p class="error">Primer apellido requerido</p>
 										</div>
 										<div class="field">
 											<label for="second-lastname" class="text">Segundo apellido<sup>*</sup>
 											</label>
 											<input id="second-lastname" type="text" class="box" placeholder="Segundo apellido">
+											<p class="error">Segundo apellido requerido</p>
 										</div>
 									</div>
 									<div class="right">
@@ -48,16 +51,22 @@
 											<label for="dni" class="text">DNI/NIE<sup>*</sup>
 											</label>
 											<input id="dni" type="text" class="box" placeholder="DNI/NIE">
+											<p class="error">DNI/NIE requerido</p>
+											<p class="error2">Formato incorrecto</p>
 										</div>
 										<div class="field">
 											<label for="email" class="text">Email<sup>*</sup>
 											</label>
 											<input id="email" type="email" class="box" placeholder="Email">
+											<p class="error">Email requerido</p>
+											<p class="error2">Formato incorrecto</p>
 										</div>
 										<div class="field">
 											<label for="phone" class="text">Móvil<sup>*</sup>
 											</label>
 											<input id="phone" type="tel" class="box" placeholder="Móvil">
+											<p class="error">Teléfono móvil requerido</p>
+											<p class="error2">Formato incorrecto</p>
 										</div>
 									</div>
 								</div>
@@ -100,6 +109,8 @@
 											<label for="correlativenum" class="text">Número correlativo asignado<sup>*</sup>
 											</label>
 											<input id="correlativenum" type="number" class="box" placeholder="Número correlativo" tabindex="-1">
+											<p class="error">Número requerido</p>
+											<p class="error2">Formato incorrecto</p>
 										</div>
 										<br>
 										<a id="btn-goToStep3" href="#" class="button button-m disabled submit">Siguiente</a>
@@ -114,11 +125,14 @@
 											<label for="password" class="text">Contraseña<sup>*</sup>
 											</label>
 											<input id="password" type="password" class="box" placeholder="Contraseña" tabindex="-1">
+											<p class="error">Contraseña requerida</p>
+											<p class="error2">La contraseña debe tener al menos 8 caracteres</p>
 										</div>
 										<div class="field">
 											<label for="confirm" class="text">Confirma la contraseña<sup>*</sup>
 											</label>
 											<input id="confirm" type="password" class="box" placeholder="Confirma la contraseña" tabindex="-1">
+											<p class="error">La contraseña no coincide</p>
 										</div>
 									</div>
 									<div class="right">
@@ -127,6 +141,7 @@
 											<label for="accept2">
 												He leído y acepto
 												<a href="/politica-privacidad" class="link">el aviso legal y la política de privacidad</a>
+												<sup>*</sup>
 											</label>
 										</div>
 										<div class="checkbox">

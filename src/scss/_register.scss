@@ -25,11 +25,20 @@
 	.end-align {
 		@apply items-end;
 	}
+	.error,
+	.error2 {
+		@apply hidden ml-4 text-sm;
+		color: red;
+	}
 	.field-wrapper {
 		@apply flex;
 	}
 	.left p {
 		@apply mb-6 max-w-md;
+		&.error,
+		&.error2 {
+			@apply mb-0;
+		}
 	}
 	.long-text {
 		&::before {

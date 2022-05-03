@@ -30,20 +30,32 @@ jQuery(function ($) {
 		$("#register #name").focusout(function () {
 			if ($(this).val() !== "") {
 				newUser.name = $(this).val();
-			} else $(this).addClass("wrong");
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error").show();
+			}
 		});
 		// First Last Name
 		$("#register #first-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
 				newUser.first_lastname = $(this).val();
-			} else $(this).addClass("wrong");
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error").show();
+			}
 			isValidDataForm();
 		});
 		// Second Last Name
 		$("#register #second-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
 				newUser.second_lastname = $(this).val();
-			} else $(this).addClass("wrong");
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error").show();
+			}
 			isValidDataForm();
 		});
 		// DNI-NIE
@@ -53,27 +65,56 @@ jQuery(function ($) {
 				var isValid = checkNIFNIE(value);
 				if (isValid) {
 					newUser.dni_nie = $(this).val();
+					$(this).parent().find(".error2").hide();
 				} else {
 					$(this).addClass("wrong");
+					$(this).parent().find(".error2").show();
 				}
-			} else $(this).addClass("wrong");
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error2").hide();
+				$(this).parent().find(".error").show();
+			}
 			isValidDataForm();
 		});
 		// Email
 		$("#register #email").focusout(function (e) {
-			var isValid = checkMail($(this).val());
-			if (isValid) {
-				newUser.email = $(this).val();
-			} else $(this).addClass("wrong");
+			if ($(this).val() !== "") {
+				var isValid = checkMail($(this).val());
+				if (isValid) {
+					newUser.email = $(this).val();
+					$(this).parent().find(".error2").hide();
+				} else {
+					$(this).addClass("wrong");
+					$(this).parent().find(".error2").show();
+				}
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error2").hide();
+				$(this).parent().find(".error").show();
+			}
 			isValidDataForm();
 		});
 		// Phone
 		$("#register #phone").focusout(function (e) {
 			var value = $(this).val();
-			var isValid = $.isNumeric(value) && parseInt(value) > 111111111;
-			if (isValid) {
-				newUser.phone = $(this).val();
-			} else $(this).addClass("wrong");
+			if (value !== "") {
+				var isValid = $.isNumeric(value) && parseInt(value) > 111111111;
+				if (isValid) {
+					newUser.phone = $(this).val();
+					$(this).parent().find(".error2").hide();
+				} else {
+					$(this).addClass("wrong");
+					$(this).parent().find(".error2").hide();
+				}
+				$(this).parent().find(".error").hide();
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error2").hide();
+				$(this).parent().find(".error").show();
+			}
 			isValidDataForm();
 		});
 		// Gender
@@ -156,6 +197,7 @@ jQuery(function ($) {
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
+					$("#register #specialty").parent().parent().find(".error").hide();
 				}
 				isValidProfessionalForm();
 			});
@@ -166,6 +208,7 @@ jQuery(function ($) {
 			.click(function () {
 				if ($("#register #specialty").val() === "hide") {
 					$(this).addClass("wrong");
+					$(this).parent().parent().find(".error").show();
 				}
 			});
 		// Medical Society
@@ -194,6 +237,11 @@ jQuery(function ($) {
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
+					$("#register #collegenumber1")
+						.parent()
+						.parent()
+						.find(".error")
+						.hide();
 					newUser.working_province = value;
 				}
 				isValidProfessionalForm();
@@ -205,6 +253,7 @@ jQuery(function ($) {
 			.click(function () {
 				if ($("#register #collegenumber1").val() === "hide") {
 					$(this).addClass("wrong");
+					$(this).parent().parent().find(".error").show();
 				}
 			});
 		// College number 2
@@ -222,6 +271,11 @@ jQuery(function ($) {
 						.parent()
 						.find(".select-styled")
 						.removeClass("wrong");
+					$("#register #collegenumber2")
+						.parent()
+						.parent()
+						.find(".error")
+						.hide();
 					newUser.collegiate_province = value;
 				}
 				isValidProfessionalForm();
@@ -233,15 +287,26 @@ jQuery(function ($) {
 			.click(function () {
 				if ($("#register #collegenumber2").val() === "hide") {
 					$(this).addClass("wrong");
+					$(this).parent().parent().find(".error").show();
 				}
 			});
 		// Correlative number
 		$("#register #correlativenum").focusout(function () {
-			if ($(this).val().length !== 5 || isNaN($(this).val())) {
+			if (!$(this).val()) {
 				$(this).addClass("wrong");
+				$(this).parent().find(".error").show();
+				$(this).parent().find(".error2").hide();
 			} else {
-				newUser.assigned_number = $(this).val();
-				$(this).removeClass("wrong");
+				$(this).parent().find(".error").hide();
+				if ($(this).val().length !== 5 || isNaN($(this).val())) {
+					$(this).addClass("wrong");
+					$(this).parent().find(".error2").show();
+				} else {
+					newUser.assigned_number = $(this).val();
+					$(this).removeClass("wrong");
+					$(this).parent().find(".error").hide();
+					$(this).parent().find(".error2").hide();
+				}
 			}
 			isValidProfessionalForm();
 		});
@@ -259,10 +324,21 @@ jQuery(function ($) {
 		 * ----- PASSWORD AND LEGAL -----
 		 */
 		$("#register #password").focusout(function () {
-			if ($(this).val() !== "" && $(this).val().length >= 8) {
-				$(this).removeClass("wrong");
-				checkPass();
-			} else $(this).addClass("wrong");
+			if ($(this).val() === "") {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error2").hide();
+				$(this).parent().find(".error").show();
+			} else {
+				$(this).parent().find(".error").hide();
+				if ($(this).val().length >= 8) {
+					$(this).removeClass("wrong");
+					$(this).parent().find(".error2").hide();
+					checkPass();
+				} else {
+					$(this).addClass("wrong");
+					$(this).parent().find(".error2").show();
+				}
+			}
 			isValidPasswordAndLegal();
 		});
 		$("#register #confirm").focusout(function () {
@@ -271,8 +347,12 @@ jQuery(function ($) {
 				$(this).val() === $("#register #password").val()
 			) {
 				$(this).removeClass("wrong");
+				$(this).parent().find(".error").hide();
 				checkPass();
-			} else $(this).addClass("wrong");
+			} else {
+				$(this).addClass("wrong");
+				$(this).parent().find(".error").show();
+			}
 			isValidPasswordAndLegal();
 		});
 		$("#register #accept2")
