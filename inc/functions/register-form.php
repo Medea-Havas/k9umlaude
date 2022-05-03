@@ -16,7 +16,13 @@ function wp_rest_user_endpoints($request)
   register_rest_route('wp/v2', 'users/register', array(
     'methods' => 'POST',
     'callback' => 'wc_rest_user_endpoint_handler',
+    'permission_callback' => 'wrong_permission'
   ));
+}
+
+function wrong_permission()
+{
+  return 'Wrong permission user/register';
 }
 
 function wc_rest_user_endpoint_handler($request = null)

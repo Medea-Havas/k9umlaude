@@ -8,15 +8,15 @@
 					<p class="text">Si es su primera vez
 						<a href="{{site.url}}/registro" class="link">cree su cuenta</a>
 					</p>
-					<form action="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/">
+					<form id="login-form" action="{{site.url}}/wp-login.php" method="post">
 						<div class="field">
 							<label for="email" class="text">Email</label>
-							<input id="email" type="email" class="box" placeholder="Email">
+							<input id="email" type="email" name="log" class="box" placeholder="Email">
 						</div>
 						<div class="field field-last">
 							<label for="pass" class="text">Contraseña</label>
 							<div class="input-wrap">
-								<input id="pass" type="password" class="box" placeholder="Contraseña">
+								<input id="pass" type="password" name="pwd" class="box" placeholder="Contraseña">
 								<a href="#" class="forgot link" tabindex="0">Olvidé mi contraseña</a>
 							</div>
 						</div>
@@ -27,7 +27,9 @@
 								<a href="/politica-privacidad" class="link" tabindex="0">política de privacidad</a>
 							</label>
 						</div>
-						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia" class="button button-m submit" tabindex="0">Acceder</a>
+						<a id="submit" href="#" class="button button-m" tabindex="0">Acceder</a>
+						<input class="hidden submit" type="submit" name="wp-submit" value="Acceder">
+						<input type="hidden" name="redirect_to" value="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia">
 					</form>
 				</div>
 				<div class="right">

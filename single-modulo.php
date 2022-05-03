@@ -1,5 +1,5 @@
 <?php
-
+global $wpdb;
 $context = Timber::get_context();
 
 $context['parent'] = get_post_field('belongs_to', null, $context);
@@ -25,6 +25,10 @@ $materials = array(
   'order' => 'ASC'
 );
 $context['materials'] = Timber::get_posts($materials);
+
+$context['current_user'] = new Timber\User();
+
+$context['cust'] = $wpdb->get_results("SELECT * FROM usuarios_subcapitulos WHERE id_usuario = 8");
 
 $context['post'] = new Timber\Post();
 

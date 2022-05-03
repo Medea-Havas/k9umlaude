@@ -6,6 +6,12 @@ header {
 	div {
 		@apply flex items-center;
 	}
+	#account {
+		@apply flex;
+		svg {
+			@apply ml-2 w-4;
+		}
+	}
 	#logo {
 		@apply w-40;
 		&:hover {

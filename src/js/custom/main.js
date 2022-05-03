@@ -1,4 +1,9 @@
 jQuery(function ($) {
+	// SmoothScroll
+	var scroll = new SmoothScroll('a[href*="#"]', {
+		offset: 109,
+	});
+	// Custom scroll
 	if ($("#custom-scroll").length) {
 		$("#custom-scroll").overlayScrollbars({
 			scrollbars: {
@@ -15,15 +20,6 @@ jQuery(function ($) {
 	let count = 0;
 	$(".count").each(function () {
 		count = count + parseInt($(this).text());
-	});
-	// TODO: ON PRESSING ENTER IN A FORM FOLLOWS .submit URL (JUST FOR TEST)
-	$("form").keypress(function (e) {
-		e.preventDefault();
-		if (e.which === 13) {
-			var button = $(this).find(".submit")[0];
-			var url = $(button).attr("href");
-			window.location.href = url;
-		}
 	});
 	setTimeout(() => {
 		$(".remaining span").html(count);
@@ -59,6 +55,10 @@ jQuery(function ($) {
 	});
 	/* EVENTS */
 	// CLICK
+	$("#login-form #submit").click(function (e) {
+		e.preventDefault();
+		$(this).parent().find(".submit").trigger("click");
+	});
 	$("#program .module").click(function (e) {
 		e.preventDefault();
 		$(this).toggleClass("selected");
@@ -111,6 +111,11 @@ jQuery(function ($) {
 		if (e.which === 32) {
 			var ischecked = $(this).parent().find("input").prop("checked");
 			$(this).parent().find("input").prop("checked", !ischecked);
+		}
+	});
+	$("#login-form").keypress(function (e) {
+		if (e.which === 13) {
+			$(this).find(".submit").trigger("click");
 		}
 	});
 

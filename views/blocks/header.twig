@@ -14,13 +14,34 @@
 		{% if fn('is_front_page') %}
 			<div>
 				{% include "blocks/nav.twig" %}
-				<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+				{% if user %}
+					<div id="account" title="{{ user.name }}">
+						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
+						{{ source(directory ~ '/static/img/svg/account.svg') }}
+					</div>
+				{% else %}
+					<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+				{% endif %}
 			</div>
 		{% elseif fn('is_page', 'login') %}
-			<div class="page-nav"></div>
+			<div class="page-nav">
+				{% if user %}
+					<div id="account" title="{{ user.name }}">
+						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
+						{{ source(directory ~ '/static/img/svg/account.svg') }}
+					</div>
+				{% endif %}
+			</div>
 		{% else %}
 			<div>
-				<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+				{% if user %}
+					<div id="account" title="{{ user.name }}">
+						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
+						{{ source(directory ~ '/static/img/svg/account.svg') }}
+					</div>
+				{% else %}
+					<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
+				{% endif %}
 			</div>
 		{% endif %}
 	</header>

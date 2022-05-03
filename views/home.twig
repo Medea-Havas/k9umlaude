@@ -6,7 +6,11 @@
 				<div class="left">
 					<h2 class="heading">Formación online<br>acreditada sobre<br>hipercolesterolemia</h2>
 					<p class="text">Con el curso “Actualización del abordaje terapéutico del paciente con dislipemia” podrá completar sus conocimientos sobre la Hipercolesterolemia y descubrir cómo prevenir y tratar las dislipemias en pacientes de alto riesgo cardiovascular.</p>
-					<a href="#" class="button button-m">Ir al curso</a>
+					{% if user %}
+						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-m">Ir al curso</a>
+					{% else %}
+						<a href="{{site.url}}/login" class="button button-m">Acceso</a>
+					{% endif %}
 				</div>
 				<div class="right"><img src="{{theme.link}}/static/img/computer.png"></div>
 			</div>

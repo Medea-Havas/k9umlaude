@@ -1,6 +1,9 @@
 {% extends "base.twig" %}
 {% block content %}
 	<main id="module">
+		<p class="current-user-info">Your name is
+			{{ current_user.name }}</p>
+		{{ dump(cust) }}
 		{% set parent = Post(post.belongs_to) %}
 		<div class="wrapper">
 			<div class="breadcrumb">
