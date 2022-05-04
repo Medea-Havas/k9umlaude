@@ -55,10 +55,6 @@ jQuery(function ($) {
 	});
 	/* EVENTS */
 	// CLICK
-	$("#login-form #submit").click(function (e) {
-		e.preventDefault();
-		$(this).parent().find(".submit").trigger("click");
-	});
 	$("#program .module").click(function (e) {
 		e.preventDefault();
 		$(this).toggleClass("selected");
@@ -105,17 +101,19 @@ jQuery(function ($) {
 			$("#progressbar li:nth-child(3)").addClass("active");
 		}, 500);
 	});
+	$("#accept")
+		.parent()
+		.find("label")
+		.click(function () {
+			acceptPrivacy = !acceptPrivacy;
+			checkLoginForm();
+		});
 	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();
 		if (e.which === 32) {
 			var ischecked = $(this).parent().find("input").prop("checked");
 			$(this).parent().find("input").prop("checked", !ischecked);
-		}
-	});
-	$("#login-form").keypress(function (e) {
-		if (e.which === 13) {
-			$(this).find(".submit").trigger("click");
 		}
 	});
 

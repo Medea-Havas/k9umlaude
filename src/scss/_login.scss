@@ -5,6 +5,15 @@
 	.accept {
 		@apply mb-8 text-xs text-darkblue;
 	}
+	.disabled {
+		@apply cursor-not-allowed;
+		&:before,
+		&:after,
+		span:before,
+		span:after {
+			@apply bg-transparent;
+		}
+	}
 	.forgot {
 		@apply inline-block mt-1 text-right text-xs;
 	}
