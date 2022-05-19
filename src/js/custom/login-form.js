@@ -6,6 +6,13 @@ jQuery(function ($) {
 			$(this).parent().find(".submit").trigger("click");
 		}
 	});
+	$("#login-form #accept")
+		.parent()
+		.find("label")
+		.click(function () {
+			acceptPrivacy = !acceptPrivacy;
+			checkLoginForm();
+		});
 	$("#login-form").keypress(function (e) {
 		if (
 			e.which === 13 &&

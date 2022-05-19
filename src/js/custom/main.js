@@ -101,13 +101,6 @@ jQuery(function ($) {
 			$("#progressbar li:nth-child(3)").addClass("active");
 		}, 500);
 	});
-	$("#accept")
-		.parent()
-		.find("label")
-		.click(function () {
-			acceptPrivacy = !acceptPrivacy;
-			checkLoginForm();
-		});
 	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();

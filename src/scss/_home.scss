@@ -106,6 +106,9 @@ section {
 			h3 {
 				@apply mb-0;
 			}
+			&:last-child .info .program-chapter:first-child {
+				@apply mt-4;
+			}
 			.arrow {
 				transform: rotate(90deg);
 				transition: 0.3s all ease-in;
