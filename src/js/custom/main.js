@@ -4,26 +4,18 @@ jQuery(function ($) {
 		offset: 109,
 	});
 	// Custom scroll
-	if ($("#custom-scroll").length) {
-		$("#custom-scroll").overlayScrollbars({
-			scrollbars: {
-				autohide: "move",
-			},
-		});
-	}
+	// if ($("#custom-scroll").length) {
+	// 	$("#custom-scroll").overlayScrollbars({
+	// 		scrollbars: {
+	// 			autohide: "move",
+	// 		},
+	// 	});
+	// }
 	// TODO: SELECTS FIRST SUBCHAPTER (JUST FOR TEST)
 	if ($("#module").length) {
-		$(".subchapters li:first a").addClass("selected");
-		getVideoFromSubchapter($(".subchapters .selected").data("id"));
+		$(".chapters li a:first").addClass("selected");
+		getVideoFromChapter($(".chapters .selected").data("id"));
 	}
-	// TODO: CHANGES REMAINING TIME (JUST FOR TEST)
-	let count = 0;
-	$(".count").each(function () {
-		count = count + parseInt($(this).text());
-	});
-	setTimeout(() => {
-		$(".remaining span").html(count);
-	}, 1000);
 	/* ON INIT */
 	$("#program .module.selected").find(".info").show();
 	$(".owl-carousel").owlCarousel({
@@ -60,12 +52,11 @@ jQuery(function ($) {
 		$(this).toggleClass("selected");
 		$(this).find(".info").slideToggle();
 	});
-	$(".subchapters a").click(function (e) {
+	$(".chapters a").click(function (e) {
 		e.preventDefault();
-		$(".subchapters a").removeClass("selected");
+		$(".chapters a").removeClass("selected");
 		$(this).addClass("selected");
-		console.log($(this).data("id"));
-		getVideoFromSubchapter($(this).data("id"));
+		getVideoFromChapter($(this).data("id"));
 	});
 	$("#btn-goToStep1").click(function (e) {
 		e.preventDefault();
@@ -110,29 +101,29 @@ jQuery(function ($) {
 		}
 	});
 
-	function getVideoFromSubchapter(subchapterId) {
+	function getVideoFromChapter(chapterId) {
 		$("#content .module-content-display").html(
 			`<div class="loader"><img src="${directory_uri.stylesheetUrl}/static/img/loader.gif"></div>`
 		);
 		$.get(
-			`${directory_uri.rootUrl}/wp-json/wp/v2/subcapitulo/${subchapterId}`,
-			function (subchapter) {
+			`${directory_uri.rootUrl}/wp-json/wp/v2/chapter/${chapterId}`,
+			function (chapter) {
+				console.log(chapter);
 				$.get(
-					`${directory_uri.rootUrl}/wp-json/wp/v2/media/${subchapter.acf.video}`,
+					`${directory_uri.rootUrl}/wp-json/wp/v2/media?parent=${chapterId}`,
 					function (data) {
-						if (subchapter.acf.text) {
-							console.log(subchapter);
+						if (chapter.title) {
 							$("#content .module-content-display").html(
 								`
 									<div class="content">
 										<video controls>
-											<source src="${data.source_url}" type="video/mp4">
+											<source src="${data[0].source_url}" type="video/mp4">
 											Su navegador no soporta vídeos
 										</video>
 										<div class="subchapter-text">
-											<h2>${subchapter.title.rendered}</h2>
-											<p>${subchapter.acf.text}</p>
+											<h2>${chapter.title.rendered}</h2>
 										</div>
+										<div class="chapter-text">${chapter.acf.chapter_text}</div>
 									</div>`
 							);
 						} else {
@@ -140,7 +131,7 @@ jQuery(function ($) {
 								`
 									<div class="content">
 										<video controls>
-											<source src="${data.source_url}" type="video/mp4">
+											<source src="${data[0].source_url}" type="video/mp4">
 											Su navegador no soporta vídeos
 										</video>
 									</div>`

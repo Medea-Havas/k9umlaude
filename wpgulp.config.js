@@ -1,4 +1,4 @@
-const projectURL = "http://localhost/k9umlaude2";
+const projectURL = "http://localhost/k9umlaude";
 const productURL = "./";
 
 const browserAutoOpen = true;

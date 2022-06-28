@@ -16,9 +16,8 @@
 			<div class="header-module-content">
 				<div class="header-module-content-display">
 					<h1 class="heading number">Módulo
-						{{post.custom.module_number}}.</h1>
-					<h1 class="heading">{{post.custom.title}}</h1>
-					<p class="text">{{post.custom.description}}</p>
+						{{post.custom.module_number}}.<br>
+						{{post.custom.title}}</h1>
 				</div>
 				<div class="header-module-content-list">
 					<div class="subcontainer">
@@ -42,7 +41,7 @@
 				<div class="module-content">
 					<div class="module-content-display"></div>
 					<div class="module-content-list">
-						<div class="block noend">
+						<div class="block noend block-first">
 							<ul class="chapters">
 								<li>
 									<div class="block-header">
@@ -52,63 +51,45 @@
 										<p class="author">{{post.custom.module_author}}</p>
 									</div>
 									<div id="custom-scroll" class="chapter-wrapper">
+										{% set count = 0 %}
 										{% for chapter in chapters %}
 											{% if post.id == chapter.custom.belongs_to %}
-												<div class="chapter-header">
-													<p>
-														<span class="chapter-title">Capítulo
-															{{chapter.custom.chapter_number}}</span><br>
-														<span class="chapter-name">{{chapter.custom.chapter_name}}</span>
-													</p>
+												{% set count = count + chapter.custom.minutes %}
+												<a href="#" data-id="{{ chapter.id }}" class="chapter-header">
+													<div class="chapter-header-title">
+														{{ source(directory ~ '/static/img/svg/check-done.svg') }}
+														<p class="chapter-name">{{chapter.custom.chapter_name}}</p>
+													</div>
 													<div>
 														{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-														{% set count = 0 %}
-														{% for subchapter in subchapters %}
-															{% if chapter.id == subchapter.custom.belongs_to %}
-																{% set count = count + subchapter.custom.time %}
-															{% endif %}
-														{% endfor %}
 														<p>
-															<span class="count">{{count}}</span>
+															<span class="count">{{chapter.custom.minutes | replace({'.': ":"})}}</span>
 															min</p>
 													</div>
-												</div>
-												<ul class="subchapters">
-													{% for subchapter in subchapters %}
-														{% if chapter.id == subchapter.custom.belongs_to %}
-															<li>
-																<a href="#" data-id="{{subchapter.id}}">
-																	<div class="subchapter-title-wrap">
-																		{{ source(directory ~ '/static/img/svg/check-done.svg') }}
-																		<p class="subchapter-title">
-																			{{ subchapter.title }}</p>
-																	</div>
-																	<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-																		<p>{{subchapter.custom.time}}
-																			min</p>
-																	</div>
-																</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-												</ul>
+												</a>
 											{% endif %}
 										{% endfor %}
-									</div>
-									<div class="chapter-footer">
-										<div class="chapter-footer_text-wrap">
-											<p class="chapter-footer__title">Tiempo para acabar el módulo</p>
-											<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-												<p class="remaining">
-													<span>34</span>
-													min</p>
-											</div>
-										</div>
-										<div class="ldBar line" data-value="50" data-aspect-ratio="none" style="width: 100%"></div>
+										{# If decimals above 60, sum 1, rest .60 to convert into minutes #}
+										{% set countDec = count | split('.') %}
+										{% if countDec[1] > 60 %}
+											{% set count = count  + 1 %}
+											{% set count = count - 0.6 %}
+										{% endif %}
 									</div>
 								</li>
+							</ul>
+						</div>
+						<div class="chapter-footer">
+							<div class="chapter-footer_text-wrap">
+								<p class="chapter-footer__title">Tiempo para acabar el módulo</p>
+								<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+									<p class="remaining">
+										<span>{{count | replace({'.': ":"})}}</span>
+										min</p>
+								</div>
 							</div>
-						</ul>
+							<div class="ldBar line" data-value="50" data-aspect-ratio="none" style="width: 100%"></div>
+						</div>
 						<div class="block material">
 							<p class="subheading">Materiales de apoyo</p>
 							{% for document in materials %}
@@ -134,7 +115,7 @@
 						</a>
 					</div>
 				</div>
-			</li>
+			</section>
 		</div>
 	</div>
-</section></li></div></div></main>{% endblock %}
+</main>{% endblock %}
