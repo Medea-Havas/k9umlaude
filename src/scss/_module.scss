@@ -87,18 +87,15 @@
 		}
 		&-header {
 			@apply flex items-center px-8 py-2 relative text-darkblue;
+			&:not(.enabled) {
+				@apply opacity-60;
+				pointer-events: none;
+			}
 			&-title {
 				@apply flex flex-grow;
 			}
 			&:first-child {
 				@apply pt-4;
-			}
-			&:after {
-				@apply absolute border-b border-line;
-				bottom: 0rem;
-				content: "";
-				left: 2%;
-				width: 96%;
 			}
 			&:last-child {
 				&:after,
@@ -109,22 +106,29 @@
 			&.selected {
 				@apply bg-lightblue text-white;
 			}
+			&:not(.selected):hover .chapter-name {
+				@apply text-darkblue;
+			}
 			div {
 				@apply flex items-center justify-between;
-				&:after {
-					@apply absolute border-b z-20;
-					border-color: #f5f5f5;
-					bottom: -0.05rem;
-					content: "";
-					left: 2%;
-					width: 96%;
-				}
 				p {
 					@apply w-16 text-sm;
 				}
 			}
 			p {
 				@apply flex-grow leading-5;
+			}
+		}
+		&-wrapper {
+			.line {
+				@apply border-b relative;
+				border-color: #f5f5f5;
+				content: "";
+				left: 2%;
+				width: 95%;
+				&:last-child {
+					@apply hidden;
+				}
 			}
 		}
 	}
@@ -158,6 +162,11 @@
 	}
 	.material {
 		@apply px-8;
+		a {
+			&:hover {
+				@apply text-lightblue;
+			}
+		}
 	}
 	.module-content-list .noend {
 		@apply mb-0;

@@ -15,7 +15,7 @@
 			<div>
 				{% include "blocks/nav.twig" %}
 				{% if user %}
-					<div id="account" title="{{ user.name }}">
+					<div id="account" data-id="{{user.id}}" title=" {{ user.name }} ">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
 						{{ source(directory ~ '/static/img/svg/account.svg') }}
 					</div>
@@ -26,7 +26,7 @@
 		{% elseif fn('is_page', 'login') %}
 			<div class="page-nav">
 				{% if user %}
-					<div id="account" title="{{ user.name }}">
+					<div id="account" data-id="{{user.id}}" title=" {{ user.name }} ">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
 						{{ source(directory ~ '/static/img/svg/account.svg') }}
 					</div>
@@ -35,7 +35,7 @@
 		{% else %}
 			<div>
 				{% if user %}
-					<div id="account" title="{{ user.name }}">
+					<div id="account" data-id="{{user.id}}" title="{{ user.name }}">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
 						{{ source(directory ~ '/static/img/svg/account.svg') }}
 					</div>

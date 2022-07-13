@@ -97,3 +97,4 @@ require_once(__DIR__ . '/inc/functions/gutenberg.php');
 require_once(__DIR__ . '/inc/functions/timber.php');
 require_once(__DIR__ . '/inc/functions/register-form.php');
 require_once(__DIR__ . '/inc/functions/custom-admin-lists.php');
+require_once(__DIR__ . '/inc/functions/rest-api.php');

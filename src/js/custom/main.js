@@ -45,6 +45,12 @@ jQuery(function ($) {
 			},
 		},
 	});
+	if ($("ul.chapters").length) {
+		var nxt = $(".chapters .enabled").nextAll(".chapter-header").first();
+		if (nxt.length) {
+			$(nxt).addClass("enabled");
+		}
+	}
 	/* EVENTS */
 	// CLICK
 	$("#program .module").click(function (e) {
@@ -105,44 +111,62 @@ jQuery(function ($) {
 		$("#content .module-content-display").html(
 			`<div class="loader"><img src="${directory_uri.stylesheetUrl}/static/img/loader.gif"></div>`
 		);
+		const userId = document.getElementById("account").dataset.id;
+
 		$.get(
 			`${directory_uri.rootUrl}/wp-json/wp/v2/chapter/${chapterId}`,
 			function (chapter) {
-				console.log(chapter);
 				$.get(
 					`${directory_uri.rootUrl}/wp-json/wp/v2/media?parent=${chapterId}`,
 					function (data) {
-						if (chapter.title) {
-							$("#content .module-content-display").html(
-								`
-									<div class="content">
-										<video controls>
-											<source src="${data[0].source_url}" type="video/mp4">
-											Su navegador no soporta vídeos
-										</video>
-										<div class="subchapter-text">
-											<h2>${chapter.title.rendered}</h2>
-										</div>
-										<div class="chapter-text">${chapter.acf.chapter_text}</div>
-									</div>`
-							);
-						} else {
-							$("#content .module-content-display").html(
-								`
-									<div class="content">
-										<video controls>
-											<source src="${data[0].source_url}" type="video/mp4">
-											Su navegador no soporta vídeos
-										</video>
-									</div>`
-							);
-						}
+						$.get(
+							`${directory_uri.rootUrl}/wp-json/user-chapters/video_at?chapterId=${chapterId}&userId=${userId}`,
+							function (video_at) {
+								if (chapter.title) {
+									$("#content .module-content-display").html(
+										`
+											<div class="content">
+												<video id="module_video" controls data-id="${chapter.id}">
+													<source src="${data[0].source_url}#t=${video_at.posicion_video}" type="video/mp4">
+													Su navegador no soporta vídeos
+												</video>
+												<div class="subchapter-text">
+													<h2>${chapter.title.rendered}</h2>
+												</div>
+												<div class="chapter-text">${chapter.acf.chapter_text}</div>
+											</div>`
+									);
+								} else {
+									$("#content .module-content-display").html(
+										`
+											<div class="content">
+												<video id="module_video" controls>
+													<source src="${data[0].source_url}#t=${video_at.posicion_video}" type="video/mp4">
+													Su navegador no soporta vídeos
+												</video>
+											</div>`
+									);
+								}
+							}
+						);
 						setTimeout(function () {
 							$("#content .module-content-display div").css({
 								visibility: "visible",
-								transition: ".1s all ease-in",
 							});
-						}, 200);
+							// PAUSE
+							const video = document.querySelector("video");
+							video.onpause = (event) => {
+								const userId = document.getElementById("account");
+								$.post(
+									`${directory_uri.rootUrl}/wp-json/user-chapters/update`,
+									{
+										position: event.target.currentTime,
+										id: event.target.dataset.id,
+										userId: userId.dataset.id,
+									}
+								);
+							};
+						}, 2000);
 					}
 				);
 			}

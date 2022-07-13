@@ -11,7 +11,8 @@
 					<div class="container">
 						<div class="left subcontainer">
 							<p class="subheading">Progreso del curso</p>
-							<div class="ldBar circle" data-preset="circle" data-value="10" style="height:128px;width: 128px;"></div>
+							{% set progress = 100 / modules|length * completed_modules|length %}
+							<div class="ldBar circle" data-preset="circle" data-value="{{ progress }}" style="height:128px;width: 128px;"></div>
 						</div>
 						<div class="right subcontainer">
 							<p class="subheading">Detalles del curso</p>
@@ -21,8 +22,17 @@
 										{{modules|length}}</p>
 								</li>
 								<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+									{% set totalCourseTime = 0 %}
+									{% for chapter in chapters %}
+										{% set totalCourseTime = totalCourseTime | date('U') + chapter.custom.minutes | date('U') %}
+									{% endfor %}
+									{% set tctMinutes = totalCourseTime | date('i') | number_format %}
+									{% if totalCourseTime | date('s') > 60 %}
+										{% set tctMinutes = tctMinutes + 1 %}
+									{% endif %}
 									<p class="text">Horas:
-										{{post.custom.hours}}</p>
+										{{ totalCourseTime | date('G') | number_format }},{{tctMinutes}}
+									</p>
 								</li>
 								<li>{{ source(directory ~ '/static/img/svg/icon03.svg') }}
 									<p class="text">Créditos:
@@ -45,7 +55,25 @@
 					<h2 class="heading">Módulos</h2>
 					{% for module in modules %}
 						{% if post.id == module.custom.belongs_to %}
-							<div class="module" data-id="{{module.id}}">
+							{% set completed = false %}
+							{% set totalChaptertime = 0 %}
+							{% set completedChaptertime = 0 %}
+							{% for chapter in chapters %}
+								{% for completed_module in completed_modules %}
+									{% if module.id == completed_module.id_modulo %}
+										{% set completed = true %}
+									{% endif %}
+								{% endfor %}
+								{% if chapter.custom.belongs_to == module.id %}
+									{% for query in mega_query %}
+										{% if chapter.id == query.id_capitulo %}
+											{% set completedChaptertime = completedChaptertime | date('U') + chapter.custom.minutes | date('U') %}
+										{% endif %}
+									{% endfor %}
+									{% set totalChaptertime = totalChaptertime | date('U') + chapter.custom.minutes | date('U') %}
+								{% endif %}
+							{% endfor %}
+							<div class="module {{completedChaptertime == 0 ? 'disabled' : '' }}" data-id="{{module.id}}">
 								<a href="{{module.link}}">
 									<div class="left">
 										<p class="subheading">{{module.title}}</p>
@@ -53,24 +81,61 @@
 									</div>
 									<div class="right">
 										<div>
-											{{ source(directory ~ '/static/img/svg/icon02.svg') }}<p>
-												{{module.custom.minutes}}
+											{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+											<p>
+												{% set seconds = totalChaptertime|date('s')|number_format %}
+												{% set minutes = totalChaptertime|date('i')|number_format %}
+												{% set hours = totalChaptertime|date('H')|number_format %}
+												{% if hours > 0 %}
+													{% if hours == 1 %}
+														{% set minutes = minutes + 60 %}
+													{% else %}
+														{% set minutes = minutes + hours * 60 %}
+													{% endif %}
+												{% endif %}
+												{% if seconds > 60 %}
+													{% set minutes = minutes + 1 %}
+												{% endif %}
+												{{minutes}}
 												min</p>
-										</div>
-										<div class="progress">
-											<div class="ldBar line2" data-value="40" data-aspect-ratio="none" style="width: 6rem"></div>
-											<p class="text">40%</p>
-										</div>
-										<div>
-											{{ source(directory ~ '/static/img/svg/arrow.svg') }}
-										</div>
+										</p>
 									</div>
-								</a>
+									<div class="progress">
+										{% if completed %}
+											<div class="ldBar line2" data-value="100" data-aspect-ratio="none" style="width: 6rem"></div>
+											<p class="text">100%</p>
+										{% elseif completedChaptertime == 0 %}
+											<div class="ldBar line2" data-value="0" data-aspect-ratio="none" style="width: 6rem"></div>
+											<p class="text">0%</p>
+										{% else %}
+											{% set elapsedTime = totalChaptertime - completedChaptertime %}
+											{% set etSeconds = elapsedTime|date('s')|number_format %}
+											{% set etMinutes = elapsedTime|date('i')|number_format %}
+											{% set etHours = elapsedTime|date('H')|number_format %}
+											{% if etHours > 0 %}
+												{% if etHours == 1 %}
+													{% set etMinutes = etMinutes + 60 %}
+												{% else %}
+													{% set etMinutes = etMinutes + etHours * 60 %}
+												{% endif %}
+											{% endif %}
+											{% if etSeconds > 60 %}
+												{% set etMinutes = etMinutes + 1 %}
+											{% endif %}
+											{% set progressVal = 100 - etMinutes * 100 / minutes %}
+											<div class="ldBar line2" data-value="{{ progressVal | number_format(2)}}" data-aspect-ratio="none" style="width: 6rem"></div>
+											<p class="text">{{ progressVal | number_format(2, ',', '.')}}%</p>
+										{% endif %}
+									</p>
+								</div>
+								<div>
+									{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+								</div>
 							</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-			</div>
+						</a>
+					</div>
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-</main>{% endblock %}
+</div></div></main>{% endblock %}

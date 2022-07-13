@@ -6,18 +6,11 @@ $context['parent'] = get_post_field('belongs_to', null, $context);
 
 $chapters = array(
   'post_type' => 'capitulo',
+  'number_posts' => 50,
   'orderby' => 'title',
-  'order' => 'ASC',
-);
-$context['chapters'] = Timber::get_posts($chapters);
-
-$subchapters = array(
-  'post_type' => 'subcapitulo',
-  'meta_key' => 'order',
-  'orderby' => 'meta_value',
   'order' => 'ASC'
 );
-$context['subchapters'] = Timber::get_posts($subchapters);
+$context['chapters'] = Timber::get_posts($chapters);
 
 $materials = array(
   'post_type' => 'materials',
@@ -26,9 +19,11 @@ $materials = array(
 );
 $context['materials'] = Timber::get_posts($materials);
 
-$context['current_user'] = new Timber\User();
+$currentUser = new Timber\User();
+$context['current_user'] = $currentUser;
 
-$context['cust'] = $wpdb->get_results("SELECT * FROM usuarios_subcapitulos WHERE id_usuario = 8");
+$context['module_ids'] = $wpdb->get_results("SELECT id_modulo FROM usuarios_modulos WHERE id_usuario = $currentUser->id");
+$context['chapter_ids'] = $wpdb->get_results("SELECT id_capitulo FROM usuarios_capitulos WHERE id_usuario = $currentUser->id");
 
 $context['post'] = new Timber\Post();
 

@@ -75,7 +75,6 @@ function custom_curso_list($columns)
 {
   unset($columns['date']);
 
-  $columns['hours']      = 'Horas';
   $columns['credits']    = 'Créditos';
 
   return $columns;
@@ -85,14 +84,6 @@ function add_curso_content($column)
 {
   global $post;
 
-  if ($column == 'hours') {
-    $typ = get_field('hours');
-    if ($typ) {
-      echo $typ;
-    } else {
-      echo '-';
-    }
-  }
   if ($column == 'credits') {
     $typ = get_field('credits');
     if ($typ) {
@@ -112,10 +103,9 @@ function custom_modulo_list($columns)
   unset($columns['title']);
   unset($columns['date']);
 
-  $columns['module_number']    = 'Número';
   $columns['title']             = 'Nombre';
-  $columns['minutes']           = 'Minutos';
   $columns['module_author']     = 'Autor';
+  $columns['belongs_to']     = 'Pertenece a';
 
   return $columns;
 }
@@ -124,24 +114,8 @@ function add_modulo_content($column)
 {
   global $post;
 
-  if ($column == 'module_number') {
-    $typ = get_field('module_number');
-    if ($typ) {
-      echo $typ;
-    } else {
-      echo '-';
-    }
-  }
   if ($column == 'title') {
     $typ = get_field('title');
-    if ($typ) {
-      echo $typ;
-    } else {
-      echo '-';
-    }
-  }
-  if ($column == 'minutes') {
-    $typ = get_field('minutes');
     if ($typ) {
       echo $typ;
     } else {
@@ -152,6 +126,14 @@ function add_modulo_content($column)
     $typ = get_field('module_author');
     if ($typ) {
       echo $typ;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'belongs_to') {
+    $typ = get_field('belongs_to');
+    if ($typ) {
+      echo $typ->post_title;
     } else {
       echo '-';
     }
@@ -167,8 +149,9 @@ function custom_capitulo_list($columns)
   unset($columns['title']);
   unset($columns['date']);
 
-  $columns['chapter_number']   = 'Número';
   $columns['chapter_name']     = 'Nombre';
+  $columns['video']          = 'Vídeo';
+  $columns['belongs_to']   = 'Pertenece a';
   $columns['minutes']          = 'Minutos';
 
   return $columns;
@@ -178,18 +161,27 @@ function add_capitulo_content($column)
 {
   global $post;
 
-  if ($column == 'chapter_number') {
+  if ($column == 'chapter_name') {
     $typ = get_field('chapter_number');
+    $typ2 = get_field('chapter_name');
+    if ($typ && $typ2) {
+      echo $typ . ' ' . $typ2;
+    } else {
+      echo '-';
+    }
+  }
+  if ($column == 'video') {
+    $typ = get_field('video');
     if ($typ) {
       echo $typ;
     } else {
       echo '-';
     }
   }
-  if ($column == 'chapter_name') {
-    $typ = get_field('chapter_name');
+  if ($column == 'belongs_to') {
+    $typ = get_field('belongs_to');
     if ($typ) {
-      echo $typ;
+      echo $typ->post_title;
     } else {
       echo '-';
     }
@@ -206,39 +198,3 @@ function add_capitulo_content($column)
 
 add_action('manage_capitulo_posts_custom_column', 'add_capitulo_content');
 add_filter('manage_capitulo_posts_columns', 'custom_capitulo_list');
-
-// -- Subchapters
-function custom_subcapitulo_list($columns)
-{
-  unset($columns['date']);
-
-  $columns['order']   = 'Orden';
-  $columns['time']    = 'Duración';
-
-  return $columns;
-}
-
-function add_subcapitulo_content($column)
-{
-  global $post;
-
-  if ($column == 'order') {
-    $typ = get_field('order');
-    if ($typ) {
-      echo $typ;
-    } else {
-      echo '-';
-    }
-  }
-  if ($column == 'time') {
-    $typ = get_field('time');
-    if ($typ) {
-      echo $typ;
-    } else {
-      echo '-';
-    }
-  }
-}
-
-add_action('manage_subcapitulo_posts_custom_column', 'add_subcapitulo_content');
-add_filter('manage_subcapitulo_posts_columns', 'custom_subcapitulo_list');

@@ -1,9 +1,6 @@
 {% extends "base.twig" %}
 {% block content %}
 	<main id="module">
-		<p class="current-user-info">Your name is
-			{{ current_user.name }}</p>
-		{{ dump(cust) }}
 		{% set parent = Post(post.belongs_to) %}
 		<div class="wrapper">
 			<div class="breadcrumb">
@@ -24,98 +21,147 @@
 						<p class="subheading">Detalles del módulo</p>
 						<ul class="module-details">
 							<li>{{ source(directory ~ '/static/img/svg/icon01.svg') }}
+								{% set chapterLength = 0 %}
+								{% set chaptersTotalMinutes = 0 %}
+								{% for chapter in chapters %}
+									{% if chapter.custom.belongs_to == post.id %}
+										{% set chapterLength = chapterLength + 1 %}
+										{% set chaptersTotalMinutes = chaptersTotalMinutes|date('U') + chapter.custom.minutes|date('U') %}
+									{% endif %}
+								{% endfor %}
 								<p class="text">Capítulos:
-									{{chapters|length}}</p>
+									{{chapterLength}}</p>
 							</li>
-							<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-								<p class="text">Minutos:
-									{{post.custom.minutes}}</p>
-							</li>
-						</ul>
-					</div>
+						</li>
+						<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+							{% set hours = chaptersTotalMinutes|date('H')|number_format %}
+							{% set minutes = chaptersTotalMinutes|date('i')|number_format %}
+							{% set seconds = chaptersTotalMinutes|date('s')|number_format %}
+							{% if hours > 0 %}
+								{% if hours == 1 %}
+									{% set minutes = minutes + 60 %}
+								{% else %}
+									{% set minutes = minutes + hours * 60 %}
+								{% endif %}
+							{% endif %}
+							{% if seconds > 60 %}
+								{% set minutes = minutes + 1 %}
+							{% endif %}
+							<p class="text">Minutos:
+								{{ minutes }}</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="section-background">
-			<section id="content">
-				<div class="module-content">
-					<div class="module-content-display"></div>
-					<div class="module-content-list">
-						<div class="block noend block-first">
-							<ul class="chapters">
-								<li>
-									<div class="block-header">
-										<p class="subheading">Módulo
-											{{post.custom.module_number}}.</p>
-										<p class="subheading">{{post.custom.title}}</p>
-										<p class="author">{{post.custom.module_author}}</p>
-									</div>
-									<div id="custom-scroll" class="chapter-wrapper">
-										{% set count = 0 %}
-										{% for chapter in chapters %}
-											{% if post.id == chapter.custom.belongs_to %}
-												{% set count = count + chapter.custom.minutes %}
-												<a href="#" data-id="{{ chapter.id }}" class="chapter-header">
-													<div class="chapter-header-title">
+	</div>
+	<div class="section-background">
+		<section id="content">
+			<div class="module-content">
+				<div class="module-content-display"></div>
+				<div class="module-content-list">
+					<div class="block noend block-first">
+						<ul class="chapters">
+							<li>
+								<div class="block-header">
+									<p class="subheading">Módulo
+										{{post.custom.module_number}}.</p>
+									<p class="subheading">{{post.custom.title}}</p>
+									<p class="author">{{post.custom.module_author}}</p>
+								</div>
+								<div id="custom-scroll" class="chapter-wrapper">
+									{% set tmstamp = 0 %}
+									{% set count = 0 %}
+									{% for chapter in chapters %}
+										{% if post.id == chapter.custom.belongs_to %}
+											{% set completed = false %}
+											{% for chapter_id in chapter_ids %}
+												{% if chapter_id.id_capitulo == chapter.id %}
+													{% set completed = true %}
+												{% endif %}
+											{% endfor %}
+											<a href="#" data-id="{{ chapter.id }}" class="chapter-header {{ completed ? 'enabled' : ''}}">
+												<div class="chapter-header-title">
+													{% if completed %}
 														{{ source(directory ~ '/static/img/svg/check-done.svg') }}
-														<p class="chapter-name">{{chapter.custom.chapter_name}}</p>
-													</div>
-													<div>
-														{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-														<p>
-															<span class="count">{{chapter.custom.minutes | replace({'.': ":"})}}</span>
-															min</p>
-													</div>
-												</a>
-											{% endif %}
-										{% endfor %}
-										{# If decimals above 60, sum 1, rest .60 to convert into minutes #}
-										{% set countDec = count | split('.') %}
-										{% if countDec[1] > 60 %}
-											{% set count = count  + 1 %}
-											{% set count = count - 0.6 %}
+													{% else %}
+														{{ source(directory ~ '/static/img/svg/check-undone.svg') }}
+														{% set count = count + chapter.custom.minutes|date('U') %}
+													{% endif %}
+													<p class="chapter-name">{{chapter.custom.chapter_name}}</p>
+												</div>
+												<div>
+													{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+													{% set cSeconds = chapter.custom.minutes | date('s') | number_format %}
+													{% set cMinutes = chapter.custom.minutes | date('i') | number_format %}
+													{% if cSeconds > 30 %}
+														{% set cMinutes = cMinutes + 1 %}
+													{% endif %}
+													{% if cMinutes == 0 %}
+														{% set cMinutes = 1 %}
+													{% endif %}
+													<p>
+														<span class="count">{{cMinutes}}</span>
+														min</p>
+												</div>
+											</a>
+											<div class="line"></div>
 										{% endif %}
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="chapter-footer">
-							<div class="chapter-footer_text-wrap">
-								<p class="chapter-footer__title">Tiempo para acabar el módulo</p>
-								<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-									<p class="remaining">
-										<span>{{count | replace({'.': ":"})}}</span>
-										min</p>
+									{% endfor %}
 								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="chapter-footer">
+						<div class="chapter-footer_text-wrap">
+							<p class="chapter-footer__title">Tiempo para acabar el módulo</p>
+							<div>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+								<p class="remaining">
+									{% set hours = count|date('H')|number_format %}
+									{% set minutes = count|date('i')|number_format %}
+									{% set seconds = count|date('s')|number_format %}
+									{% if hours > 0 %}
+										{% if hours == 1 %}
+											{% set minutes = minutes + 60 %}
+										{% else %}
+											{% set minutes = minutes + hours * 60 %}
+										{% endif %}
+									{% endif %}
+									{% if seconds > 30 %}
+										{% set minutes = minutes + 1 %}
+									{% endif %}
+									{{minutes}}
+									min</p>
 							</div>
-							<div class="ldBar line" data-value="50" data-aspect-ratio="none" style="width: 100%"></div>
 						</div>
-						<div class="block material">
-							<p class="subheading">Materiales de apoyo</p>
-							{% for document in materials %}
-								{% if document.custom.belongs_to == post.id %}
-									{% set file = document.get_field( 'file' ) %}
-									<a href="{{file}}" class="file text">{{document.custom.material_name}}</a>
-								{% endif %}
-							{% endfor %}
-						</div>
-						{% if post.next() %}
-							<a href="{{post.next().link}}" class="nextModule-link">
-								<div class="block nextModule">
-									<p class="subheading nextModule-number">Módulo
-										{{post.next().custom.module_number}}.</p>
-									<p class="nextModule-title">{{post.next().custom.title}}</p>
-								</div>
-							</a>
-						{% endif %}
-						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="seeAll-link">
-							<div class="block seeAll">
-								<p class="subheading">Ver todos los módulos</p>
+						{% set timeLeft = minutes * 100 / chaptersTotalMinutes|date('i')|number_format %}
+						<div class="ldBar line" data-value="{{timeLeft | number_format(2)}}" data-aspect-ratio="none" style="width: 100%"></div>
+					</div>
+					<div class="block material">
+						<p class="subheading">Materiales de apoyo</p>
+						{% for document in materials %}
+							{% if document.custom.belongs_to == post.id %}
+								{% set file = document.get_field( 'file' ) %}
+								<a href="{{file}}" class="file text">{{document.custom.material_name}}</a>
+							{% endif %}
+						{% endfor %}
+					</div>
+					{% if post.next() %}
+						<a href="{{post.next().link}}" class="nextModule-link">
+							<div class="block nextModule">
+								<p class="subheading nextModule-number">Módulo
+									{{post.next().custom.module_number}}.</p>
+								<p class="nextModule-title">{{post.next().custom.title}}</p>
 							</div>
 						</a>
-					</div>
+					{% endif %}
+					<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="seeAll-link">
+						<div class="block seeAll">
+							<p class="subheading">Ver todos los módulos</p>
+						</div>
+					</a>
 				</div>
-			</section>
-		</div>
+			</div>
+		</section>
 	</div>
-</main>{% endblock %}
+</div></main>{% endblock %}

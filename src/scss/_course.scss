@@ -44,12 +44,28 @@
 		}
 	}
 	.module {
+		&:not(:first-of-type) {
+			&.disabled {
+				pointer-events: none;
+				.left,
+				.right {
+					@apply opacity-60;
+				}
+			}
+		}
 		&:first-child {
 			@apply border-t-0;
 		}
 		a {
 			@apply bg-white border border-white flex items-center justify-between mb-4 px-12 py-8 rounded-xl;
+			.icon02,
+			.arrow {
+				path {
+					@apply fill-current text-lightblue;
+				}
+			}
 			&:hover {
+				@apply bg-lightblue;
 				.icon02,
 				.arrow {
 					path {
@@ -59,15 +75,6 @@
 				.left .subheading {
 					@apply text-white;
 				}
-			}
-			.icon02,
-			.arrow {
-				path {
-					@apply fill-current text-lightblue;
-				}
-			}
-			&:hover {
-				@apply bg-lightblue;
 				.ldBar.line2 {
 					.baseline {
 						@apply text-white;
