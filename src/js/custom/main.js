@@ -11,13 +11,28 @@ jQuery(function ($) {
 	// 		},
 	// 	});
 	// }
-	// TODO: SELECTS FIRST SUBCHAPTER (JUST FOR TEST)
+	// Goes to last chapter completed in the module
 	if ($("#module").length) {
-		$(".chapters li a:first").addClass("selected");
-		getVideoFromChapter($(".chapters .selected").data("id"));
+		const userId = document.getElementById("account").dataset.id;
+		$.get(
+			`${directory_uri.rootUrl}/wp-json/user-chapters/completed_chapters?userId=${userId}`,
+			function (completed_chapters) {
+				let lastChapter = 0;
+				$(".chapter-header").each(function (index, element) {
+					if (
+						jQuery.inArray($(element).data("id"), completed_chapters) !== -1
+					) {
+						lastChapter = $(element).data("id");
+					}
+				});
+				let selected = $(`.chapter-header[data-id=${lastChapter}]`);
+				selected.addClass("selected");
+				getVideoFromChapter(selected.data("id"));
+			}
+		);
 	}
 	/* ON INIT */
-	$("#program .module.selected").find(".info").show();
+	$("#temario .module.selected").find(".info").show();
 	$(".owl-carousel").owlCarousel({
 		loop: true,
 		nav: false,
@@ -53,7 +68,7 @@ jQuery(function ($) {
 	}
 	/* EVENTS */
 	// CLICK
-	$("#program .module").click(function (e) {
+	$("#temario .module").click(function (e) {
 		e.preventDefault();
 		$(this).toggleClass("selected");
 		$(this).find(".info").slideToggle();
@@ -155,8 +170,8 @@ jQuery(function ($) {
 							});
 							// PAUSE
 							const video = document.querySelector("video");
+							const userId = document.getElementById("account");
 							video.onpause = (event) => {
-								const userId = document.getElementById("account");
 								$.post(
 									`${directory_uri.rootUrl}/wp-json/user-chapters/update`,
 									{
@@ -165,6 +180,29 @@ jQuery(function ($) {
 										userId: userId.dataset.id,
 									}
 								);
+							};
+							// COMPLETE
+							video.onended = (event) => {
+								$.post(`${directory_uri.rootUrl}/wp-json/user-chapters/post`, {
+									userId: userId.dataset.id,
+									chapterId: event.target.dataset.id,
+								}).then(function () {
+									$(".chapter-header").each(function (index, element) {
+										if ($(element).hasClass("selected")) {
+											if (index < $(".chapter-header").length) {
+												$(".chapter-header.selected")
+													.removeClass("selected")
+													.next()
+													.next()
+													.addClass("enabled");
+												$(this).next().next().trigger("click");
+												return false;
+											} else {
+												console.log("Acaba módulo");
+											}
+										}
+									});
+								});
 							};
 						}, 2000);
 					}

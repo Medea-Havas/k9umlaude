@@ -55,9 +55,7 @@
 					<h2 class="heading">Módulos</h2>
 					{% for module in modules %}
 						{% if post.id == module.custom.belongs_to %}
-							{% set completed = false %}
-							{% set totalChaptertime = 0 %}
-							{% set completedChaptertime = 0 %}
+							{% set completed, totalChaptertime, completedChaptertime = false, 0, 0 %}
 							{% for chapter in chapters %}
 								{% for completed_module in completed_modules %}
 									{% if module.id == completed_module.id_modulo %}

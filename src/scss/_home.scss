@@ -2,7 +2,7 @@ section {
 	@apply my-0 px-8 py-28;
 	&#about,
 	&#committee,
-	&#program {
+	&#temario {
 		h2 {
 			@apply relative;
 			&:before {
@@ -17,7 +17,7 @@ section {
 		@apply bg-gray max-w-none mx-0 p-0;
 		h2 {
 			&:before {
-				@apply left-20;
+				@apply left-16;
 			}
 		}
 		.wrapper {
@@ -26,6 +26,11 @@ section {
 	}
 	&#about {
 		@apply pb-12;
+		h2 {
+			&:before {
+				@apply -top-40;
+			}
+		}
 		.container {
 			@apply gap-16 grid grid-cols-12;
 			.card {
@@ -34,6 +39,35 @@ section {
 				}
 				&-sm {
 					@apply col-span-4;
+				}
+				&-description {
+					a {
+						@apply text-lightblue;
+						&:hover {
+							@apply underline;
+						}
+					}
+				}
+				img {
+					@apply block left-1/2 relative w-32;
+					transform: translateX(-50%);
+				}
+			}
+			.card-info-wrap {
+				@apply grid grid-cols-12;
+				.card-text-wrap {
+					@apply col-span-8;
+				}
+				.class-img {
+					@apply col-start-10 col-span-3 relative text-center;
+					&:before {
+						@apply absolute h-32 left-1/2 mb-8 text-lightblue -top-40 z-10;
+						border-width: 0.05rem;
+						content: "";
+					}
+				}
+				.subheading {
+					@apply w-full;
 				}
 			}
 		}
@@ -81,7 +115,7 @@ section {
 			@apply max-w-lg pb-8;
 		}
 	}
-	&#program {
+	&#temario {
 		@apply relative max-w-none;
 		h2 {
 			@apply max-content px-8;
@@ -106,15 +140,27 @@ section {
 			h3 {
 				@apply mb-0;
 			}
+			svg {
+				@apply inline-block w-2;
+				path {
+					@apply fill-current text-lightblue;
+				}
+			}
 			&:last-child .info .program-chapter:first-child {
 				@apply mt-4;
 			}
 			.arrow {
+				@apply ml-6;
+				min-width: 0.5rem;
+				max-width: 0.5rem;
 				transform: rotate(90deg);
 				transition: 0.3s all ease-in;
 			}
 			.subheading {
 				@apply mb-0;
+			}
+			.subheading-wrap {
+				@apply justify-between flex;
 			}
 			&:not(.selected) {
 				&:hover {
@@ -146,7 +192,10 @@ section {
 				}
 			}
 			.program-chapter {
-				@apply text-base-sm text-darkgreen;
+				@apply mb-1 text-base-sm text-darkgreen;
+			}
+			.program-title {
+				@apply mb-1;
 			}
 		}
 	}

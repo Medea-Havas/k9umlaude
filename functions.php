@@ -40,6 +40,7 @@ add_action('after_setup_theme', function () {
 // Add admin menu separator at indexes
 add_action('admin_menu', function () {
   global $menu;
+  $menu[25] = ['', 'read', '', '', 'wp-menu-separator'];
   $menu[30] = ['', 'read', '', '', 'wp-menu-separator'];
   $menu[40] = ['', 'read', '', '', 'wp-menu-separator'];
 });

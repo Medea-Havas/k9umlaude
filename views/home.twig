@@ -4,154 +4,87 @@
 		<section id="intro">
 			<div class="container">
 				<div class="left">
-					<h2 class="heading">Formación online<br>acreditada sobre<br>hipercolesterolemia</h2>
-					<p class="text">Con el curso “Actualización del abordaje terapéutico del paciente con dislipemia” podrá completar sus conocimientos sobre la Hipercolesterolemia y descubrir cómo prevenir y tratar las dislipemias en pacientes de alto riesgo cardiovascular.</p>
+					<h2 class="heading">{{home_intro[0].custom.title}}</h2>
+					<p class="text">{{home_intro[0].custom.description}}</p>
 					{% if user %}
 						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-m">Ir al curso</a>
 					{% else %}
 						<a href="{{site.url}}/login" class="button button-m">Acceso</a>
 					{% endif %}
 				</div>
-				<div class="right"><img src="{{theme.link}}/static/img/computer.png"></div>
+				<div class="right"><img src="{{ Image(home_intro[0].custom.image).src }}"></div>
 			</div>
 		</section>
 		<section id="about">
 			<div class="wrapper">
 				<h2 class="heading">Sobre la formación</h2>
 				<div class="container">
-					<div class="card card-sm">
+					<div class="card card-{{home_cards[0].custom.type}}">
 						{{ source(directory ~ '/static/img/svg/computer.svg') }}
-						<h3 class="subheading">Curso 100% online<br>y gratuito</h3>
-						<p class="card-description">Este programa permitirá actualizar sus conocimientos acerca de la prevención y tratamiento de las alteraciones del metabolismo de los lípidos, así como su relación con las enfermedades cardiovasculares.</p>
+						<h3 class="subheading">{{ home_cards[0].custom.title}}</h3>
+						<p class="card-description">{{ home_cards[0].custom.description}}</p>
 					</div>
-					<div class="card card-sm">
+					<div class="card card-{{home_cards[1].custom.type}}">
 						{{ source(directory ~ '/static/img/svg/people.svg') }}
-						<h3 class="subheading">Dirigida a médicos<br>y residentes</h3>
-						<p class="card-description">Esta formación está pensada para ayudar a especialistas de diferentes áreas y a médicos residentes que busquen actualizar sus conocimientos y descubrir las últimas novedades en torno a las dislipemias y la hipercolesterolemia.</p>
+						<h3 class="subheading">{{ home_cards[1].custom.title}}</h3>
+						<p class="card-description">{{ home_cards[1].custom.description}}</p>
 					</div>
-					<div class="card card-sm">
+					<div class="card card-{{home_cards[2].custom.type}}">
 						{{ source(directory ~ '/static/img/svg/medal.svg') }}
-						<h3 class="subheading">Formación certificada<br>y acreditada</h3>
-						<p class="card-description">Esta formación está acreditada con 9,6 créditos por la Comisión de Formación Continuada de las Profesiones Sanitarias de la Comunidad de Madrid.</p>
+						<h3 class="subheading">{{ home_cards[2].custom.title}}</h3>
+						<p class="card-description">{{ home_cards[2].custom.description}}</p>
 					</div>
-					<div class="card card-lg">
+					<div class="card card-{{home_cards[3].custom.type}}">
 						{{ source(directory ~ '/static/img/svg/shield.svg') }}
-						<h3 class="subheading">Actualización del abordaje terapéutico del paciente con dislipemia</h3>
-						<p class="card-description">Esta actividad docente (07-AFOC-03943.8/2020) está acreditada con 9,6 créditos por la Comisión de Formación Continuada de las Profesiones Sanitarias de la Comunidad de Madrid para médicos especialistas de diferentes áreas, que estén implicados en el manejo del paciente con dislipemias. Los créditos de formación continuada, no son aplicables a los profesionales que estén formándose como especialistas en Ciencias de la Salud. Enseñanza no reglada y sin carácter oficial. Puede consultarse información sobre la acreditación de formación continuada sanitaria en
-							<a href="https://www.madrid.org" target="_blank">www.madrid.org</a>
-						</p>
+						<div class="card-info-wrap">
+							<div class="card-text-wrap">
+								<h3 class="subheading">{{ home_cards[3].custom.title}}</h3>
+								<p class="card-description">{{ home_cards[3].custom.description}}</p>
+							</div>
+							<p class="class-img"><img src="{{theme.link}}/static/img/shield.png"></p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-		<section id="program">
-			<h2 class="heading">Programa formativo<br>del curso</h2>
-			<div class="container">
-				<div class="left">
-					<img src="{{theme.link}}/static/img/mobiles.png" alt="">
-				</div>
-				<div class="right">
-					<div class="module selected">
-						<p class="subheading has-children">Módulo 1. Lípidos, lipoproteínas. Alteraciones del metabolismo lipídico{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
+		</div>
+	</section>
+	<section id="temario">
+		<h2 class="heading">Programa formativo<br>del curso</h2>
+		<div class="container">
+			<div class="left">
+				<img src="{{theme.link}}/static/img/mobiles.png" alt="">
+			</div>
+			<div class="right">
+				{% for module in modules %}
+					{% set first = 0 %}
+					{% if module == modules[0] %}
+						{% set first = 1 %}
+					{% endif %}
+					<div class="module {{ first ? 'selected' : ''}}">
+						<div class="subheading-wrap">
+							<p class="subheading has-children">{{ module.custom.title }}</p>
+							{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+						</div>
 						<div class="info">
-							<p class="author">Elaborado por el Dr. Valdivielso</p>
+							<p class="author">{{ module.custom.module_author }}</p>
 							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Lípidos, lipoproteínas</p>
-							<p class="program-chapter">Alteraciones del metabolismo lipídico</p>
+							{% for chapter in chapters %}
+								{% if chapter.custom.belongs_to == module.id %}
+									<p class="program-chapter">{{chapter.custom.chapter_name}}</p>
+								{% endif %}
+							{% endfor %}
 						</div>
 					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 2. Enfermedad cardiovascular aterosclerótica{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por la Dra. Fernández y el Dr. Cordero</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Patogenia de la arteriosclerosis. Dislipemia e Inflamación</p>
-							<p class="program-chapter">Marcadores bioquímicos de riesgo cardiovascular</p>
-							<p class="program-chapter">Evaluación de la aterosclerosis subclínica</p>
-						</div>
+				{% endfor %}
+				<div class="module">
+					<div class="subheading-wrap">
+						<p class="subheading has-children">Evaluación final</p>
+						{{ source(directory ~ '/static/img/svg/arrow.svg') }}
 					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 3. Análisis del riesgo cardiovascular y objetivos terapéuticos{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por los Dres. Mostaza, Lahoz y Soriano</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Análisis del riesgo cardiovascular</p>
-							<p class="program-chapter">Objetivos terapéuticos según el riesgo cardiovascular</p>
-							<p class="program-chapter">Evolución del algoritmo terapéutico en adultos</p>
-							<p class="program-chapter">Evaluación del riesgo cardiovascular en el paciente con enfermedad renal crónica</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 4. Hipercolesterolemia familiar (HF){{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por el Dr. Civeira y Dr. Zamora</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Bases genéticas de la HF. Diagnóstico clínico y genético</p>
-							<p class="program-chapter">Características clínicas en la actualidad</p>
-							<p class="program-chapter">Técnicas de cribado para la detección precoz de la HF</p>
-							<p class="program-chapter">Determinación del riesgo cardiovascular en la HF</p>
-							<p class="program-chapter">Indicaciones terapéuticas en la HF</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 5. Evaluación y manejo de la dislipemia en los pacientes con diabetes{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por los Dres. Tihanones, Fernández Garcia, Pérez, Gimeno y Soriano</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">¿Qué riesgo cardiovascular tienen los pacientes con diabetes y cómo evaluarlo?</p>
-							<p class="program-chapter">Características y evaluación de la dislipemia en los pacientes con diabetes</p>
-							<p class="program-chapter">Objetivos terapéuticos lipídicos con diabetes</p>
-							<p class="program-chapter">Tratamiento de la dislipemia en el paciente con diabetes</p>
-							<p class="program-chapter">Tratamiento de la dislipemia en el paciente con enfermedad renal crónica</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 6. Fármacos actuales para el tratamiento de la dislipemia en prevención cardiovascular{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por la Dra. Campuzano y Dr. Arrarte</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Fármacos hipolipemiantes. Evidencia científica (Estatinas, Ezetimiba, Resinas, Fibratos, Ac Bempedoico), iPCSK9, omega3</p>
-							<p class="program-chapter">Indicaciones y estrategias terapéuticas</p>
-							<p class="program-chapter">Necesidades no cubiertas. Metodología y resultados de los estudios en práctica clínica</p>
-							<p class="program-chapter">Situaciones especiales</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 7. Tratamientos emergentes y en investigación{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por los Dres. Masana, López Miranda y Pérez</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Conceptos básicos de terapias anti-RNA</p>
-							<p class="program-chapter">Inhibidores (Ac y siRNA) de PCSK9</p>
-							<p class="program-chapter">Inhibidores de Lp(a)</p>
-							<p class="program-chapter">Inhibidores de (Ac y asoRNA) ANGPTL3 e inhibidores de Apo CIII</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Módulo 8. Organización de los procesos asistenciales cardiovasculares más prevalentes{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="author">Elaborado por los Dres. Juanatey, Árias y Álvarez</p>
-							<p class="program-title">Temas:</p>
-							<p class="program-chapter">Introducción</p>
-							<p class="program-chapter">Aspectos generales de la Organización Asistencial por Procesos</p>
-							<p class="program-chapter">Cardiopatía Isquémica</p>
-							<p class="program-chapter">Diabetes</p>
-							<p class="program-chapter">Ictus</p>
-							<p class="program-chapter">Arteriopatía Periférica</p>
-						</div>
-					</div>
-					<div class="module">
-						<p class="subheading has-children">Evaluación final{{ source(directory ~ '/static/img/svg/arrow.svg') }}</p>
-						<div class="info">
-							<p class="program-chapter">Cuestionario</p>
-							<p class="program-chapter">Diploma</p>
-							<p class="program-chapter">Certificado Participación</p>
-						</div>
+					<div class="info">
+						<p class="program-chapter">Cuestionario</p>
+						<p class="program-chapter">Diploma</p>
+						<p class="program-chapter">Certificado Participación</p>
 					</div>
 				</div>
 			</div>

@@ -24,8 +24,6 @@ $context['completed_chapters'] = $wpdb->get_results("SELECT id_capitulo, fecha F
 
 $context['mega_query'] = $wpdb->get_results("SELECT id_capitulo, fecha FROM usuarios_capitulos INNER JOIN med_posts ON usuarios_capitulos.id_capitulo=med_posts.id WHERE usuarios_capitulos.id_usuario = $currentUser->id");
 $context['mega_query2'] = $wpdb->get_results("SELECT id_modulo, fecha FROM usuarios_modulos INNER JOIN med_posts ON usuarios_modulos.id_modulo=med_posts.id WHERE usuarios_modulos.id_usuario = $currentUser->id");
-// Mega_query2 -> Módulos completos (no necesitan más operaciones)
-// Mega_query -> Capítulos completos
 
 $context['post'] = new Timber\Post();
 

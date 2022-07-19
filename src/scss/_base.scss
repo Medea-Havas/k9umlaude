@@ -52,14 +52,14 @@ main {
 		height: 100% !important;
 	}
 }
-.has-children {
-	svg {
-		@apply float-right w-2;
-		path {
-			@apply fill-current text-lightblue;
-		}
-	}
-}
+// .has-children {
+// 	svg {
+// 		@apply float-right w-2;
+// 		path {
+// 			@apply fill-current text-lightblue;
+// 		}
+// 	}
+// }
 .heading {
 	@apply font-bold leading-10 mb-8 text-4xl text-lightblue;
 }
