@@ -4,7 +4,7 @@ add_action('admin_menu', 'custom_menu');
 
 function custom_menu()
 {
-  add_menu_page('Información', 'Información', 'manage_options', 'stats', 'show_admin_info', 'dashicons-welcome-learn-more', 35);
+  add_menu_page('Información', 'Información', 'manage_options', 'stats', 'show_admin_info', 'dashicons-welcome-learn-more', 42);
 }
 
 function show_admin_info()
