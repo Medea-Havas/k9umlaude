@@ -125,6 +125,44 @@ gulp.task("adminStyles", () => {
 		);
 });
 
+// Admin custom - Compiles Sass, autoprefixes it and minifies CSS
+gulp.task("adminCustomStyles", () => {
+	return gulp
+		.src(config.adminStylesSRC, { allowEmpty: true })
+		.pipe(plumber(errorHandler))
+		.pipe(sourcemaps.init())
+		.pipe(
+			sass({
+				errLogToConsole: config.errLogToConsole,
+				outputStyle: config.adminOutputStyle,
+				precision: config.precision,
+			})
+		)
+		.pipe(postcss([tailwindcss("tailwind.config.js"), require("autoprefixer")]))
+		.on("error", sass.logError)
+		.pipe(sourcemaps.write({ includeContent: false }))
+		.pipe(sourcemaps.init({ loadMaps: true }))
+		.pipe(autoprefixer(config.BROWSERS_LIST))
+		.pipe(sourcemaps.write("./"))
+		.pipe(lineec())
+		.pipe(gulp.dest(config.adminStylesDestination))
+		.pipe(filter("**/*.css"))
+		.pipe(mmq({ log: true }))
+		.pipe(browserSync.stream())
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(minifycss({ maxLineLen: 10 }))
+		.pipe(lineec())
+		.pipe(gulp.dest(config.adminStylesDestination))
+		.pipe(filter("**/*.css"))
+		.pipe(browserSync.stream())
+		.pipe(
+			notify({
+				message: "\n\n\t👍 CUSTOM ADMIN STYLES COMPLETED 👍\n",
+				onLast: true,
+			})
+		);
+});
+
 // Gutenberg Styles - Compiles Sass, autoprefixes it and minifies CSS
 gulp.task("gutStyles", () => {
 	return gulp
@@ -285,6 +323,10 @@ gulp.task(
 		gulp.watch(config.watchTwig, reload);
 		gulp.watch(config.watchStyles, gulp.parallel("styles"));
 		gulp.watch(config.watchAdminStyles, gulp.parallel("adminStyles"));
+		gulp.watch(
+			config.watchCustomAdminStyles,
+			gulp.parallel("adminCustomStyles")
+		);
 		gulp.watch(config.watchGutStyles, gulp.parallel("gutStyles"));
 		gulp.watch(config.watchLogStyles, gulp.parallel("loginStyles"));
 		gulp.watch(config.watchJsVendor, gulp.series("vendorsJS", reload));

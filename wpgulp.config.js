@@ -15,6 +15,10 @@ const adminStyleSRC = "./src/admin/colors.scss";
 const adminStyleDestination = "./assets/css/";
 const adminOutputStyle = "compressed"; // compact, compressed, nested or expanded
 
+const adminStylesSRC = "./src/admin/admin-styles.scss";
+const adminStylesDestination = "./assets/css/";
+const adminOutputStyles = "compressed"; // compact, compressed, nested or expanded
+
 const gutStyleSRC = "./src/gutenberg/style-editor.scss";
 const gutStyleDestination = "./assets/css/";
 const gutOutputStyle = "compressed"; // compact, compressed, nested or expanded
@@ -33,6 +37,7 @@ const jsCustomFile = "main";
 
 const watchStyles = "./src/scss/**/*.scss";
 const watchAdminStyles = "./src/admin/**/*.scss";
+const watchCustomAdminStyles = "./src/admin/**/*.scss";
 const watchGutStyles = "./src/gutenberg/**/*.scss";
 const watchLogStyles = "./src/login/**/*.scss";
 const watchJsVendor = "./src/js/vendor/*.js";
@@ -63,6 +68,7 @@ const zipIgnoreGlob = [
 	"!./assets/img/raw",
 	`!${styleSRC}`,
 	`!${adminStyleSRC}`,
+	`!${adminStylesSRC}`,
 	`!${gutStyleSRC}`,
 	`!${logStyleSRC}`,
 	`!${jsCustomSRC}`,
@@ -76,15 +82,18 @@ module.exports = {
 	injectChanges,
 	styleSRC,
 	adminStyleSRC,
+	adminStylesSRC,
 	gutStyleSRC,
 	logStyleSRC,
 	styleDestination,
 	adminStyleDestination,
+	adminStylesDestination,
 	gutStyleDestination,
 	logStyleDestination,
 	logOutputStyle,
 	outputStyle,
 	adminOutputStyle,
+	adminOutputStyles,
 	gutOutputStyle,
 	errLogToConsole,
 	precision,
@@ -96,6 +105,7 @@ module.exports = {
 	jsCustomFile,
 	watchStyles,
 	watchAdminStyles,
+	watchCustomAdminStyles,
 	watchGutStyles,
 	watchLogStyles,
 	watchJsVendor,

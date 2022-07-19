@@ -59,6 +59,13 @@ function additional_admin_color_schemes()
 }
 add_action('admin_init', 'additional_admin_color_schemes');
 
+// Add admin styles
+function admin_style()
+{
+  wp_enqueue_style('admin-styles', get_template_directory_uri() . '/assets/css/admin-styles.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style');
+
 //-----------------------------
 //------- LOGIN PAGE -------
 //-----------------------------
@@ -99,3 +106,4 @@ require_once(__DIR__ . '/inc/functions/timber.php');
 require_once(__DIR__ . '/inc/functions/register-form.php');
 require_once(__DIR__ . '/inc/functions/custom-admin-lists.php');
 require_once(__DIR__ . '/inc/functions/rest-api.php');
+require_once(__DIR__ . '/inc/functions/admin-info.php');

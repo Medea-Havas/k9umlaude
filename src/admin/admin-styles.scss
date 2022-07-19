@@ -1,0 +1,13 @@
+#admin-info {
+	table {
+		border-collapse: collapse;
+	}
+	th,
+	td {
+		border: 1px solid #dedede;
+		padding: 0.5rem;
+	}
+	th {
+		text-align: left;
+	}
+}
