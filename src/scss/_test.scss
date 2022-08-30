@@ -1,0 +1,24 @@
+#test {
+	.btn-right {
+		@apply flex justify-end mt-8 w-full;
+	}
+	.question {
+		@apply mb-6;
+		.text {
+			@apply mb-4;
+		}
+	}
+	.message {
+		@apply mb-8;
+	}
+	.messages {
+		@apply mt-6 text-right text-sm text-lightblue;
+		min-height: 1.25rem;
+	}
+	.text {
+		@apply font-bold;
+	}
+	.wrapper {
+		@apply mx-auto max-w-xl p-8;
+	}
+}

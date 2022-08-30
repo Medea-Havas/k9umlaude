@@ -1,5 +1,6 @@
 <?php
 
+global $wpdb;
 $context = Timber::get_context();
 
 $currentUser = new Timber\User();
@@ -26,5 +27,8 @@ $context['mega_query'] = $wpdb->get_results("SELECT id_capitulo, fecha FROM usua
 $context['mega_query2'] = $wpdb->get_results("SELECT id_modulo, fecha FROM usuarios_modulos INNER JOIN med_posts ON usuarios_modulos.id_modulo=med_posts.id WHERE usuarios_modulos.id_usuario = $currentUser->id");
 
 $context['post'] = new Timber\Post();
+
+$completedQuery = $wpdb->get_results("SELECT * FROM usuarios_cursos WHERE id_usuario = $currentUser->id");
+$context['completed_course'] = $completedQuery ? $completedQuery[0] : [];
 
 Timber::render('course.twig', $context);

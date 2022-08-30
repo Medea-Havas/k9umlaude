@@ -1,0 +1,43 @@
+{% extends "base-protected-overlay.twig" %}
+{% block content %}
+	<main id="test" data-course="90" data-credits="11,3">
+		<div class="wrapper">
+			<h1 class="heading">Examen</h1>
+			<form>
+				{% for key, question in questions %}
+					<div id="question{{key + 1}}" data-id="{{question.id}}" class="question radio-options">
+						<div class="field" data-title="{{question.title}}">
+							<p class="text">{{ question.question }}
+							</p>
+							<label class="container">
+								<input type="radio" name="question{{key + 1}}" value="1">
+								<span class="checkmark"></span>
+								{{question.answer01}}
+							</label>
+							<label class="container">
+								<input type="radio" name="question{{key + 1}}" value="2">
+								<span class="checkmark"></span>
+								{{question.answer02}}
+							</label>
+							<label class="container">
+								<input type="radio" name="question{{key + 1}}" value="3">
+								<span class="checkmark"></span>
+								{{question.answer03}}
+							</label>
+							<label class="container">
+								<input type="radio" name="question{{key + 1}}" value="4">
+								<span class="checkmark"></span>
+								{{question.answer04}}
+							</label>
+						</div>
+					</div>
+					<input type="hidden" value="{{ question.right_answer }}">
+				{% endfor %}
+				<div class="btn-right">
+					<a id="btn-submit" href="#" class="button button-l disabled submit">Enviar respuestas</a>
+				</div>
+				<p class="messages"></p>
+			</form>
+		</div>
+	</main>
+{% endblock %}

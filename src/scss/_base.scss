@@ -8,6 +8,36 @@ footer .wrapper,
 main {
 	@apply box-border;
 }
+#overlay {
+	@apply items-center bg-black fixed flex justify-center h-screen invisible opacity-80 top-0 w-full z-30;
+	&.active {
+		@apply duration-150 ease-in transition-opacity visible;
+	}
+}
+#results {
+	@apply fixed bg-white invisible left-1/2 p-8 rounded-sm max-w-3xl top-1/2 w-full z-40;
+	transform: translate(-50%, -50%);
+	&.active {
+		@apply duration-150 ease-in transition-opacity visible;
+	}
+	.buttons {
+		@apply flex justify-center mx-4;
+	}
+	.message,
+	.percentage,
+	.total {
+		@apply text-center;
+	}
+	.message {
+		@apply mb-8 text-sm text-darkblue;
+	}
+	.percentage {
+		@apply font-bold text-5xl text-darkblue;
+	}
+	.total {
+		@apply mb-8 text-darkblue text-base;
+	}
+}
 .author,
 .program-title {
 	@apply font-bold text-base-sm text-darkgreen;
@@ -52,14 +82,6 @@ main {
 		height: 100% !important;
 	}
 }
-// .has-children {
-// 	svg {
-// 		@apply float-right w-2;
-// 		path {
-// 			@apply fill-current text-lightblue;
-// 		}
-// 	}
-// }
 .heading {
 	@apply font-bold leading-10 mb-8 text-4xl text-lightblue;
 }

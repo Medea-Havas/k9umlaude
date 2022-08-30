@@ -88,8 +88,7 @@
 		&-header {
 			@apply flex items-center px-8 py-2 relative text-darkblue;
 			&:not(.enabled) {
-				@apply opacity-60;
-				pointer-events: none;
+				//@apply opacity-60;
 			}
 			&-title {
 				@apply flex flex-grow;
@@ -214,6 +213,11 @@
 				@apply text-white transition-all duration-200;
 			}
 		}
+		&.completedModule {
+			.nextModule {
+				animation: scaleAnimation 3s ease-in-out infinite;
+			}
+		}
 	}
 	.section-background {
 		@apply bg-gray;
@@ -242,5 +246,19 @@
 	}
 	.wrapper {
 		@apply p-8;
+	}
+}
+@keyframes scaleAnimation {
+	0% {
+		transform: scale(1);
+	}
+	10% {
+		transform: scale(1.05);
+	}
+	30% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1);
 	}
 }

@@ -161,3 +161,69 @@ function wc_rest_user_endpoint_handler($request = null)
   }
   return new WP_REST_Response($response, 123);
 }
+
+
+add_action('rest_api_init', 'wp_rest_exam_endpoints');
+/**
+ * Check answers in final test
+ *
+ * @param  WP_REST_Request $request Full details about the request.
+ * @return array $args.
+ **/
+
+function wp_rest_exam_endpoints($request)
+{
+  /**
+   * Handle Register User request.
+   */
+  register_rest_route('wp/v2', 'exam', array(
+    'methods' => 'POST',
+    'callback' => 'wc_rest_exam_endpoint_handler',
+    'permission_callback' => 'wrong_permission_exam'
+  ));
+}
+
+function wrong_permission_exam()
+{
+  return 'Wrong permission exam';
+}
+
+function wc_rest_exam_endpoint_handler($request = null)
+{
+  $response = array();
+  $error = new WP_Error();
+  $parameters = $request->get_json_params();
+
+  $question01 = sanitize_text_field($parameters['question01']);
+  $question02 = sanitize_text_field($parameters['question02']);
+  $question03 = sanitize_text_field($parameters['question03']);
+  $question04 = sanitize_text_field($parameters['question04']);
+  $question05 = sanitize_text_field($parameters['question05']);
+
+  if (empty($question01)) {
+    $error->add(400, __("'Question 01' field is required.", 'wp-rest-user'));
+    return $error;
+  }
+  if (empty($question02)) {
+    $error->add(400, __("'Question 02' field is required.", 'wp-rest-user'));
+    return $error;
+  }
+  if (empty($question03)) {
+    $error->add(400, __("'Question 03' field is required.", 'wp-rest-user'));
+    return $error;
+  }
+  if (empty($question04)) {
+    $error->add(400, __("'Question 04' field is required.", 'wp-rest-user'));
+    return $error;
+  }
+  if (empty($question05)) {
+    $error->add(400, __("'Question 05' field is required.", 'wp-rest-user'));
+    return $error;
+  }
+
+  $response['code'] = 200;
+  $response['message'] = `Pregunta 1: ${$question01}\nPregunta 2: ${$question02}\nPregunta 3: ${$question03}\nPregunta 4: ${$question04}\nPregunta 5: ${$question05}`;
+  $response['data'] = "";
+
+  return new WP_REST_Response($response, 123);
+}

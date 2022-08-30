@@ -1,4 +1,4 @@
-{% extends "base.twig" %}
+{% extends "base-protected-with-certificate.twig" %}
 {% block content %}
 	<main id="course">
 		<div class="wrapper">
@@ -44,15 +44,13 @@
 				</div>
 			</div>
 			<div class="next-module">
-				<p class="text">Paso siguiente</p>
-				<p class="subheading">Introducción</p>
-				<a href="#" class="button button-m">Empezar</a>
+				<a href="#contenido" class="button button-m">Empezar</a>
 			</div>
 		</div>
-		<div class="course-wrap">
+		<div class="course-wrap" id="contenido">
 			<div class="wrapper">
 				<div class="chapter-menu">
-					<h2 class="heading">Módulos</h2>
+					<h2 class="heading line-before">Módulos</h2>
 					{% for module in modules %}
 						{% if post.id == module.custom.belongs_to %}
 							{% set completed, totalChaptertime, completedChaptertime = false, 0, 0 %}
@@ -135,5 +133,40 @@
 				{% endif %}
 			{% endfor %}
 		</div>
+		<div class="chapter-menu">
+			<h2 class="heading heading-variant">Examen</h2>
+			<div class="module module-variant">
+				<a href="{{ site.url }}/examen-actualizacion-dislipemia">
+					<div class="left">
+						<p class="subheading">Examen</p>
+					</div>
+					<div class="right">
+						<div>
+							{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="chapter-menu">
+				<h2 class="heading heading-variant">Certificado</h2>
+				{% set enabled = completed_course|length %}
+				{% if enabled == true %}
+					<div class="module module-variant">
+						<a id="btn-certificate" href="#">
+							<div class="left">
+								<p class="subheading">Certificado</p>
+							</div>
+							<div class="right">
+								<div>
+									{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+								</div>
+							</div>
+						</a>
+					</div>
+				{% else %}
+					<p class="text">Supera el examen para descargarte el certificado</p>
+				{% endif %}
+			</div>
+		</div>
 	</div>
-</div></div></main>{% endblock %}
+</div></main>{% endblock %}

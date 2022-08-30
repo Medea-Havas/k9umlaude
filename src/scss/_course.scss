@@ -36,6 +36,11 @@
 		}
 		.heading {
 			@apply relative mb-16;
+			&-variant {
+				@apply mt-32;
+			}
+		}
+		.line-before {
 			&:before {
 				@apply absolute h-32 left-20 mb-8 text-lightblue -top-44 z-10;
 				border-width: 0.05rem;
@@ -46,10 +51,9 @@
 	.module {
 		&:not(:first-of-type) {
 			&.disabled {
-				pointer-events: none;
 				.left,
 				.right {
-					@apply opacity-60;
+					//@apply opacity-60;
 				}
 			}
 		}
@@ -116,13 +120,25 @@
 			}
 		}
 		.right {
-			@apply flex items-center justify-between;
+			@apply flex items-center justify-between pl-8;
 			p {
 				@apply inline-block text-base-sm text-darkblue;
+			}
+			.progress p {
+				@apply w-14;
 			}
 		}
 		.text {
 			@apply ml-4 inline-block;
+		}
+	}
+	.module-variant {
+		.disabled {
+			opacity: 0.75;
+			pointer-events: none;
+		}
+		.right {
+			@apply justify-end;
 		}
 	}
 	.next-module {
