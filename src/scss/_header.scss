@@ -1,15 +1,30 @@
 header {
-	@apply my-0 flex items-center justify-between p-8;
+	@apply my-0 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between p-8;
 	h1 {
-		@apply mb-0;
+		@apply flex justify-center sm:block mb-8 sm:mb-0 w-full sm:w-max;
 	}
 	div {
-		@apply flex items-center;
+		@apply flex items-center w-full sm:w-max;
+		.button {
+			@apply mx-auto sm:mx-0;
+		}
 	}
 	#account {
-		@apply flex;
+		@apply flex justify-center sm:justify-start relative;
 		svg {
-			@apply ml-2 w-4;
+			@apply ml-2 w-6 sm:w-4;
+		}
+		.button {
+			@apply hidden md:block;
+			&.mob-visible {
+				@apply absolute bg-white block right-1/2 sm:right-0 top-8;
+				@media (max-width: 640px) {
+					transform: translateX(50%);
+				}
+				&:hover {
+					@apply bg-transparent;
+				}
+			}
 		}
 	}
 	#logo {
@@ -28,7 +43,7 @@ header {
 		@apply text-2xl;
 	}
 	.nav-main {
-		@apply mr-8;
+		@apply hidden lg:block mr-8;
 		.nav-main-items {
 			@apply flex p-0 list-none text-center;
 			li {
@@ -59,5 +74,5 @@ header {
 	min-height: 45px;
 }
 .header-wrap {
-	@apply bg-white border-b border-gray top-0 sticky z-20;
+	@apply bg-white border-b border-gray top-0 lg:sticky z-20;
 }

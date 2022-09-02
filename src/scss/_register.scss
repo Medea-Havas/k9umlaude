@@ -1,4 +1,10 @@
 #register {
+	label {
+		&:focus {
+			color: black;
+			outline: none;
+		}
+	}
 	#steps {
 		@apply hidden overflow-x-hidden;
 		overflow-y: -webkit-paged-x;
@@ -7,11 +13,8 @@
 	#step3 {
 		@apply hidden;
 	}
-	label {
-		&:focus {
-			color: black;
-			outline: none;
-		}
+	.wrapper > .container {
+		@apply justify-center flex-wrap xl:flex-nowrap;
 	}
 	.disabled {
 		@apply cursor-not-allowed;
@@ -31,7 +34,37 @@
 		color: red;
 	}
 	.field-wrapper {
-		@apply flex;
+		@apply flex flex-wrap sm:flex-nowrap;
+		input[type="text"],
+		input[type="email"],
+		input[type="number"],
+		input[type="tel"],
+		.select {
+			width: 99%;
+			max-width: 20rem;
+		}
+	}
+	form .field,
+	.field-wrapper .field {
+		padding: 0 0.5rem;
+	}
+	.left {
+		@media (max-width: 640px) {
+			@apply pb-0;
+		}
+	}
+	.end-align .left {
+		@media (max-width: 640px) {
+			@apply pb-8 pt-0;
+		}
+	}
+	.right {
+		img {
+			@apply hidden xl:block;
+		}
+		@media (max-width: 640px) {
+			@apply pt-0;
+		}
 	}
 	.left p {
 		@apply mb-6 max-w-md;

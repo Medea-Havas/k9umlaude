@@ -107,7 +107,7 @@ function update_chapter_video_at($data)
   $userId = $data->get_param('userId');
   $query = 'UPDATE usuarios_capitulos SET posicion_video = ' . $position . ' WHERE id_capitulo = ' . $chapterId . ' AND id_usuario = ' . $userId;
   $list = $wpdb->get_results($query);
-  echo json_encode(array('success' => true, 'message' => 'Updated chapter ' . $chapterId . '\'s watched time to ' . $position, 'list' => $list));
+  return json_encode(array('success' => true, 'message' => 'Updated chapter ' . $chapterId . '\'s watched time to ' . $position, 'list' => $list));
 }
 
 function post_chapter_video($data)
@@ -119,11 +119,11 @@ function post_chapter_video($data)
   $query = 'SELECT id FROM usuarios_capitulos WHERE id_usuario = ' . $userId . ' AND id_capitulo = ' . $chapterId;
   $list = $wpdb->get_results($query);
   if (count($list)) {
-    echo json_encode(array('success' => false, 'message' => 'Chapter ' . $chapterId . ' already exists'));
+    return json_encode(array('success' => false, 'message' => 'Chapter ' . $chapterId . ' already exists'));
   } else {
     $query2 = 'INSERT INTO usuarios_capitulos (id_usuario, id_capitulo, fecha) VALUES ( ' . $userId . ', ' . $chapterId . ', "' . $date . '")';
     $list2 = $wpdb->get_results($query2);
-    echo json_encode(array('success' => true, 'message' => 'Chapter ' . $chapterId . ' completed', 'list' => $list2));
+    return json_encode(array('success' => true, 'message' => 'Chapter ' . $chapterId . ' completed', 'list' => $list2));
   }
 }
 
@@ -140,11 +140,11 @@ function post_module($data)
   $query = 'SELECT id FROM usuarios_modulos WHERE id_usuario = ' . $userId . ' AND id_modulo = ' . $moduleId;
   $list = $wpdb->get_results($query);
   if (count($list)) {
-    echo json_encode(array('success' => false, 'message' => 'Module ' . $moduleId . ' already exists'));
+    return json_encode(array('success' => false, 'message' => 'Module ' . $moduleId . ' already exists'));
   } else {
     $query2 = 'INSERT INTO usuarios_modulos (id_usuario, id_modulo, fecha) VALUES ( ' . $userId . ', ' . $moduleId . ', "' . $date . '")';
     $wpdb->get_results($query2);
-    echo json_encode(array('success' => true, 'message' => 'Module ' . $moduleId . ' completed'));
+    return json_encode(array('success' => true, 'message' => 'Module ' . $moduleId . ' completed'));
   }
 }
 
@@ -166,11 +166,11 @@ function post_course($data)
   $already_completed = 'SELECT superado FROM usuarios_cursos WHERE id_usuario = ' . $userId . '';
   $already_completed_count = count($wpdb->get_results($already_completed));
   if ($already_completed_count > 0) {
-    echo json_encode(array('success' => false, 'message' => 'Course already completed'));
+    return json_encode(array('success' => false, 'message' => 'Course already completed'));
   } else {
     $query = 'INSERT INTO usuarios_cursos (id_usuario, id_curso, superado, progreso, creditos_obtenidos, nota) VALUES (' . $userId . ', ' . $courseId . ', "' . $completed . '", ' . $progress . ', ' . $credits . ', ' . $grade . ')';
     $wpdb->get_results($query);
-    echo json_encode(array('success' => true, 'message' => 'Completed course succesfully added'));
+    return json_encode(array('success' => true, 'message' => 'Completed course succesfully added'));
   }
 }
 

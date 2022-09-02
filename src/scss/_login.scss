@@ -1,9 +1,15 @@
 #login {
 	form {
-		@apply pt-8;
+		@apply pt-8 relative xl:static left-1/2 w-max;
+		@media (max-width: 1280px) {
+			transform: translateX(-50%);
+		}
 	}
 	.accept {
 		@apply mb-8 text-xs text-darkblue;
+	}
+	.container {
+		@apply justify-center flex-wrap xl:flex-nowrap;
 	}
 	.disabled {
 		@apply cursor-not-allowed;
@@ -16,5 +22,28 @@
 	}
 	.forgot {
 		@apply inline-block mt-1 text-right text-xs;
+	}
+	.heading,
+	p.text {
+		@apply xl:text-left text-center;
+	}
+	.left,
+	.right {
+		@apply xl:w-1/2 w-full;
+	}
+	.left {
+		order: 1;
+		@media (max-width: 1280px) {
+			order: 2;
+		}
+	}
+	.right {
+		order: 2;
+		@media (max-width: 1280px) {
+			order: 1;
+		}
+		img {
+			@apply mx-auto xl:mx-0 max-w-xl xl:w-max w-full;
+		}
 	}
 }

@@ -17,27 +17,27 @@
 				{% if user %}
 					<div id="account" data-id="{{user.id}}" title=" {{ user.name }} ">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
-						{{ source(directory ~ '/static/img/svg/account.svg') }}
+						<a href="#" class="avatar">{{ source(directory ~ '/static/img/svg/account.svg') }}</a>
 					</div>
 				{% else %}
 					<a href="{{ site.url }}/login" class="button button-m">Acceso</a>
 				{% endif %}
 			</div>
-		{% elseif fn('is_page', 'login') %}
-			<div class="page-nav">
-				{% if user %}
+		{% elseif fn('is_page', 'Login') %}
+			{% if user %}
+				<div class="page-nav">
 					<div id="account" data-id="{{user.id}}" title=" {{ user.name }} ">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
-						{{ source(directory ~ '/static/img/svg/account.svg') }}
+						<a href="#" class="avatar">{{ source(directory ~ '/static/img/svg/account.svg') }}</a>
 					</div>
-				{% endif %}
-			</div>
+				</div>
+			{% endif %}
 		{% else %}
 			<div>
 				{% if user %}
 					<div id="account" data-id="{{user.id}}" title="{{ user.name }}">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
-						{{ source(directory ~ '/static/img/svg/account.svg') }}
+						<a href="#" class="avatar">{{ source(directory ~ '/static/img/svg/account.svg') }}</a>
 					</div>
 				{% else %}
 					<a href="{{ site.url }}/login" class="button button-m">Acceso</a>

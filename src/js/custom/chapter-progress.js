@@ -69,7 +69,7 @@ jQuery(function ($) {
 										`
                     <div class="content">
                       <video id="module_video" controls poster="${directory_uri.stylesheetUrl}/static/img/poster.jpg" preload="metadata" data-id="${chapter.id}">
-                        <source src="${data[0].source_url}#t=${video_at.posicion_video}" type="video/mp4">
+                        <source src="${data[0].source_url}" type="video/mp4">
                         Su navegador no soporta vídeos
                       </video>
                       <div class="subchapter-text">

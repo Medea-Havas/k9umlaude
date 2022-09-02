@@ -1,14 +1,21 @@
 footer {
 	@apply bg-darkblue text-sm text-white;
 	.wrapper {
-		@apply flex items-center px-8;
+		@apply flex flex-wrap lg:flex-nowrap items-center px-8;
+		.left,
+		.right {
+			@apply flex flex-wrap lg:flex-nowrap lg:block justify-center w-full lg:w-1/2;
+		}
+		.left {
+			@apply text-center sm:text-left pb-0 lg:pb-8;
+		}
 	}
 	.right {
-		@apply text-right;
+		@apply text-center md:text-right;
 		a {
-			@apply ml-2;
+			@apply block md:inline ml-0 md:ml-2 md:w-max w-full;
 			&:after {
-				@apply ml-2;
+				@apply hidden md:inline ml-2;
 				content: "|";
 			}
 			&:hover {
@@ -34,17 +41,32 @@ footer {
 	}
 	.activity {
 		@apply pb-16;
+		a {
+			@apply block sm:inline-block w-full sm:w-auto mb-6 sm:mb-0;
+			svg {
+				@apply block sm:inline mx-auto sm:mx-0;
+			}
+		}
 	}
 	.participation {
-		@apply pb-8 pt-12;
+		@apply flex-wrap sm:flex-nowrap pb-8 pt-12;
+		a {
+			@apply block sm:inline-block mx-0 sm:mx-4 w-full sm:w-auto mb-6 sm:mb-0;
+			svg {
+				@apply block sm:inline mx-auto sm:mx-0;
+			}
+		}
 	}
 	.text-light {
-		@apply inline-block mr-8;
+		@apply mb-4 mr-8 mt-12 sm:mt-0 text-center sm:text-left;
+		&:first-child {
+			@apply block sm:mb-0 sm:inline-block;
+		}
 		&.bigger-margin {
-			@apply mr-20;
+			@apply mr-0 sm:mr-5 md:mr-10 lg:mr-20;
 		}
 		&.bigger-margin-left {
-			@apply ml-20;
+			@apply ml-0 sm:inline-block sm:ml-10 lg:ml-20;
 		}
 	}
 }

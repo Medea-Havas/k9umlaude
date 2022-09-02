@@ -90,6 +90,10 @@ jQuery(function ($) {
 	$("#test .container").click(function (e) {
 		$(this).find("input").attr("checked", "checked");
 	});
+	$(".avatar").click(function (e) {
+		e.preventDefault();
+		$(this).parent().find(".button").toggleClass("mob-visible");
+	});
 	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();

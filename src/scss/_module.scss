@@ -181,9 +181,17 @@
 			@apply inline-block;
 		}
 	}
-	.header-module-content,
+	.header-module-content {
+		@apply grid grid-cols-1 lg:grid-cols-3 grid-rows-2 lg:grid-rows-1;
+		&-display {
+			@apply col-span-1 lg:col-span-2;
+		}
+		&-list {
+			@apply col-span-1;
+		}
+	}
 	.module-content {
-		@apply grid grid-cols-3;
+		@apply block lg:grid grid-cols-3;
 		&-display {
 			@apply col-span-2;
 		}
@@ -191,8 +199,11 @@
 			@apply col-span-1;
 		}
 	}
+	.header-module-content-list {
+		@apply mt-8 lg:mt-0;
+	}
 	.module-content-display {
-		@apply pr-16;
+		@apply pr-0 lg:pr-16 pb-16 lg:pb-0;
 	}
 	.nextModule {
 		@apply px-8;

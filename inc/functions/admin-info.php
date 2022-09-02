@@ -10,7 +10,7 @@ function custom_menu()
 function show_admin_info()
 {
   global $wpdb;
-  $query = 'SELECT ID, display_name, user_email, user_registered FROM med_users ORDER BY display_name';
+  $query = 'SELECT MU.ID, display_name, user_email, user_registered, superado, progreso, creditos_obtenidos, nota FROM med_users MU LEFT JOIN usuarios_cursos UC ON MU.ID = UC.id_usuario ORDER BY display_name';
   $list = $wpdb->get_results($query);
 ?>
   <div id="admin-info">
@@ -21,13 +21,21 @@ function show_admin_info()
         <th>Nombre</th>
         <th>Email</th>
         <th>Fecha de registro</th>
+        <th>Fecha superación examen</th>
+        <th>Progreso hasta superar examen</th>
+        <th>Créditos obtenidos</th>
+        <th>Nota de examen</th>
       </tr>
       <?php foreach ($list as $item) { ?>
         <tr>
           <td><?= $item->ID ?></td>
           <td><?= $item->display_name ?></td>
           <td><?= $item->user_email ?></td>
-          <td><?= date('d/m/y H:i:s', strtotime($item->user_registered)) ?></td>
+          <td><?php if (isset($item->user_registered)) echo date('d/m/y H:i:s', strtotime($item->user_registered)) ?></td>
+          <td><?php if (isset($item->superado)) echo date('d/m/y', strtotime($item->superado)) ?></td>
+          <td><?php if (isset($item->progreso)) echo $item->progreso . '%' ?></td>
+          <td><?php if (isset($item->creditos_obtenidos)) echo $item->creditos_obtenidos ?></td>
+          <td><?php if (isset($item->nota)) echo $item->nota . '%' ?></td>
         </tr>
       <?php } ?>
     </table>

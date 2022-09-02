@@ -44,7 +44,7 @@ main {
 }
 .left,
 .right {
-	@apply py-8 w-1/2;
+	@apply py-8 xl:w-1/2 w-full;
 }
 .author {
 	@apply my-4;
@@ -83,7 +83,7 @@ main {
 	}
 }
 .heading {
-	@apply font-bold leading-10 mb-8 text-4xl text-lightblue;
+	@apply font-bold leading-8 sm:leading-10 mb-8 text-2xl sm:text-4xl text-lightblue;
 }
 .link {
 	@apply underline text-lightblue;
@@ -114,11 +114,26 @@ main {
 	}
 }
 .subheading {
-	@apply font-bold leading-6 mb-4 text-xl text-lightblue;
+	@apply font-bold leading-6 mb-4 text-lg sm:text-xl text-lightblue;
 }
 .text {
 	@apply text-base-sm text-darkblue;
 }
 .text-light {
 	@apply font-light text-base-sm text-darkblue;
+}
+@media (min-width: 768px) {
+	.container {
+		max-width: unset;
+	}
+}
+@media (min-width: 640px) {
+	.container {
+		max-width: unset;
+	}
+}
+@media (min-width: 10px) {
+	.container {
+		max-width: unset;
+	}
 }
