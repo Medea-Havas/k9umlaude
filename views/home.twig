@@ -88,12 +88,19 @@
 						<p class="program-chapter">Certificado Participación</p>
 					</div>
 				</div>
+				<div class="user-button">
+					{% if user %}
+						<a href="{{site.url}}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-l">Acceder al curso</a>
+					{% else %}
+						<a href="{{site.url}}/login" class="button button-m">Acceso</a>
+					{% endif %}
+				</div>
 			</div>
 		</section>
 		<section id="banner">
 			<div class="wrapper">
 				<h2>Sume créditos, inscríbase en la anterior edición de “Actualización del abordaje terapéutico del paciente con dislipemia”</h2>
-				<a href="https://primera-edicion.k9umlaude.com" class="button button-l button-white" target="_blank">Acceso</a>
+				<a href="https://primera-edicion.k9umlaude.com" class="button button-xxl button-white" target="_blank">Acceder a la primera edición</a>
 			</div>
 		</section>
 		<section id="committee">

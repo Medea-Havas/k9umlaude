@@ -1,6 +1,10 @@
 .button {
 	@apply btn btn-fill font-bold;
 }
+.button-xxl {
+	@apply m-4 text-sm;
+	width: 247px;
+}
 .button-xl {
 	@apply m-4 text-sm;
 	width: 200px;

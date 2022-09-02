@@ -5,6 +5,9 @@ footer .wrapper,
 .partners {
 	@apply max-content;
 }
+body {
+	@apply overflow-x-hidden;
+}
 main {
 	@apply box-border;
 }
