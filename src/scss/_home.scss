@@ -247,6 +247,14 @@ section {
 		}
 	}
 }
+#first-edition {
+	@apply hidden md:block float-left mr-8 w-40;
+}
 .user-button {
 	@apply mt-16;
+}
+@media (max-width: 1023px) {
+	#banner br {
+		display: none;
+	}
 }
