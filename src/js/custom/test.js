@@ -114,6 +114,7 @@ jQuery(function ($) {
 		$("#btn-certificate").click(function (e) {
 			e.preventDefault();
 			let userId = $("#account").data("id");
+			let rootUrl = `${directory_uri.rootUrl}/certificado`;
 
 			$.get(
 				`${directory_uri.rootUrl}/wp-json/user-courses/list?userId=${userId}`,
@@ -141,11 +142,21 @@ jQuery(function ($) {
 						doc.setFont("Times");
 						doc.setFontSize(15);
 						doc.text(date, 45, 132, null, null, "left");
-
-						doc.save("certificado-k9umlaude.pdf");
 					};
 					img.crossOrigin = "";
 					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+
+					var img2 = new Image();
+					img2.onload = function () {
+						doc.addImage(this, 23, 17, 25, 25);
+						doc.save("certificado-k9umlaude.pdf");
+					};
+					img2.crossOrigin = "";
+					img2.src =
+						"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
+						rootUrl +
+						"?data=med" +
+						userId;
 				}
 			);
 		});
@@ -156,6 +167,7 @@ jQuery(function ($) {
 	$("#course #btn-certificate").click(function (e) {
 		e.preventDefault();
 		let userId = $("#account").data("id");
+		let rootUrl = `${directory_uri.rootUrl}/certificado`;
 
 		$.get(
 			`${directory_uri.rootUrl}/wp-json/user-courses/list?userId=${userId}`,
@@ -183,11 +195,21 @@ jQuery(function ($) {
 					doc.setFont("Times");
 					doc.setFontSize(15);
 					doc.text(date, 45, 132, null, null, "left");
-
-					doc.save("certificado-k9umlaude.pdf");
 				};
 				img.crossOrigin = "";
 				img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+
+				var img2 = new Image();
+				img2.onload = function () {
+					doc.addImage(this, 23, 17, 25, 25);
+					doc.save("certificado-k9umlaude.pdf");
+				};
+				img2.crossOrigin = "";
+				img2.src =
+					"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
+					rootUrl +
+					"?data=med" +
+					userId;
 			}
 		);
 	});

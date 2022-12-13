@@ -1,0 +1,88 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="certificate">
+		<div class="container">
+			{% if (user.ID) %}
+				<div class="headings-wrapper">
+					<h1>Secretaría Técnica de Programas<br>de Formación Médica Continuada</h1>
+					<h2>Certificado del programa</h2>
+				</div>
+				<div class="info-block-wrapper">
+					<div class="info-block">
+						<p class="label">Curso:</p>
+						<p class="info">{{course.title}}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Acreditado por:</p>
+						<p class="info">Comisión Formación Continuada Profesiones Sanitarias. Comunidad de Madrid</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Alumno:</p>
+						<p class="info">{{ user.display_name }}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">NIF:</p>
+						<p class="info">
+							{{user.dni_nie }}
+						</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Fecha de emisión:</p>
+						<p class="info">{{ "now"|date("d")}}
+							de
+							{{ "now"|date("F")}}
+							del
+							{{ "now"|date("Y")}}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Número de expediente:</p>
+						<p class="info">{{ course.custom.record_num }}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Número de certificado:</p>
+						<p class="info">{{ course.custom.certificate_num}}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Provincia:</p>
+						{% set prov = user.working_province|split(" - ") %}
+						<p class="info">{{ prov[1] }}</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Nº de créditos:</p>
+						<p class="info">{{ course.custom.credits }}
+							créditos</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Nº de horas:</p>
+						<p class="info">4,16 horas</p>
+					</div>
+					<div class="info-block">
+						<p class="label">Tutor/es:</p>
+						<p class="info">Rosa Fernández, Alberto Cordero, José María Mostaza, Carlos Lahoz, María Sagrario Soriano, Fernando Civeira, Alberto Zamora, Francisco Tinahones, José Antonio Gimeno, Antonio Pérez, Raquel Campuzano, Vicente Arrarte, Lluís Masana, José López, Pablo Pérez, José Ramón González-Juanatey, Susana Arias y Belén Álvarez</p>
+					</div>
+				</div>
+				<div class="info-block-wrapper-content">
+					<div class="info-block-contents">
+						<p class="label">Contenidos:</p>
+						<ul class="modules">
+							{% for module in modules %}
+								{% if course.id == module.custom.belongs_to %}
+									<li>{{ module.title }}</li>
+									<ul class="chapters">
+										{% for chapter in chapters %}
+											{% if module.id == chapter.custom.belongs_to %}
+												<li>{{ chapter.title }}</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			{% else %}
+				<h1>Datos erróneos</h1>
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}

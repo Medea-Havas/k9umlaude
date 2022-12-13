@@ -42,7 +42,7 @@ footer {
 	.activity {
 		@apply pb-16;
 		a {
-			@apply block sm:inline-block w-full sm:w-auto mb-6 sm:mb-0;
+			@apply block lg:inline-block w-full sm:w-auto mb-6 lg:mb-0;
 			svg {
 				@apply block sm:inline mx-auto sm:mx-0;
 			}
@@ -60,13 +60,13 @@ footer {
 	.text-light {
 		@apply mb-4 mr-8 mt-12 sm:mt-0 text-center sm:text-left;
 		&:first-child {
-			@apply block sm:mb-0 sm:inline-block;
+			@apply block lg:mb-0 lg:inline-block;
 		}
 		&.bigger-margin {
-			@apply mr-0 sm:mr-5 md:mr-10 lg:mr-20;
+			@apply mr-0 lg:mr-4 xl:mr-20;
 		}
 		&.bigger-margin-left {
-			@apply ml-0 sm:inline-block sm:ml-10 lg:ml-20;
+			@apply ml-0 md:inline-block lg:ml-4 xl:ml-20;
 		}
 	}
 }
