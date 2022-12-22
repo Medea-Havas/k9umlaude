@@ -1,5 +1,11 @@
 section {
-	@apply my-0 px-8 py-28;
+	@apply my-0 py-28;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	@media (min-width: 1700px) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 	&#about,
 	&#committee,
 	&#temario {
@@ -23,7 +29,13 @@ section {
 			}
 		}
 		.wrapper {
-			@apply max-content px-8;
+			@apply max-content;
+			padding-left: 2rem;
+			padding-right: 2rem;
+			@media (min-width: 1700px) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 	}
 	&#about {
@@ -96,7 +108,13 @@ section {
 			}
 		}
 		.wrapper {
-			@apply max-content px-8 py-16;
+			@apply max-content py-16;
+			padding-left: 2rem;
+			padding-right: 2rem;
+			@media (min-width: 1700px) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 			h2 {
 				@apply max-w-7xl;
 			}

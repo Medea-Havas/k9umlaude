@@ -1,0 +1,24 @@
+{% extends "base.twig" %}
+{% block content %}
+	<main id="poll">
+		{% if (user) %}
+			{% if (alert) %}
+				<div class="alert">
+					<p>Formulario enviado<br>gracias por su participación</p>
+				</div>
+			{% endif %}
+			<div class="container">
+				<h1>Cuestionario de evaluación</h1>
+				<p class="desc">Gracias por contestar y enviarnos este cuestionario. Su objetivo es proporcionar una referencia para mejorar nuestros criterios educacionales. Su información es muy importante, por favor, tómese el tiempo necesario para realizarlo.</p>
+				<p>Puntúe del 1 al 5 los siguientes aspectos del curso:</p>
+				{{ fn('acf_form', poll_args) }}
+			</div>
+		{% else %}
+			<div class="container">
+				<p>Debes iniciar sesión para completar la encuesta.
+					<a href="${directory_uri.rootUrl}/login">Iniciar sesión</a>
+				</p>
+			</div>
+		{% endif %}
+	</main>
+{% endblock %}

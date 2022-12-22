@@ -1,7 +1,11 @@
 footer {
 	@apply bg-darkblue text-sm text-white;
 	.wrapper {
-		@apply flex flex-wrap lg:flex-nowrap items-center px-8;
+		@apply flex flex-wrap lg:flex-nowrap items-center;
+		padding: 0 2rem;
+		@media (min-width: 1700px) {
+			padding: 0;
+		}
 		.left,
 		.right {
 			@apply flex flex-wrap lg:flex-nowrap lg:block justify-center w-full lg:w-1/2;
@@ -37,7 +41,10 @@ footer {
 	}
 	.activity,
 	.participation {
-		@apply px-8;
+		padding: 0 2rem;
+		@media (min-width: 1700px) {
+			padding: 0;
+		}
 	}
 	.activity {
 		@apply pb-16;

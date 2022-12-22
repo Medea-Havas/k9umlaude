@@ -147,9 +147,9 @@
 					</div>
 				</a>
 			</div>
+			{% set enabled = completed_course|length %}
 			<div class="chapter-menu">
 				<h2 class="heading heading-variant">Certificado</h2>
-				{% set enabled = completed_course|length %}
 				{% if enabled == true %}
 					<div class="module module-variant">
 						<a id="btn-certificate" href="#">
@@ -167,6 +167,23 @@
 					<p class="text">Supera el examen para descargarte el certificado</p>
 				{% endif %}
 			</div>
+			{% if enabled == true %}
+				<div class="chapter-menu">
+					<h2 class="heading heading-variant">Cuestionario de evaluación</h2>
+					<div class="module module-variant">
+						<a href="{{ site.url() }}/cuestionario">
+							<div class="left">
+								<p class="subheading">Cuestionario de evaluación</p>
+							</div>
+							<div class="right">
+								<div>
+									{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 </div></main>{% endblock %}

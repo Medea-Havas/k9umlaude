@@ -94,6 +94,22 @@ jQuery(function ($) {
 		e.preventDefault();
 		$(this).parent().find(".button").toggleClass("mob-visible");
 	});
+	if ($("#poll").length) {
+		// Fill user data form fields
+		let usrId = $('.acf-form-submit input[type="submit"]').data("id");
+		let usr = $('.acf-form-submit input[type="submit"]').data("usr");
+		$('.acf-field[data-name="user_id"] input').val(usrId);
+		$('.acf-field[data-name="user_name"] input').val(usr);
+		$(".acf-field--post-title input").val(usr);
+		// When form is sent succesfully
+		if ($(".alert").length) {
+			$(".alert").addClass("active");
+			setTimeout(() => {
+				$(".alert").removeClass("active");
+				window.location.href = `${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/`;
+			}, 4000);
+		}
+	}
 	// PRESS
 	$("label").keypress(function (e) {
 		e.preventDefault();

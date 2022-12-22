@@ -1,5 +1,9 @@
 header {
-	@apply my-0 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between p-8;
+	@apply my-0 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between;
+	padding: 2rem;
+	@media (min-width: 1700px) {
+		padding: 2rem 0;
+	}
 	h1 {
 		@apply flex justify-center sm:block mb-8 sm:mb-0 w-full sm:w-max;
 	}

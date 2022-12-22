@@ -1,0 +1,29 @@
+#legal {
+	h1,
+	h2 {
+		@apply mt-10 mb-6;
+	}
+	h1 {
+		@apply text-2xl;
+	}
+	a {
+		@apply text-lightblue;
+		&:hover {
+			@apply text-darkblue;
+		}
+	}
+	table {
+		@apply mt-6;
+	}
+	.browsers {
+		@apply mt-6;
+	}
+	.container {
+		@apply mx-auto my-12;
+		max-width: 1600px;
+		padding: 0 2rem;
+		@media (min-width: 1700px) {
+			padding: 0;
+		}
+	}
+}

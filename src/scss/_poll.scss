@@ -1,0 +1,114 @@
+#poll {
+	h1 {
+		@apply mb-6 text-4xl text-darkblue;
+	}
+	p {
+		@apply max-w-3xl;
+		&.desc {
+			@apply mb-8;
+		}
+	}
+	form label {
+		@apply mb-0;
+	}
+	ul.acf-radio-list:focus-within {
+		@apply border-transparent;
+	}
+	#acf-form {
+		@apply mt-4;
+		input[type="radio"] {
+			@apply mr-2 relative;
+			&:checked {
+				&::after {
+					@apply absolute bg-white rounded-full;
+					content: "";
+					height: 6px;
+					left: 3px;
+					top: 3px;
+					width: 6px;
+				}
+				&::before {
+					@apply absolute bg-lightblue rounded-full;
+					content: "";
+					height: 14px;
+					left: -1px;
+					top: -1px;
+					width: 14px;
+				}
+			}
+		}
+		label {
+			@apply flex items-center mr-2;
+		}
+		textarea {
+			@apply border border-gray overflow-hidden resize-none;
+			&:focus {
+				@apply border-lightblue outline-none;
+			}
+		}
+	}
+	.acf-fields {
+		@apply flex flex-wrap gap-8;
+		& > .acf-field {
+			@apply border-t-0;
+		}
+	}
+	.acf-field--post-title {
+		@apply absolute -left-full;
+	}
+	.acf-field-radio {
+		width: calc(100% - 2rem);
+		@media (min-width: 1330px) {
+			width: calc(33.33% - 2rem);
+		}
+		@media (min-width: 900px) and (max-width: 1329px) {
+			width: calc(50% - 2rem);
+		}
+	}
+	.acf-field-textarea {
+		width: calc(100% - 2rem);
+		@media (min-width: 900px) {
+			width: calc(50% - 2rem);
+		}
+	}
+	.acf-form-submit {
+		@apply ml-4 mt-10;
+		input[type="submit"] {
+			@apply bg-white font-normal text-darkblue;
+			&:hover {
+				@apply bg-darkblue text-white;
+			}
+		}
+	}
+	.acf-radio-list {
+		@apply flex items-center;
+
+		li {
+			@apply mr-4;
+		}
+	}
+	.acf-required {
+		@apply text-lightblue;
+	}
+	.alert {
+		@apply absolute bg-darkblue duration-150 ease-out p-8 -top-full left-1/2 transform transition-all -translate-x-1/2 z-20;
+		&.active {
+			@apply duration-500 ease-in top-8 transition-all;
+		}
+		&.changeToButton {
+			@apply bg-transparent top-0;
+		}
+		p {
+			@apply text-center text-white;
+		}
+		.button-back {
+			@apply button button-m;
+		}
+	}
+	.container {
+		@apply max-w-screen-3xl mx-auto my-12 px-8;
+		@media (min-width: 1700px) {
+			@apply px-0;
+		}
+	}
+}

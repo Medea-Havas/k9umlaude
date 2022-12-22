@@ -197,10 +197,14 @@
 		@apply mb-6;
 	}
 	.wrapper {
-		@apply max-content p-0 md:p-8 w-full;
+		@apply max-content p-0 md:py-8 w-full;
+		padding: 0 2rem;
+		@media (min-width: 1700px) {
+			padding: 0;
+		}
 	}
 	> .wrapper {
-		@apply max-content xl:p-8 w-full;
+		@apply max-content xl:py-8 w-full;
 		.left {
 			@apply mx-8 md:mx-0;
 		}
