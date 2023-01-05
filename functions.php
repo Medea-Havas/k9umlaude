@@ -66,6 +66,14 @@ function admin_style()
 }
 add_action('admin_enqueue_scripts', 'admin_style');
 
+// Add admin scripts
+function add_scripts_to_admin($hook)
+{
+  wp_enqueue_script('sortable', get_template_directory_uri() . '/static/sortable.js');
+}
+
+add_action('admin_enqueue_scripts', 'add_scripts_to_admin');
+
 //-----------------------------
 //------- LOGIN PAGE -------
 //-----------------------------
@@ -74,6 +82,22 @@ function my_login_stylesheet()
   wp_enqueue_style('custom-login', get_stylesheet_directory_uri() . '/assets/css/style-login.min.css');
 }
 add_action('login_enqueue_scripts', 'my_login_stylesheet');
+
+//-----------------------------
+//------- SHORTCODES -------
+//-----------------------------
+// Date shortcode
+function copyrightFn($atts)
+{
+  extract(shortcode_atts(array(
+    'format' => ''
+  ), $atts));
+
+  $date = "COPYRIGHT © 2023 - " . date('Y') . " MEDEA EDUCATION AGENCY, S.L. TODOS LOS DERECHOS RESERVADOS";
+
+  return $date;
+}
+add_shortcode('copyright', 'copyrightFn');
 
 //-----------------------------
 //------- HIDE TOOLBAR -------

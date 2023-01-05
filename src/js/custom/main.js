@@ -101,6 +101,12 @@ jQuery(function ($) {
 		$('.acf-field[data-name="user_id"] input').val(usrId);
 		$('.acf-field[data-name="user_name"] input').val(usr);
 		$(".acf-field--post-title input").val(usr);
+		$("#acf-form").one("submit", function (e) {
+			e.preventDefault();
+			$.post(`${directory_uri.rootUrl}/wp-json/users/update`, {
+				userId: usrId,
+			}).done($(this).submit());
+		});
 		// When form is sent succesfully
 		if ($(".alert").length) {
 			$(".alert").addClass("active");

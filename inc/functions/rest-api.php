@@ -29,6 +29,14 @@ add_action('rest_api_init', function () {
       return '';
     }
   ));
+  // PUT
+  register_rest_route('users', '/update', array(
+    'methods' => 'POST',
+    'callback' => 'update_user_poll',
+    'permission_callback' => function () {
+      return '';
+    }
+  ));
   // POST
   register_rest_route('user-chapters', '/post', array(
     'methods' => 'POST',
@@ -184,4 +192,15 @@ function get_user_course_info()
     return $list[0];
   }
   return [];
+}
+
+// Table users
+function update_user_poll($data)
+{
+  global $wpdb;
+  $userId = $data->get_param('userId');
+  $query = 'UPDATE `med_usermeta` SET `meta_value` = 1 WHERE `user_id` = ' . $userId . ' AND `meta_key` = "poll_completed"';
+  echo $query;
+  $list = $wpdb->get_results($query);
+  return json_encode(array('success' => true, 'message' => 'User completed poll', 'list' => $list));
 }

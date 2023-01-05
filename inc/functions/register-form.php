@@ -45,6 +45,7 @@ function wc_rest_user_endpoint_handler($request = null)
   $assigned_number = sanitize_text_field($parameters['assigned_number']);
   $legal = sanitize_text_field($parameters['legal']);
   $personal_data = sanitize_text_field($parameters['personal_data']);
+  $poll_completed = sanitize_text_field($parameters['poll_completed']);
 
   $error = new WP_Error();
 
@@ -144,6 +145,7 @@ function wc_rest_user_endpoint_handler($request = null)
       if (!empty($personal_data)) {
         update_field('personal_data', $personal_data, 'user_' . $user->id . '');
       }
+      update_field('poll_completed', $poll_completed, 'user_' . $user->id . '');
 
       // Get User Data (Non-Sensitive, Pass to front end.)
       $response['code'] = 200;

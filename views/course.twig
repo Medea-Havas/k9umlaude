@@ -167,7 +167,7 @@
 					<p class="text">Supera el examen para descargarte el certificado</p>
 				{% endif %}
 			</div>
-			{% if enabled == true %}
+			{% if enabled == true and current_user.poll_completed == false %}
 				<div class="chapter-menu">
 					<h2 class="heading heading-variant">Cuestionario de evaluación</h2>
 					<div class="module module-variant">

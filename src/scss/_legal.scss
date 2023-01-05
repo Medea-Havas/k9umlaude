@@ -1,10 +1,19 @@
 #legal {
+	section {
+		@apply p-0;
+		header {
+			@apply font-bold p-0 pb-4 text-lg;
+		}
+	}
 	h1,
 	h2 {
-		@apply mt-10 mb-6;
+		@apply mt-12 mb-6;
 	}
 	h1 {
 		@apply text-2xl;
+	}
+	h2 {
+		@apply font-bold text-lg;
 	}
 	a {
 		@apply text-lightblue;
@@ -12,8 +21,21 @@
 			@apply text-darkblue;
 		}
 	}
+	p {
+		@apply mb-3;
+	}
 	table {
 		@apply mt-6;
+	}
+	ul,
+	ol {
+		@apply mb-4;
+	}
+	ol {
+		@apply pl-8 list-decimal;
+	}
+	ul {
+		@apply pl-8 list-disc;
 	}
 	.browsers {
 		@apply mt-6;
@@ -25,5 +47,20 @@
 		@media (min-width: 1700px) {
 			padding: 0;
 		}
+	}
+	.first-level {
+		@apply pl-4 mb-1 mt-2;
+	}
+	.menu {
+		@apply mb-6;
+		li a {
+			@apply font-bold;
+		}
+	}
+	.padleft {
+		@apply ml-4;
+	}
+	.second-level {
+		@apply mb-1 pl-8;
 	}
 }

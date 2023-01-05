@@ -1,6 +1,8 @@
-#admin-info {
+#admin-info,
+#admin-polls {
 	table {
 		border-collapse: collapse;
+		margin-top: 3rem;
 	}
 	th,
 	td {
@@ -10,4 +12,45 @@
 	th {
 		text-align: left;
 	}
+}
+#admin-polls,
+#admin-info {
+	img {
+		width: 1rem;
+	}
+	.download-files {
+		margin-right: 5rem;
+		a {
+			margin-right: 1rem;
+		}
+		img {
+			width: 2rem;
+		}
+	}
+	.users-header,
+	.polls-header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		margin: 2rem 0;
+	}
+}
+.highlight {
+	background: #ffeeee;
+}
+.thumbs-down {
+	transform: rotate(180deg);
+}
+.toggle-row {
+	background: #f6f6f6;
+	display: none;
+	&.visible {
+		display: table-row;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+.toggler {
+	cursor: pointer;
 }
