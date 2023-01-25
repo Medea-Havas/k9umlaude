@@ -25,27 +25,34 @@ function wrong_permission()
   return 'Wrong permission user/register';
 }
 
+function cleanData($dataToClean)
+{
+  // remove dots, trim beginning and final spaces, lowercase all characters and uppercase firsts
+  $dataToClean = ucwords(trim(str_replace('.', '', $dataToClean)));
+  return $dataToClean;
+}
+
 function wc_rest_user_endpoint_handler($request = null)
 {
   $response = array();
   $parameters = $request->get_json_params();
 
-  $email = sanitize_text_field($parameters['email']);
-  $password = sanitize_text_field($parameters['password']);
-  $name = sanitize_text_field($parameters['name']);
-  $first_lastname = sanitize_text_field($parameters['first_lastname']);
-  $second_lastname = sanitize_text_field($parameters['second_lastname']);
-  $gender = sanitize_text_field($parameters['gender']);
-  $dni_nie = sanitize_text_field($parameters['dni_nie']);
-  $phone = sanitize_text_field($parameters['phone']);
-  $specialty = sanitize_text_field($parameters['specialty']);
-  $medical_society = sanitize_text_field($parameters['medical_society']);
-  $working_province = sanitize_text_field($parameters['working_province']);
-  $collegiate_province = sanitize_text_field($parameters['collegiate_province']);
-  $assigned_number = sanitize_text_field($parameters['assigned_number']);
-  $legal = sanitize_text_field($parameters['legal']);
-  $personal_data = sanitize_text_field($parameters['personal_data']);
-  $poll_completed = sanitize_text_field($parameters['poll_completed']);
+  $email = $parameters['email'];
+  $password = $parameters['password'];
+  $name = cleanData($parameters['name']);
+  $first_lastname = cleanData($parameters['first_lastname']);
+  $second_lastname = cleanData($parameters['second_lastname']);
+  $gender = $parameters['gender'];
+  $dni_nie = $parameters['dni_nie'];
+  $phone = $parameters['phone'];
+  $specialty = $parameters['specialty'];
+  $medical_society = $parameters['medical_society'];
+  $working_province = $parameters['working_province'];
+  $collegiate_province = $parameters['collegiate_province'];
+  $assigned_number = $parameters['assigned_number'];
+  $legal = $parameters['legal'];
+  $personal_data = $parameters['personal_data'];
+  $poll_completed = $parameters['poll_completed'];
 
   $error = new WP_Error();
 
@@ -114,7 +121,7 @@ function wc_rest_user_endpoint_handler($request = null)
     return $error;
   }
 
-  $username = $name . ' ' . $first_lastname . ' ' . $second_lastname;
+  $username = cleanData($name . ' ' . $first_lastname . ' ' . $second_lastname);
   $user_id = username_exists($username);
   if (!$user_id && email_exists($email) == false) {
     $user_id = wp_create_user($username, $password, $email);

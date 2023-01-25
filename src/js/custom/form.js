@@ -16,6 +16,14 @@ jQuery(function ($) {
 		legal: 0,
 		personal_data: 0,
 	};
+	const cleanField = (s) => {
+		let removeDots = s.split(".").join("");
+		let removeSpaces = removeDots.trim();
+		let unifyCases =
+			removeSpaces.charAt(0).toUpperCase() +
+			removeSpaces.slice(1).toLowerCase();
+		return unifyCases;
+	};
 	/**
 	 * ----- REGISTER FORM -----
 	 */
@@ -29,7 +37,7 @@ jQuery(function ($) {
 		});
 		$("#register #name").focusout(function () {
 			if ($(this).val() !== "") {
-				newUser.name = $(this).val();
+				newUser.name = cleanField($(this).val());
 				$(this).parent().find(".error").hide();
 			} else {
 				$(this).addClass("wrong");
@@ -39,7 +47,7 @@ jQuery(function ($) {
 		// First Last Name
 		$("#register #first-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
-				newUser.first_lastname = $(this).val();
+				newUser.first_lastname = cleanField($(this).val());
 				$(this).parent().find(".error").hide();
 			} else {
 				$(this).addClass("wrong");
@@ -50,7 +58,7 @@ jQuery(function ($) {
 		// Second Last Name
 		$("#register #second-lastname").focusout(function (e) {
 			if ($(this).val() !== "") {
-				newUser.second_lastname = $(this).val();
+				newUser.second_lastname = cleanField($(this).val());
 				$(this).parent().find(".error").hide();
 			} else {
 				$(this).addClass("wrong");
@@ -413,6 +421,9 @@ jQuery(function ($) {
 					if (status === "success") {
 						location.href = directory_uri.rootUrl + "/login";
 					}
+				},
+				error: function (error) {
+					console.log(error);
 				},
 			});
 		});

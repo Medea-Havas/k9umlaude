@@ -10,7 +10,7 @@ function custom_menu()
 function show_admin_info()
 {
   global $wpdb;
-  $query = 'SELECT MU.ID, display_name, user_email, user_registered, superado, progreso, creditos_obtenidos, nota FROM med_users MU LEFT JOIN usuarios_cursos UC ON MU.ID = UC.id_usuario ORDER BY display_name';
+  $query = "SELECT MU.ID, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'name') AS name, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'first_lastname') AS first_lastname, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'second_lastname') AS second_lastname, user_email, user_registered, superado, progreso, creditos_obtenidos, nota FROM med_users MU LEFT JOIN usuarios_cursos UC ON MU.ID = UC.id_usuario ORDER BY display_name";
   $list = $wpdb->get_results($query);
 ?>
   <div id="admin-info">
@@ -36,7 +36,7 @@ function show_admin_info()
       <?php foreach ($list as $item) { ?>
         <tr>
           <td><?= $item->ID ?></td>
-          <td><?= $item->display_name ?></td>
+          <td><?= $item->name . ' ' . $item->first_lastname . ' ' . $item->second_lastname ?></td>
           <td><?= $item->user_email ?></td>
           <td><?= get_user_meta($item->ID, 'phone', true) ?></td>
           <td sorttable_customkey="<?= strtotime($item->user_registered) ?>"><?php if (isset($item->user_registered)) echo date('d/m/y H:i:s', strtotime($item->user_registered)) ?></td>
