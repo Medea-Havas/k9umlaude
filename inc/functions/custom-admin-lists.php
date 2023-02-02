@@ -347,3 +347,63 @@ function add_question_content($column)
 
 add_action('manage_test_posts_custom_column', 'add_question_content');
 add_filter('manage_test_posts_columns', 'custom_questions_list');
+
+
+// -- Users
+function custom_users_list($columns)
+{
+  unset($columns['username']);
+  unset($columns['name']);
+  unset($columns['role']);
+  unset($columns['posts']);
+  unset($columns['email']);
+
+  $columns['fullName']    = 'Nombre';
+  $columns['email']    = 'Email';
+  $columns['phone']    = 'Teléfono';
+  $columns['specialty']    = 'Especialidad';
+
+  return $columns;
+}
+
+function add_users_content($typ, $column, $user_id)
+{
+  if ($column == 'phone') {
+    $typ = count(get_user_meta($user_id, 'phone')) ? get_user_meta($user_id, 'phone')[0] : null;
+    if ($typ) {
+      return $typ;
+    } else {
+      return '-';
+    }
+  }
+
+  if ($column == 'fullName') {
+    $name = count(get_user_meta($user_id, 'name')) ? get_user_meta($user_id, 'name')[0] : get_userdata($user_id)->user_login;
+    $first_lastname = count(get_user_meta($user_id, 'first_lastname')) ? get_user_meta($user_id, 'first_lastname')[0] : null;
+    $second_lastname = count(get_user_meta($user_id, 'second_lastname')) ? get_user_meta($user_id, 'second_lastname')[0] : null;
+    $fullname = $name . ' ' . $first_lastname . ' ' . $second_lastname;
+    $typ = '<a href="' . site_url() . '/wp-admin/user-edit.php?user_id=' . $user_id . '&wp_http_referer=%2Fk9umlaude%2Fwp-admin%2Fusers.php">' . $fullname . '</a>';
+    if ($typ) {
+      return $typ;
+    } else {
+      return '-';
+    }
+  }
+
+  if ($column == 'specialty') {
+    $typ = count(get_user_meta($user_id, 'specialty')) ? get_user_meta($user_id, 'specialty')[0] : null;
+    if ($typ) {
+      return $typ;
+    } else {
+      return '-';
+    }
+  }
+}
+add_action('manage_users_custom_column', 'add_users_content', 10, 3);
+add_filter('manage_users_columns', 'custom_users_list');
+add_filter('manage_users_sortable_columns', function ($columns) {
+  $columns['fullName'] = 'Nombre';
+  $columns['phone'] = 'Teléfono';
+  $columns['specialty'] = 'Especialidad';
+  return $columns;
+});

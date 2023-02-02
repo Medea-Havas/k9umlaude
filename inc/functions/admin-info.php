@@ -4,7 +4,7 @@ add_action('admin_menu', 'custom_menu');
 
 function custom_menu()
 {
-  add_menu_page('Información usuarios', 'Información usuarios', 'manage_options', 'stats', 'show_admin_info', 'dashicons-welcome-learn-more', 42);
+  add_menu_page('Info usuarios', 'Info usuarios', 'manage_options', 'stats', 'show_admin_info', 'dashicons-media-spreadsheet', 45);
 }
 
 function show_admin_info()
@@ -54,7 +54,7 @@ add_action('admin_menu', 'custom_menu2');
 
 function custom_menu2()
 {
-  add_menu_page('Información encuesta', 'Información encuesta', 'manage_options', 'pollstats', 'show_admin_info2', 'dashicons-welcome-write-blog', 44);
+  add_menu_page('Info encuesta', 'Info encuesta', 'manage_options', 'pollstats', 'show_admin_info2', 'dashicons-media-spreadsheet', 46);
 }
 
 function show_admin_info2()
@@ -253,4 +253,235 @@ function show_admin_info2()
         return '-';
     }
   }
+
+  add_action('admin_menu', 'custom_menu3');
+
+  function custom_menu3()
+  {
+    add_menu_page('Info Sanofi', 'Info Sanofi', 'manage_options', 'report', 'show_admin_info3', 'dashicons-media-spreadsheet', 47);
+  }
+
+  function show_admin_info3()
+  {
+    $usersInfo = [];
+    $users = get_users();
+    for ($i = 0; $i < count($users); $i++) {
+      $user = $users[$i];
+      $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+      $formatter->setPattern('dd-MM-yyyy');
+      $userArray = array(
+        "source" => 'K9um laude',
+        "onekey" => '',
+        "collegiateProvince" => substr(str_replace(' - ', '-', $user->collegiate_province), 3),
+        "collegiateNumber" => $user->assigned_number,
+        "email" => $user->user_email,
+        "consent" => $user->personal_data == 1 ? 'CONSENT' : 'NO CONSENT',
+        "name" => $user->name,
+        "lastName" => $user->last_name,
+        "registered" => $formatter->format(new DateTime($user->user_registered)),
+        "optOut" => '',
+        "province" => substr(str_replace(' - ', '-', $user->working_province), 3),
+        "gender" => $user->gender == 'Femenino' ? 'F' : ($user->gender == 'Masculino' ? 'F' : 'N/E'),
+        "onekeySpecialty" => $user->specialty,
+        "phoneConsent" => '',
+        "phone" => $user->phone,
+      );
+      array_push($usersInfo, $userArray);
+    }
+
+?>
+<div id="admin-info">
+  <div class="users-header">
+    <h1>Informe Sanofi</h1>
+    <div class="download-files">
+      <a title="Descargar XLS" download="informe_sanofi.xls" href="#" onclick="return ExcellentExport.excel(this, 'datatable3', 'Informe K9umlaude');"><img src="<?= get_template_directory_uri() ?>/static/img/xls.png"></a>
+      <a title="Descargar CSV" download="informe_sanofi.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable3');"><img src="<?= get_template_directory_uri() ?>/static/img/csv.png"></a>
+    </div>
+  </div>
+  <div class="filters">
+    <div class="form-field">
+      <input id="hasConsent" type="checkbox">
+      <label for="hasConsent">Consentimiento</label>
+    </div>
+  </div>
+  <table id="sanofiTable" class="sortable" cellpadding="8px">
+    <tr>
+      <td align="left" colspan="16" style="color: black; font-size: 16px;font-weight:bold;text-transform:uppercase;">DESCARGAR Y ENVIAR A <a href="mailto:webexternas@sanofi.com" target="_blank" style="color: black; text-decoration: none;">WEBEXTERNAS@SANOFI.COM</a></td>
+    </tr>
+    <tr>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Fuente</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">OneKey</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Provincia<br>colegiación</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Nº Colegiado</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Email</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">CONSENT</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Nombre</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Apellidos</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Fecha reg. consent<br>web</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Fecha OPT-OUT</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Provincia</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Género</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Especialidad OneKey</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">EP com.<br>móvil</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Recogida<br>consentimiento<br>móvil</th>
+      <th style="background-color: #ED7D31;color:white;font-size:9px;">Nº móvil</th>
+    </tr>
+    <?php for ($i = 0; $i < count($usersInfo); $i++) { ?>
+      <?php $user = $usersInfo[$i] ?>
+      <tr class="<?= $user['consent'] == 'NO CONSENT' ? 'invisible' : '' ?>">
+        <td><?= $user['source'] ?></td>
+        <td><?= $user['onekey'] ?></td>
+        <td><?= $user['collegiateProvince'] ?></td>
+        <td><?= $user['collegiateNumber'] ?></td>
+        <td><?= $user['email'] ?></td>
+        <td><?= $user['consent'] ?></td>
+        <td><?= $user['name'] ?></td>
+        <td><?= $user['lastName'] ?></td>
+        <td><?= $user['registered'] ?></td>
+        <td><?= $user['optOut'] ?></td>
+        <td><?= $user['province'] ?></td>
+        <td><?= $user['gender'] ?></td>
+        <td><?= $user['onekeySpecialty'] ?></td>
+        <td><?= $user['phone'] ?></td>
+        <td><?= $user['phoneConsent'] ?></td>
+        <td><?= $user['phone'] ?></td>
+      </tr>
+    <?php } ?>
+  </table>
+  <div class="hidden">
+    <table id="datatable3"></table>
+  </div>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@2.1.0/dist/excellentexport.min.js"></script>
+<script>
+  document.getElementById('hasConsent').addEventListener('change', function(e) {
+    var isChecked = document.getElementById('hasConsent').checked;
+    toggleVisibility('invisible', isChecked);
+
+    function toggleVisibility(className, checked) {
+      const elements = document.getElementsByClassName(className);
+      for (var u = 0; u < elements.length; u++) {
+        if (checked) {
+          elements[u].classList.add('off');
+        } else {
+          elements[u].classList.remove('off');
+        }
+      }
+      document.getElementById('datatable3').innerHTML = document.getElementById('sanofiTable').innerHTML;
+      removeElementsByClass('off');
+    }
+
+    function removeElementsByClass(className) {
+      const elements = document.getElementById('datatable3').getElementsByClassName(className);
+      while (elements.length > 0) {
+        elements[0].parentNode.removeChild(elements[0]);
+      }
+    }
+  });
+</script>
+<?php }
+
+  add_action('admin_menu', 'custom_menu4');
+
+  function custom_menu4()
+  {
+    add_menu_page('Info registros', 'Info registros', 'manage_options', 'registers', 'show_admin_info4', 'dashicons-media-spreadsheet', 48);
+  }
+
+  function show_admin_info4()
+  {
+    $usersInfo = [];
+    $users = get_users();
+    for ($i = 0; $i < count($users); $i++) {
+      $user = $users[$i];
+      $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+      $formatter->setPattern('dd-MM-yyyy hh:ss');
+      $userArray = array(
+        "name" => get_user_meta($user->ID, 'name') ? get_user_meta($user->ID, 'name')[0] : '-',
+        "firstLastname" => get_user_meta($user->ID, 'first_lastname') ? get_user_meta($user->ID, 'first_lastname')[0] : '-',
+        "secondLastname" => get_user_meta($user->ID, 'second_lastname') ? get_user_meta($user->ID, 'second_lastname')[0] : '-',
+        "gender" => $user->gender,
+        "nif" => $user->dni_nie,
+        "mobile" => $user->phone,
+        "specialty" => $user->specialty,
+        "society" => $user->medical_society,
+        "collegiateProvince" => substr(str_replace(' - ', '-', $user->collegiate_province), 3),
+        "workingProvince" => substr(str_replace(' - ', '-', $user->working_province), 3),
+        "collegiateNumber" => $user->assigned_number,
+        "legal" => $user->legal,
+        "personal" => $user->personal_data,
+        "registered" => $formatter->format(new DateTime($user->register_date)),
+        "poll" => $user->poll_completed,
+        "firstAccess" => $user->first_access,
+        "lastAccess" => $user->last_access,
+        "firstIPAddress" => $user->first_ip_address,
+        "lastIPAddress" => $user->last_ip_address,
+      );
+      array_push($usersInfo, $userArray);
+    }
+    // global $wpdb;
+    // $query = "SELECT MU.ID, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'name') AS name, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'first_lastname') AS first_lastname, (SELECT meta_value FROM med_usermeta WHERE user_id = MU.ID AND meta_key = 'second_lastname') AS second_lastname, user_email, user_registered, superado, progreso, creditos_obtenidos, nota FROM med_users MU LEFT JOIN usuarios_cursos UC ON MU.ID = UC.id_usuario ORDER BY display_name";
+    // $list = $wpdb->get_results($query);
+?>
+  <div id="admin-info">
+    <div class="users-header">
+      <h1>Información de registros bimensual</h1>
+      <div class="download-files">
+        <a title="Descargar XLS" download="registros_k9um.xls" href="#" onclick="return ExcellentExport.excel(this, 'datatable4', 'Información de registros K9umlaude');"><img src="<?= get_template_directory_uri() ?>/static/img/xls.png"></a>
+        <a title="Descargar CSV" download="registros_k9um.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable4');"><img src="<?= get_template_directory_uri() ?>/static/img/csv.png"></a>
+      </div>
+    </div>
+    <table id="datatable4" class="sortable">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido 1</th>
+        <th>Apellido 2</th>
+        <th>Género</th>
+        <th>NIF/NIE</th>
+        <th>Tlf. móvil</th>
+        <th>Especialidad</th>
+        <th>Sociedad médica</th>
+        <th>Provincia colegió</th>
+        <th>Provincia trabaja</th>
+        <th>Nº correlativo</th>
+        <th>Aviso legal</th>
+        <th>Datos personales</th>
+        <th>Fecha registro</th>
+        <th>Encuesta enviada</th>
+        <th>1er acceso</th>
+        <th>Últ. acceso</th>
+        <th>Primera IP</th>
+        <th>Últ. IP</th>
+      </tr>
+      <?php for ($j = 0; $j < count($usersInfo); $j++) {
+        $userInfo = $usersInfo[$j];
+        $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+        $formatter->setPattern('dd-MM-yyyy'); ?>
+        <tr>
+          <td><?= $userInfo['name'] ? $userInfo['name'] : '-' ?></td>
+          <td><?= $userInfo['firstLastname'] ? $userInfo['firstLastname'] : '-' ?></td>
+          <td><?= $userInfo['secondLastname'] ? $userInfo['secondLastname'] : '-' ?></td>
+          <td><?= $userInfo['gender'] ? $userInfo['gender'] : '-' ?></td>
+          <td><?= $userInfo['nif'] ? $userInfo['nif'] : '-' ?></td>
+          <td><?= $userInfo['mobile'] ? $userInfo['mobile'] : '-' ?></td>
+          <td><?= $userInfo['specialty'] ? $userInfo['specialty'] : '-' ?></td>
+          <td><?= $userInfo['society'] ? $userInfo['society'] : '-' ?></td>
+          <td><?= $userInfo['collegiateProvince'] ? $userInfo['collegiateProvince'] : '-' ?></td>
+          <td><?= $userInfo['workingProvince'] ? $userInfo['workingProvince'] : '-' ?></td>
+          <td><?= $userInfo['collegiateNumber'] ? $userInfo['collegiateNumber'] : '-' ?></td>
+          <td><?= $userInfo['legal'] ? $userInfo['legal'] : '-' ?></td>
+          <td><?= $userInfo['personal'] ? $userInfo['personal'] : '-' ?></td>
+          <td sorttable_customkey="<?= strtotime($userInfo['registered']) ?>"><?= $userInfo['registered'] ?></td>
+          <td><?= $userInfo['poll'] ? $userInfo['poll'] : '-' ?></td>
+          <td><?= $userInfo['firstAccess'] ? $userInfo['firstAccess'] : '-' ?></td>
+          <td><?= $userInfo['lastAccess'] ? $userInfo['lastAccess'] : '-' ?></td>
+          <td><?= $userInfo['firstIPAddress'] ? $userInfo['firstIPAddress'] : '-' ?></td>
+          <td><?= $userInfo['lastIPAddress'] ? $userInfo['lastIPAddress'] : '-' ?></td>
+
+        </tr>
+      <?php } ?>
+    </table>
+  </div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@2.1.0/dist/excellentexport.min.js"></script>
+<?php }
 ?>

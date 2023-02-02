@@ -43,6 +43,7 @@ add_action('admin_menu', function () {
   $menu[25] = ['', 'read', '', '', 'wp-menu-separator'];
   $menu[30] = ['', 'read', '', '', 'wp-menu-separator'];
   $menu[40] = ['', 'read', '', '', 'wp-menu-separator'];
+  $menu[44] = ['', 'read', '', '', 'wp-menu-separator'];
 });
 
 // Add admin color scheme
@@ -82,6 +83,15 @@ function my_login_stylesheet()
   wp_enqueue_style('custom-login', get_stylesheet_directory_uri() . '/assets/css/style-login.min.css');
 }
 add_action('login_enqueue_scripts', 'my_login_stylesheet');
+
+// Update access details
+function update_access($user_login, $user)
+{
+  date_default_timezone_set('Europe/Madrid');
+  update_user_meta($user->id, 'last_access', date('d/m/Y H:i'));
+  update_user_meta($user->id, 'last_ip_address', $_SERVER['REMOTE_ADDR']);
+}
+add_action('wp_login', 'update_access', 10, 2);
 
 //-----------------------------
 //------- SHORTCODES -------

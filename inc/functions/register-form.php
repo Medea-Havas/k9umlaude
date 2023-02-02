@@ -153,6 +153,8 @@ function wc_rest_user_endpoint_handler($request = null)
         update_field('personal_data', $personal_data, 'user_' . $user->id . '');
       }
       update_field('poll_completed', $poll_completed, 'user_' . $user->id . '');
+      update_field('first_access', date("Y-m-d H:i:s"), 'user_' . $user->id . '');
+      update_field('first_ip_address', $_SERVER['REMOTE_ADDR'], 'user_' . $user->id . '');
 
       // Get User Data (Non-Sensitive, Pass to front end.)
       $response['code'] = 200;
