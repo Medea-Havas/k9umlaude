@@ -71,37 +71,102 @@ jQuery(function ($) {
 			}
 		});
 		let percentage = Math.ceil(totalPoints * 3.3333);
-		let message = "";
-		let buttons;
-
-		if (percentage >= 80) {
-			let courseId = $("main").data("course");
-			let courseCredits = $("main").data("credits");
-			let userId = $("#account").data("id");
-			message = "¡Enhorabuena! Has aprobado el examen, descarga ya tu diploma";
-			buttons = `<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a>
-					<a id="btn-certificate" href="#" class="button button-xl">Descargar certificado</a>`;
-			$.post(`${directory_uri.rootUrl}/wp-json/user-courses/post`, {
-				userId: userId,
-				courseId: courseId,
-				credits: courseCredits,
-				grade: percentage,
-			});
-		} else {
-			message =
-				"Has sacado menos del 80% de la puntuación exigida. ¡No te preocupes!, inténtalo de nuevo.";
-			buttons = `
-			<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a><a id="btn-refresh" onClick="window.location.reload();" class="button button-xl">Intentarlo de nuevo</a>`;
-		}
+		var message = "";
+		var buttons;
 
 		$("#results").append(`
 			<p class="percentage">${percentage}%</p>
 			<p class="total">Has acertado ${totalPoints}/30 preguntas</p>
-			<p class="message">${message}</p>
-			<div class="buttons">
-				${buttons}
-			</div>
+			<p align="center" id="spinner"><img src="${directory_uri.stylesheetUrl}/static/img/spinner.gif" width="50"></p>
 		`);
+		if (percentage >= 80) {
+			let courseId = $("main").data("course");
+			let courseCredits = $("main").data("credits");
+			let userId = $("#account").data("id");
+
+			// Pass test
+			$.ajax({
+				method: "POST",
+				url: `${directory_uri.rootUrl}/wp-json/user-courses/post`,
+				data: {
+					userId: userId,
+					courseId: courseId,
+					credits: courseCredits,
+					grade: percentage,
+				},
+			}).done(function (res) {
+				// Get user data
+				if (res.success == false && res.message == "Course already completed") {
+					$("#results #spinner").remove();
+					$("#results").append(`
+									<p class="message">Ya se había completado el examen</p>
+									<div class="buttons">
+										<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a>
+										<a id="btn-certificate-exam" href="#" class="button button-xl">Descargar certificado</a>
+									</div>
+									`);
+				} else {
+					$.ajax({
+						url: `${directory_uri.rootUrl}/wp-json/user/list?userId=${userId}`,
+					}).done(function (userData) {
+						let access = {
+							user: `${directory_uri.API_USER}`,
+							pass: `${directory_uri.API_PASS}`,
+						};
+						// Register user in certificates platform
+						$.ajax({
+							method: "PUT",
+							url: `${directory_uri.API_HOST_LOCAL}/login/1`,
+							headers: {
+								"Content-Type": "application/json",
+							},
+							data: JSON.stringify(access),
+						}).done(function (loginMessage) {
+							let token = loginMessage.messages.data.token;
+							userData.course = 26;
+							$.ajax({
+								method: "POST",
+								headers: {
+									Token: token,
+								},
+								url: `${directory_uri.API_HOST_LOCAL}/registerexternal`,
+								data: JSON.stringify(userData),
+							})
+								.done(function (apiMessage) {
+									$("#results #spinner").remove();
+									$("#results").append(`
+									<p class="message">¡Enhorabuena! Has aprobado el examen, descarga ya tu diploma</p>
+									<div class="buttons">
+										<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a>
+										<a id="btn-certificate-exam" href="#" class="button button-xl">Descargar certificado</a>
+									</div>
+									`);
+								})
+								.error(function (apiMessage) {
+									if (apiMessage.error) {
+										$("#results #spinner").remove();
+										$("#results").append(`
+										<p class="message">Ya se había completado el examen</p>
+										<div class="buttons">
+											<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a>
+											<a id="btn-certificate-exam" href="#" class="button button-xl">Descargar certificado</a>
+										</div>
+										`);
+									}
+								});
+						});
+					});
+				}
+			});
+		} else {
+			$("#results").append(`
+				<p class="message">Has sacado menos del 80% de la puntuación exigida. ¡No te preocupes!, inténtalo de nuevo.</p>
+					<div class="buttons">
+						<a id="btn-back" href="${directory_uri.rootUrl}/curso/actualizacion-del-abordaje-terapeutico-del-paciente-con-dislipemia/" class="button button-xl">Volver al curso</a>
+						<a id="btn-refresh" onClick="window.location.reload();" class="button button-xl">Intentarlo de nuevo</a>
+					</div>
+			`);
+		}
 
 		$("#results").css("transform", "translate(-50%, -50%)");
 
@@ -111,7 +176,7 @@ jQuery(function ($) {
 		/**
 		 * Generate certificate
 		 */
-		$("#btn-certificate").click(function (e) {
+		$("#btn-certificate-exam").click(function (e) {
 			e.preventDefault();
 			let userId = $("#account").data("id");
 			let rootUrl = `${directory_uri.rootUrl}/certificado`;
@@ -144,7 +209,11 @@ jQuery(function ($) {
 						doc.text(date, 45, 132, null, null, "left");
 					};
 					img.crossOrigin = "";
-					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+					if ($(this).data("certificate-type") > 0) {
+						img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+					} else {
+						img.src = `${directory_uri.stylesheetUrl}/static/img/certificado_new.jpg`;
+					}
 
 					var img2 = new Image();
 					img2.onload = function () {
@@ -197,7 +266,11 @@ jQuery(function ($) {
 					doc.text(date, 45, 132, null, null, "left");
 				};
 				img.crossOrigin = "";
-				img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+				if ($(this).data("certificate-type") > 0) {
+					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado_new.jpg`;
+				} else {
+					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+				}
 
 				var img2 = new Image();
 				img2.onload = function () {
@@ -205,12 +278,61 @@ jQuery(function ($) {
 					doc.save("certificado-k9umlaude.pdf");
 				};
 				img2.crossOrigin = "";
-				img2.src =
-					"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
-					rootUrl +
-					"?data=med" +
-					userId;
+
+				var userAccess = JSON.stringify({
+					user: directory_uri.API_USER,
+					pass: directory_uri.API_PASS,
+				});
+
+				fetch(`${directory_uri.API_HOST_PROD}/login/1`, {
+					method: "PUT",
+					body: userAccess,
+					headers: { "Content-type": "application/json;charset=UTF-8" },
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						var dni = $("#account").data("nif");
+						fetch(`${directory_uri.API_HOST_PROD}/emitcertificate/${dni}`, {
+							headers: {
+								"Content-type": "application/json;charset=UTF-8",
+								Token: data.messages.data.token,
+							},
+						})
+							.then((response) => response.json())
+							.then((data) => {
+								let cvs = encryptWithAES(
+									data.data.userId + "CVS" + data.data.courseId
+								).replaceAll("+", "-");
+								toDataURL(
+									`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${directory_uri.HOST_PROD}/informe?cvs=${cvs}&choe=UTF-8`,
+									function (base64qr) {
+										qr.value = base64qr;
+									}
+								);
+								img2.src =
+									"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
+									`${directory_uri.HOST_PROD}/informe?cvs=` +
+									cvs;
+							});
+					});
 			}
 		);
 	});
+	const encryptWithAES = (text) => {
+		const passphrase = "integracion";
+		return CryptoJS.AES.encrypt(text, passphrase).toString();
+	};
+	const toDataURL = (url, callback) => {
+		var xhr = new XMLHttpRequest();
+		xhr.onload = function () {
+			var reader = new FileReader();
+			reader.onloadend = function () {
+				callback(reader.result);
+			};
+			reader.readAsDataURL(xhr.response);
+		};
+		xhr.open("GET", url);
+		xhr.responseType = "blob";
+		xhr.send();
+	};
 });

@@ -28,7 +28,7 @@ $context['mega_query2'] = $wpdb->get_results("SELECT id_modulo, fecha FROM usuar
 
 $context['post'] = new Timber\Post();
 
-$completedQuery = $wpdb->get_results("SELECT * FROM usuarios_cursos WHERE id_usuario = $currentUser->id");
+$completedQuery = $wpdb->get_results("SELECT id_usuario, superado, DATEDIFF(superado, '2024-02-24') as primera_ed, progreso, nota FROM usuarios_cursos WHERE id_usuario = $currentUser->id");
 $context['completed_course'] = $completedQuery ? $completedQuery[0] : [];
 
 Timber::render('course.twig', $context);

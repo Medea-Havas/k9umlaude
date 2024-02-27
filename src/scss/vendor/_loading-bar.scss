@@ -33,16 +33,17 @@
 	&.line2 {
 		.baseline,
 		.mainline {
+			@apply h-4 stroke-current;
 			stroke-width: 12px;
 		}
 		.baseline {
-			@apply stroke-current text-gray;
+			@apply text-gray;
 		}
 		.ldBar-label {
 			@apply hidden;
 		}
 		.mainline {
-			@apply stroke-current text-bggray;
+			@apply text-bggray;
 		}
 	}
 }

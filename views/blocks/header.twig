@@ -35,7 +35,7 @@
 		{% else %}
 			<div>
 				{% if user %}
-					<div id="account" data-id="{{user.id}}" title="{{ user.name }}">
+					<div id="account" data-id="{{user.id}}" data-nif={{user.dni_nie}} title="{{ user.name }}">
 						<a href="{{ function('wp_logout_url', site.url ) }}" class="button button-m">Cerrar sesión</a>
 						<a href="#" class="avatar">{{ source(directory ~ '/static/img/svg/account.svg') }}</a>
 					</div>

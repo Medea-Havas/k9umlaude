@@ -1,16 +1,16 @@
-{% extends "base.twig" %}
+{% extends "base-certificate.twig" %}
 {% block content %}
 	<main id="certificate">
 		<div class="container">
-			{% if (user.ID) %}
+			{% if (user[0].user_id) %}
 				<div class="headings-wrapper">
-					<h1>Secretaría Técnica de Programas<br>de Formación Médica Continuada</h1>
+					<h1>Secretaría Técnica de Programas de Formación Médica Continuada</h1>
 					<h2>Certificado del programa</h2>
 				</div>
 				<div class="info-block-wrapper">
 					<div class="info-block">
 						<p class="label">Curso:</p>
-						<p class="info">{{course.title}}</p>
+						<p class="info">{{course.title}}{{ certificate_type > 0 ? '. Nuevas ediciones' : '' }}</p>
 					</div>
 					<div class="info-block">
 						<p class="label">Acreditado por:</p>
@@ -18,12 +18,14 @@
 					</div>
 					<div class="info-block">
 						<p class="label">Alumno:</p>
-						<p class="info">{{ user.display_name }}</p>
+						<p class="info">{{ user[0].meta_value }}
+							{{ user[1].meta_value }}
+							{{ user[2].meta_value }}</p>
 					</div>
 					<div class="info-block">
 						<p class="label">NIF:</p>
 						<p class="info">
-							{{user.dni_nie }}
+							{{ user[3].meta_value }}
 						</p>
 					</div>
 					<div class="info-block">
@@ -36,7 +38,7 @@
 					</div>
 					<div class="info-block">
 						<p class="label">Número de expediente:</p>
-						<p class="info">{{ course.custom.record_num }}</p>
+						<p class="info">{{ certificate_type > 0 ? course.custom.new_record_num : course.custom.record_num }}</p>
 					</div>
 					<div class="info-block">
 						<p class="label">Número de certificado:</p>
@@ -44,17 +46,17 @@
 					</div>
 					<div class="info-block">
 						<p class="label">Provincia:</p>
-						{% set prov = user.working_province|split(" - ") %}
+						{% set prov = user[4].meta_value|split("-") %}
 						<p class="info">{{ prov[1] }}</p>
 					</div>
 					<div class="info-block">
 						<p class="label">Nº de créditos:</p>
-						<p class="info">{{ course.custom.credits }}
+						<p class="info">{{ certificate_type > 0 ? course.custom.new_credits : course.custom.credits }}
 							créditos</p>
 					</div>
 					<div class="info-block">
 						<p class="label">Nº de horas:</p>
-						<p class="info">4,16 horas</p>
+						<p class="info">125</p>
 					</div>
 					<div class="info-block">
 						<p class="label">Tutor/es:</p>

@@ -12,7 +12,9 @@ function k9umlaude_scripts()
   // JS
   wp_dequeue_script('jquery');
   wp_enqueue_script('jquery', false, array(), false, true);
-  wp_register_script('k9umlaude-vendor-script', get_stylesheet_directory_uri() . '/assets/js/vendor.min.js');
+  /* Use in Production */
+  // wp_register_script('k9umlaude-vendor-script', get_stylesheet_directory_uri() . '/assets/js/vendor.min.js');
+  wp_register_script('k9umlaude-vendor-script', get_stylesheet_directory_uri() . '/assets/js/vendor.js');
   wp_enqueue_script('k9umlaude-vendor-script', array('jquery'), '1.0', true, true);
   /* Use in Production */
   //wp_register_script('k9umlaude-main-script', get_stylesheet_directory_uri() . '/assets/js/main.min.js');
@@ -21,7 +23,13 @@ function k9umlaude_scripts()
   $translation_array = array(
     'stylesheetUrl' => get_stylesheet_directory_uri(),
     'rootUrl' => get_site_url(),
-    'uploadsUrl' => wp_upload_dir()
+    'uploadsUrl' => wp_upload_dir(),
+    'HOST_PROD' => "https://www.medeacertificados.es",
+    'API_HOST_PROD' => "https://certificates-api.hhytest.com",
+    'HOST_LOCAL' => "http://localhost:5173",
+    'API_HOST_LOCAL' => "http://localhost:8080",
+    'API_USER' => "K9um",
+    'API_PASS' => "Wh1tn3yH0ust0n"
   );
   wp_localize_script('k9umlaude-main-script', 'directory_uri', $translation_array);
   wp_enqueue_script('k9umlaude-main-script', array('jquery'), '1.0', true, true);
@@ -141,3 +149,5 @@ require_once(__DIR__ . '/inc/functions/register-form.php');
 require_once(__DIR__ . '/inc/functions/custom-admin-lists.php');
 require_once(__DIR__ . '/inc/functions/rest-api.php');
 require_once(__DIR__ . '/inc/functions/admin-info.php');
+
+add_filter('https_ssl_verify', '__return_false');

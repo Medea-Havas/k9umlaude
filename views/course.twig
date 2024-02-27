@@ -1,50 +1,52 @@
 {% extends "base-protected-with-certificate.twig" %}
 {% block content %}
 	<main id="course">
-		<div class="wrapper">
-			<div class="container">
-				<div class="left">
-					<h1 class="heading">{{post.title}}</h1>
-					<p class="text cm">{{post.custom.description}}</p>
-				</div>
-				<div class="right">
-					<div class="container">
-						<div class="left subcontainer">
-							<p class="subheading">Progreso del curso</p>
-							{% set progress = 100 / modules|length * completed_modules|length %}
-							<div class="ldBar circle" data-preset="circle" data-value="{{ progress }}" style="height:128px;width: 128px;"></div>
-						</div>
-						<div class="right subcontainer">
-							<p class="subheading">Detalles del curso</p>
-							<ul class="course-details">
-								<li>{{ source(directory ~ '/static/img/svg/icon01.svg') }}
-									<p class="text">Módulos:
-										{{modules|length}}</p>
-								</li>
-								<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
-									{% set totalCourseTime = 0 %}
-									{% for chapter in chapters %}
-										{% set totalCourseTime = totalCourseTime | date('U') + chapter.custom.minutes | date('U') %}
-									{% endfor %}
-									{% set tctMinutes = totalCourseTime | date('i') | number_format %}
-									{% if totalCourseTime | date('s') > 60 %}
-										{% set tctMinutes = tctMinutes + 1 %}
-									{% endif %}
-									<p class="text">Horas:
-										{{ totalCourseTime | date('G') | number_format }},{{tctMinutes}}
-									</p>
-								</li>
-								<li>{{ source(directory ~ '/static/img/svg/icon03.svg') }}
-									<p class="text">Créditos:
-										{{post.custom.credits}}</p>
-								</li>
-							</ul>
+		<div class="heading-wrapper">
+			<div class="wrapper">
+				<div class="container">
+					<div class="left">
+						<h1 class="heading">{{post.title}}</h1>
+						<p class="text cm">{{post.custom.description}}</p>
+					</div>
+					<div class="right">
+						<div class="container">
+							<div class="left subcontainer">
+								<p class="subheading">Progreso del curso</p>
+								{% set progress = 100 / modules|length * completed_modules|length %}
+								<div class="ldBar circle" data-preset="circle" data-value="{{ progress }}" style="height:128px;width: 128px;"></div>
+							</div>
+							<div class="right subcontainer">
+								<p class="subheading">Detalles del curso</p>
+								<ul class="course-details">
+									<li>{{ source(directory ~ '/static/img/svg/icon01.svg') }}
+										<p class="text">Módulos:
+											{{modules|length}}</p>
+									</li>
+									<li>{{ source(directory ~ '/static/img/svg/icon02.svg') }}
+										{% set totalCourseTime = 0 %}
+										{% for chapter in chapters %}
+											{% set totalCourseTime = totalCourseTime | date('U') + chapter.custom.minutes | date('U') %}
+										{% endfor %}
+										{% set tctMinutes = totalCourseTime | date('i') | number_format %}
+										{% if totalCourseTime | date('s') > 60 %}
+											{% set tctMinutes = tctMinutes + 1 %}
+										{% endif %}
+										<p class="text">Horas:
+											{{ totalCourseTime | date('G') | number_format }},{{tctMinutes}}
+										</p>
+									</li>
+									<li>{{ source(directory ~ '/static/img/svg/icon03.svg') }}
+										<p class="text">Créditos:
+											{{post.custom.new_credits}}</p>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="next-module">
-				<a href="#contenido" class="button button-m">Empezar</a>
+				<div class="next-module">
+					<a href="#contenido" class="button button-m">Empezar</a>
+				</div>
 			</div>
 		</div>
 		<div class="course-wrap" id="contenido">
@@ -98,10 +100,10 @@
 									</div>
 									<div class="progress">
 										{% if completed %}
-											<div class="ldBar line2" data-value="100" data-aspect-ratio="none" style="width: 6rem"></div>
+											<div class="ldBar line2" data-value="100"></div>
 											<p class="text">100%</p>
 										{% elseif completedChaptertime == 0 %}
-											<div class="ldBar line2" data-value="0" data-aspect-ratio="none" style="width: 6rem"></div>
+											<div class="ldBar line2" data-value="0"></div>
 											<p class="text">0%</p>
 										{% else %}
 											{% set elapsedTime = totalChaptertime - completedChaptertime %}
@@ -119,7 +121,7 @@
 												{% set etMinutes = etMinutes + 1 %}
 											{% endif %}
 											{% set progressVal = 100 - etMinutes * 100 / minutes %}
-											<div class="ldBar line2" data-value="{{ progressVal | number_format(2)}}" data-aspect-ratio="none" style="width: 6rem"></div>
+											<div class="ldBar line2" data-value="{{ progressVal | number_format(2)}}"></div>
 											<p class="text">{{ progressVal | number_format(2, ',', '.')}}%</p>
 										{% endif %}
 									</p>
@@ -133,26 +135,28 @@
 				{% endif %}
 			{% endfor %}
 		</div>
-		<div class="chapter-menu">
-			<h2 class="heading heading-variant">Examen</h2>
-			<div class="module module-variant">
-				<a href="{{ site.url }}/examen-actualizacion-dislipemia">
-					<div class="left">
-						<p class="subheading">Examen</p>
-					</div>
-					<div class="right">
-						<div>
-							{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+		{% set enabled = completed_course|length %}
+		{% if enabled == false %}
+			<div class="chapter-menu">
+				<h2 class="heading heading-variant">Examen</h2>
+				<div class="module module-variant">
+					<a href="{{ site.url }}/examen-actualizacion-dislipemia">
+						<div class="left">
+							<p class="subheading">Examen</p>
 						</div>
-					</div>
-				</a>
-			</div>
-			{% set enabled = completed_course|length %}
+						<div class="right">
+							<div>
+								{{ source(directory ~ '/static/img/svg/arrow.svg') }}
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endif %}
 			<div class="chapter-menu">
 				<h2 class="heading heading-variant">Certificado</h2>
 				{% if enabled == true %}
 					<div class="module module-variant">
-						<a id="btn-certificate" href="#">
+						<a id="btn-certificate" href="#" data-certificate-type="{{completed_course.primera_ed}}">
 							<div class="left">
 								<p class="subheading">Certificado</p>
 							</div>

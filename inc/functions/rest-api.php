@@ -76,6 +76,17 @@ add_action('rest_api_init', function () {
       return $data;
     }
   ));
+  /**
+   * Table usuarios
+   */
+  // GET
+  register_rest_route('user', '/list', array(
+    'methods' => 'GET',
+    'callback' => 'get_user_info',
+    'permission_callback' => function () {
+      return '';
+    }
+  ));
 });
 
 /**
@@ -174,7 +185,7 @@ function post_course($data)
   $already_completed = 'SELECT superado FROM usuarios_cursos WHERE id_usuario = ' . $userId . '';
   $already_completed_count = count($wpdb->get_results($already_completed));
   if ($already_completed_count > 0) {
-    return json_encode(array('success' => false, 'message' => 'Course already completed'));
+    return json_decode(json_encode(array('success' => false, 'message' => 'Course already completed')), true);
   } else {
     $query = 'INSERT INTO usuarios_cursos (id_usuario, id_curso, superado, progreso, creditos_obtenidos, nota) VALUES (' . $userId . ', ' . $courseId . ', "' . $completed . '", ' . $progress . ', ' . $credits . ', ' . $grade . ')';
     $wpdb->get_results($query);
@@ -203,4 +214,28 @@ function update_user_poll($data)
   echo $query;
   $list = $wpdb->get_results($query);
   return json_encode(array('success' => true, 'message' => 'User completed poll', 'list' => $list));
+}
+
+function get_user_info()
+{
+  global $wpdb;
+  $userId = $_GET['userId'];
+  $query = 'SELECT * FROM usuarios_cursos WHERE id_usuario = ' . $userId . '';
+  $list = $wpdb->get_results($query);
+  if (count($list) > 0) {
+    $userInfo = [
+      'name' => get_user_meta($userId, 'name')[0],
+      'last_name' => get_user_meta($userId, 'first_lastname')[0] . ' ' . get_user_meta($userId, 'second_lastname')[0],
+      'email' => get_userdata($userId)->user_email,
+      'nif' => get_user_meta($userId, 'dni_nie')[0],
+      'completed' => $list[0]->superado
+    ];
+    return $userInfo;
+  }
+  // $query = 'SELECT * FROM med_users WHERE id = ' . $userId . '';
+  // $list = $wpdb->get_results($query);
+  // if (count($list) > 0) {
+  //   return $list[0];
+  // }
+  // return [];
 }

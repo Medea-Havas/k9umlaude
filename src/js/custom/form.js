@@ -422,8 +422,14 @@ jQuery(function ($) {
 						location.href = directory_uri.rootUrl + "/login";
 					}
 				},
-				error: function (error) {
-					console.log(error);
+				error: function (xhr, ajaxOptions, thrownError) {
+					if (
+						xhr.responseJSON.code == 400 &&
+						xhr.responseJSON.data == "Exists"
+					) {
+						document.getElementById("registerOverlay").classList.add("active");
+					}
+					console.log(thrownError);
 				},
 			});
 		});

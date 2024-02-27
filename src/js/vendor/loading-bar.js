@@ -978,3 +978,17 @@
 	{},
 	[1]
 );
+var isSafari =
+	navigator.vendor &&
+	navigator.vendor.indexOf("Apple") > -1 &&
+	navigator.userAgent &&
+	navigator.userAgent.indexOf("CriOS") == -1 &&
+	navigator.userAgent.indexOf("FxiOS") == -1;
+if (isSafari) {
+	document.querySelectorAll(".progress .ldBar").forEach((element) => {
+		setTimeout(() => {
+			element.style.height = "13px";
+			element.childNodes[0].setAttribute("viewBox", "0 0 109 13");
+		}, 50);
+	});
+}

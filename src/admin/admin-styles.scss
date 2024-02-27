@@ -36,12 +36,58 @@
 	}
 }
 #admin-info {
-	.form-field {
-		align-items: center;
+	#alert {
+		background: #3f939c;
+		border-radius: 20px;
+		color: white;
+		left: 50%;
+		padding: 0.5rem 1.5rem;
+		top: -100%;
+		position: fixed;
+		transition: 0.25s all ease-in-out;
+	}
+	#data {
+		border: 1px solid transparent;
+		margin-top: 2rem;
+		max-width: 40rem;
+		padding: 0.25rem 1rem;
+		position: relative;
+		&:hover {
+			border: 1px dashed darkred;
+			#clickMessage {
+				display: block;
+			}
+		}
+		#clickMessage {
+			background: #004d56;
+			display: none;
+			color: white;
+			border-radius: 20px;
+			bottom: -1.5rem;
+			left: 50%;
+			padding: 0.15rem 0.75rem;
+			position: absolute;
+			transform: translateX(-50%);
+		}
+	}
+	.date label {
+		display: inline-block;
+		width: 3.5rem;
+	}
+	.filters {
 		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.form-field {
 		input {
 			margin: 0;
-			margin-right: 0.25rem;
+			&[type="checkbox"] {
+				margin-right: 0.25rem;
+			}
+			&[type="date"] {
+				margin-left: 0.25rem;
+			}
 		}
 		label {
 			font-size: 0.85rem;
@@ -50,6 +96,34 @@
 	.off {
 		display: none;
 	}
+	.pokeepsy {
+		background: yellow;
+	}
+}
+#graphs {
+	padding: 1rem 2rem;
+	canvas {
+		margin: 0 auto;
+		max-width: 87.5rem;
+		width: 100%;
+	}
+	#usersByGender {
+		max-width: 30rem;
+	}
+}
+.btnPDF {
+	background-position: center;
+	background-size: cover;
+	display: inline-block;
+	margin-left: 1rem;
+	height: 2rem;
+	width: 2rem;
+}
+.graphs-header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin: 2rem 5rem 2rem 2rem;
 }
 .highlight {
 	background: #ffeeee;
