@@ -116,7 +116,7 @@ jQuery(function ($) {
 						// Register user in certificates platform
 						$.ajax({
 							method: "PUT",
-							url: `${directory_uri.API_HOST_LOCAL}/login/1`,
+							url: `${directory_uri.API_HOST_PROD}/login/1`,
 							headers: {
 								"Content-Type": "application/json",
 							},
@@ -129,7 +129,7 @@ jQuery(function ($) {
 								headers: {
 									Token: token,
 								},
-								url: `${directory_uri.API_HOST_LOCAL}/registerexternal`,
+								url: `${directory_uri.API_HOST_PROD}/registerexternal`,
 								data: JSON.stringify(userData),
 							})
 								.done(function (apiMessage) {
