@@ -25,6 +25,14 @@
 	#step3 {
 		@apply hidden;
 	}
+	#step3 {
+		.checkbox {
+			padding: 1rem 0.5rem;
+		}
+		.field.mb0 {
+			margin-bottom: 0;
+		}
+	}
 	.wrapper > .container {
 		@apply justify-center flex-wrap xl:flex-nowrap;
 	}
@@ -54,6 +62,9 @@
 		.select {
 			width: 99%;
 			max-width: 20rem;
+		}
+		&.itEnd {
+			@apply items-end;
 		}
 	}
 	form .field,
@@ -91,6 +102,7 @@
 	.long-text {
 		&::before {
 			@apply absolute left-0;
+			top: 1px;
 		}
 		@apply pl-6;
 	}
