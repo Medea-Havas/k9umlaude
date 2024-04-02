@@ -314,18 +314,22 @@ jQuery(function ($) {
 					$(this).removeClass("wrong");
 					$(this).parent().find(".error").hide();
 					$(this).parent().find(".error2").hide();
+					isValidProfessionalForm();
 				}
 			}
-			isValidProfessionalForm();
 		});
 		function isValidProfessionalForm() {
-			if (
-				newUser.specialty !== "" &&
-				newUser.collegiate_province !== "" &&
-				newUser.working_province !== "" &&
-				newUser.correlativenum !== ""
-			) {
-				$("#btn-goToStep3").removeClass("disabled");
+			if (newUser.assigned_number) {
+				if (
+					newUser.specialty !== "" &&
+					newUser.collegiate_province !== "" &&
+					newUser.working_province !== "" &&
+					newUser.assigned_number !== "" &&
+					newUser.assigned_number.length > 4 &&
+					newUser.assigned_number.length < 6
+				) {
+					$("#btn-goToStep3").removeClass("disabled");
+				}
 			}
 		}
 		/**

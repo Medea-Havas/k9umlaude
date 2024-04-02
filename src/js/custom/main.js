@@ -78,14 +78,16 @@ jQuery(function ($) {
 	});
 	$("#btn-goToStep3").click(function (e) {
 		e.preventDefault();
-		$("#step3").show(100);
-		$(".step").css({
-			transform: "translateX(-200%)",
-			transition: ".5s all ease-in",
-		});
-		setTimeout(() => {
-			$("#progressbar li:nth-child(3)").addClass("active");
-		}, 500);
+		if ($("#correlativenum").val().length === 5) {
+			$("#step3").show(100);
+			$(".step").css({
+				transform: "translateX(-200%)",
+				transition: ".5s all ease-in",
+			});
+			setTimeout(() => {
+				$("#progressbar li:nth-child(3)").addClass("active");
+			}, 500);
+		}
 	});
 	$("#test .container").click(function (e) {
 		$(this).find("input").attr("checked", "checked");
