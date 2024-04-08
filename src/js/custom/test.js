@@ -180,59 +180,6 @@ jQuery(function ($) {
 		 * Generate certificate
 		 */
 		$("#btn-certificate-exam").click((e) => registerData(e));
-		// function registerData(e) {
-		// 	e.preventDefault();
-		// 	let userId = $("#account").data("id");
-		// 	let rootUrl = `${directory_uri.rootUrl}/certificado`;
-
-		// 	$.get(
-		// 		`${directory_uri.rootUrl}/wp-json/user-courses/list?userId=${userId}`,
-		// 		function (course) {
-		// 			window.jsPDF = window.jspdf.jsPDF;
-
-		// 			var options = { year: "numeric", month: "long", day: "numeric" };
-		// 			var date = new Date(course.superado);
-		// 			date = date.toLocaleDateString("es-ES", options);
-
-		// 			var name = $("#account").attr("title");
-		// 			var doc = new jsPDF({
-		// 				orientation: "landscape",
-		// 			});
-		// 			var img = new Image();
-		// 			img.onload = function () {
-		// 				doc.addImage(this, 0, 0, 297, 210);
-		// 				doc.setTextColor(88, 88, 87);
-
-		// 				doc.setFont("Times");
-		// 				doc.setFontSize(15);
-		// 				/* text, x, y, null, null, alignment */
-		// 				doc.text(name, 69, 86, null, null, "left");
-
-		// 				doc.setFont("Times");
-		// 				doc.setFontSize(15);
-		// 				doc.text(date, 45, 132, null, null, "left");
-		// 			};
-		// 			img.crossOrigin = "";
-		// 			if ($(this).data("certificate-type") > 0) {
-		// 				img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
-		// 			} else {
-		// 				img.src = `${directory_uri.stylesheetUrl}/static/img/certificado_new.jpg`;
-		// 			}
-
-		// 			var img2 = new Image();
-		// 			img2.onload = function () {
-		// 				doc.addImage(this, 23, 17, 25, 25);
-		// 				doc.save("certificado-k9umlaude.pdf");
-		// 			};
-		// 			img2.crossOrigin = "";
-		// 			img2.src =
-		// 				"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
-		// 				rootUrl +
-		// 				"?data=med" +
-		// 				userId;
-		// 		}
-		// 	);
-		// }
 	}
 	/**
 	 * Generate certificate from course
@@ -309,13 +256,13 @@ jQuery(function ($) {
 									data.data.userId + "CVS" + data.data.courseId
 								).replaceAll("+", "-");
 								toDataURL(
-									`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${directory_uri.HOST_PROD}/informe?cvs=${cvs}&choe=UTF-8`,
+									`https://quickchart.io/qr?size=200&text=${directory_uri.HOST_PROD}/informe?cvs=${cvs}`,
 									function (base64qr) {
 										qr.value = base64qr;
 									}
 								);
 								img2.src =
-									"https://chart.googleapis.com/chart?cht=qr&chs=100x100&chld=L&chl=" +
+									"https://quickchart.io/qr?size=100&text=" +
 									`${directory_uri.HOST_PROD}/informe?cvs=` +
 									cvs;
 							});
