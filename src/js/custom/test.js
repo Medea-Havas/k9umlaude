@@ -142,7 +142,9 @@ jQuery(function ($) {
 										<a id="btn-certificate-exam" class="button button-xl">Descargar certificado</a>
 									</div>
 									`);
-									$("#btn-certificate-exam").click((e) => registerData(e));
+									$("#btn-certificate-exam").click((e) =>
+										registerData(e, true)
+									);
 								})
 								.error(function (apiMessage) {
 									if (apiMessage.error) {
@@ -154,7 +156,9 @@ jQuery(function ($) {
 											<a id="btn-certificate-exam" class="button button-xl">Descargar certificado</a>
 										</div>
 										`);
-										$("#btn-certificate-exam").click((e) => registerData(e));
+										$("#btn-certificate-exam").click((e) =>
+											registerData(e, true)
+										);
 									}
 								});
 						});
@@ -181,11 +185,12 @@ jQuery(function ($) {
 		 */
 		$("#btn-certificate-exam").click((e) => registerData(e));
 	}
+
+	$("#course #btn-certificate").click((e) => registerData(e));
 	/**
 	 * Generate certificate from course
 	 */
-	$("#course #btn-certificate").click((e) => registerData(e));
-	function registerData(e) {
+	function registerData(e, lastK9umEdition = false) {
 		e.preventDefault();
 		let userId = $("#account").data("id");
 		let rootUrl = `${directory_uri.rootUrl}/certificado`;
@@ -218,10 +223,14 @@ jQuery(function ($) {
 					doc.text(date, 45, 132, null, null, "left");
 				};
 				img.crossOrigin = "";
-				if ($(this).data("certificate-type") > 0) {
+				if (lastK9umEdition) {
 					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado_new.jpg`;
 				} else {
-					img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+					if (e.target.dataset.certificateType > 0) {
+						img.src = `${directory_uri.stylesheetUrl}/static/img/certificado_new.jpg`;
+					} else {
+						img.src = `${directory_uri.stylesheetUrl}/static/img/certificado.jpg`;
+					}
 				}
 
 				var img2 = new Image();
@@ -255,12 +264,6 @@ jQuery(function ($) {
 								let cvs = encryptWithAES(
 									data.data.userId + "CVS" + data.data.courseId
 								).replaceAll("+", "-");
-								toDataURL(
-									`https://quickchart.io/qr?size=200&text=${directory_uri.HOST_PROD}/informe?cvs=${cvs}`,
-									function (base64qr) {
-										qr.value = base64qr;
-									}
-								);
 								img2.src =
 									"https://quickchart.io/qr?size=100&text=" +
 									`${directory_uri.HOST_PROD}/informe?cvs=` +
